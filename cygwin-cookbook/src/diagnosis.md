@@ -1,7 +1,5 @@
 # Practical Usage
 
-
-
 ## Network Diagnosis
 
 How to diagnose network problems
