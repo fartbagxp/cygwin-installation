@@ -1,5 +1,6 @@
 preview:
-	mdbook serve cygwin-cookbook/
+	xdg-open http://localhost:3000
+	mdbook serve cookbook/
 
 build: 
-	mdbook build cygwin-cookbook/
+	mdbook build cookbook/
