@@ -3,5 +3,5 @@
 - [Overview](./overview.md)
 - [Installation](./installation.md)
 - [Tools](./tools.md)
-- [Network Basics](./network-basics.md)
+- [Basic Networking](./basic-networking.md)
 - [Diagnosis](./diagnosis.md)
