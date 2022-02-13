@@ -6,6 +6,19 @@ The following tools will provide insights into client and server behaviors when 
 
 ## Open Source Tools
 
+| Command Line Tool | Cygwin Package |
+| ----------------- | -------------- |
+| dig               | bind-utils     |
+| netcat            | nc, nc6        |
+| openssl           | openssl        |
+| openssh           | openssh        |
+| curl              | curl           |
+| whois             | whois          |
+| ipcalc            | ipcalc         |
+| watch             | procps         |
+
+### Tool Explanation
+
 [dig](https://cygwin.com/packages/summary/bind-utils.html) - a more powerful DNS lookup tool than nslookup
 
 [netcat](https://cygwin.com/packages/summary/nc.html) - a swiss army knife for testing network connectivity.
@@ -20,4 +33,4 @@ The following tools will provide insights into client and server behaviors when 
 
 [ipcalc](https://cygwin.com/packages/summary/ipcalc.html) - handy IP addressing calculator for subnet in CIDR notation
 
-[watch](https://cygwin.com/packages/summary/procps-ng.html) - a cron job command 
+[watch](https://cygwin.com/packages/summary/procps-ng.html) - a cron job command
