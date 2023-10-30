@@ -2,6 +2,8 @@
 
 ## Run curl via a set of proxy
 
+curl -vvvx socks5h://localhost:4020 https://www.google.com
+
 ## Setting up curl with a different set of trusted authority bundle
 
 ## Testing with mutual TLS (mTLS)
