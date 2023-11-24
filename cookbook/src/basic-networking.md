@@ -9,7 +9,7 @@
 From the [Cloudflare blog about timing web requests](https://blog.cloudflare.com/a-question-of-timing/), a typical network flow for a HTTP request between a client and server can be visualized as the following:
 
 <p align="center">
-<img src="doc/cloudflare-curl-timing.png" alt="cloudflare timing requests" title="cloudflare timing requests" />
+  <img src="doc/cloudflare-curl-timing.png" alt="cloudflare timing requests" title="cloudflare timing requests" />
 </p>
 
 ## Mutual TLS authentication
@@ -19,7 +19,7 @@ Mutual TLS authentication (mTLS) involves a flow where a client will verify the 
 This adds an extra layer of security on top of traditional web based TLS traffic that only requires the server to provide a valid certificate.
 
 <p align="center">
-<img src="doc/cloudflare-mtls.png" alt="cloudflare mTLS request" title="cloudflare mTLS" />
+  <img src="doc/cloudflare-mtls.png" alt="cloudflare mTLS request" title="cloudflare mTLS" />
 </p>
 
 ## Testing

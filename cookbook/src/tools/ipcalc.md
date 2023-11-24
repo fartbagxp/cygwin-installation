@@ -1,3 +1,3 @@
-# IP Addressing
+# Ipcalc
 
-Testing IPv6: https://ipv6.test-ipv6.com/
+ipcalc 10.130.75.80/26

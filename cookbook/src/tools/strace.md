@@ -1,4 +1,4 @@
-## strace
+# strace
 
 strace -e openat wget -vv https://classic.yarnpkg.com | grep cert
 
