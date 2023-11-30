@@ -1,26 +1,31 @@
-name: github pages
+name: Github pages
 
 on:
+  workflow_dispatch: # for manual tests
+  pull_request:
+    branches:
+      - '**'
   push:
     branches:
       - master
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
-          mdbook-version: '0.4.1'
-          # mdbook-version: 'latest'
+          mdbook-version: 'latest'
 
-      - run: mdbook build cookbook
+      - name: Build the cookbook
+        run: mdbook build cookbook
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./cookbook/book
