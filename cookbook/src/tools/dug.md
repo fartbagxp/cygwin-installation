@@ -1,4 +1,4 @@
-## Dug
+# Dug
 
 - [Worldwide DNS servers](https://github.com/unfrl/dug/blob/main/cli/Resources/default_servers.csv)
 
