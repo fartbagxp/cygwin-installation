@@ -4,13 +4,13 @@
 
 Simple port test:
 
-NC via TCP with a 3 second timeout
+- NC via TCP with a 3 second timeout
 
 ```bash
 nc -vz -w 3 <destination IP> 443
 ```
 
-NC via UDP with a 3 second timeout
+- NC via UDP with a 3 second timeout
 
 ```bash
 nc -vz -u -w 3 <destination IP> 443

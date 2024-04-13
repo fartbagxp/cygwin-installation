@@ -1,7 +1,13 @@
 # SSH
 
-ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_25519 -C "fartbagxp@gmail.com"
+## SSH Config
 
-ssh -t rsa -b 4096 -f ~/.ssh/id_rsa -C "fartbagxp@gmail.com"
+## Key Generation
 
-## SFTP
+```bash
+ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_25519 -C "example-email@gmail.com"
+```
+
+```bash
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C "example-email@gmail.com"
+```
