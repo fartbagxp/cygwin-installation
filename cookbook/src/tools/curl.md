@@ -22,11 +22,15 @@ Testing with mTLS
 
 ## Pull HTTP response headers only
 
+```bash
 curl -sI https://www.yahoo.com 2>&1
+```
 
 ## Force resolution to particular IP on specific port
 
+```bash
 curl -vv https://dns.google.com --resolve dns.google.com:443:8.8.8.8
+```
 
 ## Continuous Run
 
