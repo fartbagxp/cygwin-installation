@@ -22,6 +22,12 @@ curl -sI https://www.yahoo.com 2>&1
 
 curl -vv https://dns.google.com --resolve dns.google.com:443:8.8.8.8
 
+## Continuous Run
+
+```bash
+while true; do curl -s -o /dev/null -w '%{http_code}\n' --max-time 3 https://apidev.cdc.gov; done
+```
+
 ## Command for debugging
 
 - Use badssl.com

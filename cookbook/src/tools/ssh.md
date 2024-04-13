@@ -1,4 +1,4 @@
-## SSH
+# SSH
 
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_25519 -C "fartbagxp@gmail.com"
 
