@@ -1,5 +1,3 @@
-
-
 # Installation
 
 The following instructions are to install [Cygwin](https://www.cygwin.com/) on a Windows machine with a user with no administrative permissions.
@@ -33,8 +31,8 @@ The following instructions are to install [Cygwin](https://www.cygwin.com/) on a
 
    **Choose a Download Site**
 
-   This refers to where cygwin packages of open source software will be downloaded from. It is best to choose a closest location to you, and a location that you trust downloading binaries from. 
-   
+   This refers to where cygwin packages of open source software will be downloaded from. It is best to choose a closest location to you, and a location that you trust downloading binaries from.
+
    I generally choose the mirror source of Virginia Tech (VT) or Rochester Institute of Technlogy (RIT) as I'm on the East Coast.
 
    - Once selected, click "Next".
