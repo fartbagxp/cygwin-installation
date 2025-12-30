@@ -21,4 +21,5 @@
   - [trippy](./tools/trippy.md)
   - [whois](./tools/whois.md)
 - [Basic Networking](./basic-networking.md)
+- [Latency](./latency.md)
 - [Diagnosis](./diagnosis.md)
