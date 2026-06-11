@@ -16,8 +16,8 @@
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-69b343ac.js";
+            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d4755468.js"></script>
+        <script src="toc-014ab1a0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -220,7 +220,7 @@
 </ul>
 <p><strong>Choose a Download Site</strong></p>
 <p>This refers to where cygwin packages of open source software will be downloaded from. It is best to choose a closest location to you, and a location that you trust downloading binaries from.</p>
-<p>I generally choose the mirror source of Virginia Tech (VT) or Rochester Institute of Technlogy (RIT) as I’m on the East Coast.</p>
+<p>I generally choose the mirror source of Virginia Tech (VT) or Rochester Institute of Technology (RIT).</p>
 <ul>
 <li>Once selected, click “Next”.</li>
 </ul>
@@ -250,40 +250,1399 @@
 <h1 id="tools"><a class="header" href="#tools">Tools</a></h1>
 <p>Cygwin is a collection of open source tools providing Linux capabilities to Windows.</p>
 <p>The following tools will provide insights into client and server behaviors when diagnosing and troubleshooting network issues.</p>
-<p>Aside from tools within Cygwin, we often use other Linux networking tools to diagnose network problems.</p>
+<p>Aside from tools within Cygwin, we often use other Linux networking tools to diagnose network problems. The table below shows where each tool comes from on each platform: a Cygwin package on Windows, and a dnf or apt package on Fedora and Ubuntu. N/A in the Cygwin column means the tool is not packaged for Cygwin. Several of those have native Windows builds instead; each tool’s own page has the details.</p>
 <h2 id="open-source-tools"><a class="header" href="#open-source-tools">Open Source Tools</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Command Line Tool</th><th>Cygwin Package</th><th>Usage</th></tr>
+<tr><th>Command Line Tool</th><th>Cygwin Package</th><th>Fedora (dnf)</th><th>Ubuntu (apt)</th><th>Usage</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="https://cygwin.com/packages/summary/bind-utils.html">dig</a></td><td>bind-utils</td><td>powerful DNS lookup tool, similar to nslookup</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/nc.html">netcat</a></td><td>nc, nc6</td><td>swiss army knife for testing network connectivity</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/openssl.html">openssl</a></td><td>openssl</td><td>library for testing SSL/TLS encryption algorithms</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/openssh.html">openssh</a></td><td>openssh</td><td>a suite of utilities for the SSH protocol</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/curl.html">curl</a></td><td>curl</td><td>command line tool for sending/receiving web requests</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/whois.html">whois</a></td><td>whois</td><td>a domain tool for looking up ownership of domains or IPs</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/ipcalc.html">ipcalc</a></td><td>ipcalc</td><td>IP addressing calculator for subnet in CIDR notation</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/procps-ng.html">watch</a></td><td>procps</td><td>create a cron job</td></tr>
-<tr><td><a href="https://github.com/fujiapple852/trippy#binary-asset-download">trippy</a></td><td>N/A</td><td>a network tool that uses a combination of ping and traceroute</td></tr>
-<tr><td><a href="https://github.com/traviscross/mtr">mtr</a></td><td>N/A</td><td>a re-implementation of traceroute for continuous monitoring</td></tr>
-<tr><td><a href="https://github.com/unfrl/dug">unfrl/dug</a></td><td>N/A</td><td>DNS lookup tool on global DNS servers to check DNS propagation</td></tr>
-<tr><td><a href="https://iperf.fr/iperf-download.php">iperf3</a></td><td>N/A</td><td>a highly efficient network traffic generator</td></tr>
-<tr><td><a href="https://www.tcpdump.org/">tcpdump</a></td><td>N/A</td><td>swiss army knife for capturing network traffic</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/curl.html">curl</a></td><td>curl</td><td>curl</td><td>curl</td><td>command line tool for sending/receiving web requests</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/bind-utils.html">dig</a></td><td>bind-utils</td><td>bind-utils</td><td>bind9-dnsutils</td><td>powerful DNS lookup tool, similar to nslookup</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/bind-utils.html">delv</a></td><td>bind-utils</td><td>bind-utils</td><td>bind9-dnsutils</td><td>DNS lookup with full DNSSEC validation and tracing</td></tr>
+<tr><td><a href="https://nlnetlabs.nl/projects/ldns/about/">drill</a></td><td>N/A</td><td>ldns-utils</td><td>ldnsutils</td><td>dig-like DNS tool with DNSSEC signature chasing</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/git.html">git</a></td><td>git</td><td>git</td><td>git</td><td>version control; useful for debugging SSH/TLS transport issues</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/ipcalc.html">ipcalc</a></td><td>ipcalc</td><td>ipcalc</td><td>ipcalc</td><td>IP addressing calculator for subnet in CIDR notation</td></tr>
+<tr><td><a href="https://iperf.fr/iperf-download.php">iperf3</a></td><td>N/A</td><td>iperf3</td><td>iperf3</td><td>a highly efficient network traffic generator</td></tr>
+<tr><td><a href="https://github.com/traviscross/mtr">mtr</a></td><td>N/A</td><td>mtr</td><td>mtr-tiny</td><td>a re-implementation of traceroute for continuous monitoring</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/nc.html">netcat</a></td><td>nc, nc6</td><td>nmap-ncat</td><td>netcat-openbsd</td><td>swiss army knife for testing network connectivity</td></tr>
+<tr><td>netstat</td><td>Windows netstat.exe</td><td>net-tools (or ss)</td><td>net-tools (or ss)</td><td>show listening ports and open connections</td></tr>
+<tr><td><a href="https://github.com/microsoft/ntttcp">ntttcp</a></td><td>N/A</td><td>build from source</td><td>build from source</td><td>Microsoft’s network throughput benchmark</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/openssl.html">openssl</a></td><td>openssl</td><td>openssl</td><td>openssl</td><td>toolkit for testing SSL/TLS connections and certificates</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/openssh.html">openssh</a></td><td>openssh</td><td>openssh-clients</td><td>openssh-client</td><td>a suite of utilities for the SSH protocol (ssh, sftp, scp)</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/rsync.html">rsync</a></td><td>rsync</td><td>rsync</td><td>rsync</td><td>resumable, bandwidth-limited file synchronization over SSH</td></tr>
+<tr><td><a href="https://strace.io">strace</a></td><td>N/A</td><td>strace</td><td>strace</td><td>trace the system calls a process makes (Linux)</td></tr>
+<tr><td><a href="https://www.tcpdump.org/">tcpdump</a></td><td>N/A</td><td>tcpdump</td><td>tcpdump</td><td>swiss army knife for capturing network traffic</td></tr>
+<tr><td><a href="https://testssl.sh/">testssl</a></td><td>runs in Cygwin bash</td><td>testssl</td><td>testssl.sh</td><td>scan a webserver’s TLS protocols, ciphers, and certificates</td></tr>
+<tr><td><a href="https://github.com/fujiapple852/trippy#binary-asset-download">trippy</a></td><td>N/A</td><td>copr or cargo</td><td>PPA or cargo</td><td>a network tool that uses a combination of ping and traceroute</td></tr>
+<tr><td><a href="https://github.com/unfrl/dug">unfrl/dug</a></td><td>N/A</td><td>GitHub .rpm</td><td>GitHub .deb</td><td>DNS lookup tool on global DNS servers to check DNS propagation</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/procps-ng.html">watch</a></td><td>procps</td><td>procps-ng</td><td>procps</td><td>re-run a command on an interval and watch its output</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/whois.html">whois</a></td><td>whois</td><td>whois</td><td>whois</td><td>a domain tool for looking up ownership of domains or IPs</td></tr>
 </tbody>
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="network-basics"><a class="header" href="#network-basics">Network Basics</a></h1>
+<h1 id="curl"><a class="header" href="#curl">Curl</a></h1>
+<p><a href="https://curl.se/">curl</a> is the de-facto command line tool for sending and
+receiving data over URLs. For network debugging it is the fastest way to
+answer a few recurring questions: is the website up, where does the time go
+in a request (DNS, TCP, TLS, first byte), which certificate is the server
+presenting, and does the problem follow a particular IP or proxy.</p>
+<h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/curl.html">curl</a> package</td></tr>
+<tr><td>Windows (native)</td><td><code>curl.exe</code> ships with Windows 10 (1803+) and Windows 11</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install curl</code> (usually preinstalled)</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install curl</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>One thing to know before comparing results across platforms: the native
+Windows <code>curl.exe</code> uses the Schannel TLS backend and the Windows certificate
+store, while Cygwin and Linux builds typically use OpenSSL with a
+<code>ca-certificates</code> bundle. If a site verifies on one and fails on the other,
+suspect the trust store, not the network.</p>
+<h2 id="curl-by-example"><a class="header" href="#curl-by-example">Curl by Example</a></h2>
 <ul>
-<li>
-<p>Explain OSI model.</p>
-</li>
-<li>
-<p>Explain client/server network transfers.</p>
-</li>
+<li>Test whether a website like google.com is providing you with a HTTP 200 response</li>
 </ul>
+<pre><code class="language-bash">curl -sI https://www.google.com | head -n 1
+</code></pre>
+<ul>
+<li>Get the HTTP status code only when testing a website</li>
+</ul>
+<pre><code class="language-bash">curl -s -o /dev/null -w '%{http_code}\n' https://www.google.com
+</code></pre>
+<ul>
+<li>Break down where the time goes in a request (DNS vs connect vs TLS vs first byte)</li>
+</ul>
+<pre><code class="language-bash">curl -s -o /dev/null -w 'dns: %{time_namelookup}s\nconnect: %{time_connect}s\ntls: %{time_appconnect}s\nfirst byte: %{time_starttransfer}s\ntotal: %{time_total}s\n' https://www.google.com
+</code></pre>
+<ul>
+<li>Run curl via a SOCKS proxy. The <code>socks5h://</code> scheme (note the <code>h</code>) makes
+the proxy resolve the domain name instead of resolving it locally. Use it
+when the destination is only resolvable from the far side of the proxy.</li>
+</ul>
+<pre><code class="language-bash">curl -vvvx socks5h://localhost:4020 https://www.google.com
+</code></pre>
+<ul>
+<li>Setting up curl with a different set of trusted authority bundle</li>
+</ul>
+<pre><code class="language-bash">curl -sv --cacert internal-root-ca.pem https://auth.example.com
+</code></pre>
+<ul>
+<li>Testing with mTLS (present a client certificate to the server; see
+<a href="#network-basics">Network Basics</a> for how the mTLS handshake works)</li>
+</ul>
+<pre><code class="language-bash">curl -sv https://auth.example.com --cert example.pem --key key.pem
+</code></pre>
+<h2 id="pull-http-response-headers-only"><a class="header" href="#pull-http-response-headers-only">Pull HTTP response headers only</a></h2>
+<pre><code class="language-bash">curl -sI https://www.yahoo.com 2&gt;&amp;1
+</code></pre>
+<h2 id="force-resolution-to-particular-ip-on-specific-port"><a class="header" href="#force-resolution-to-particular-ip-on-specific-port">Force resolution to particular IP on specific port</a></h2>
+<p>This keeps SNI and the Host header correct while pinning the connection to
+one address. Useful for testing a single backend behind a load balancer, or
+a server whose DNS record does not exist yet:</p>
+<pre><code class="language-bash">curl -vv https://dns.google.com --resolve dns.google.com:443:8.8.8.8
+</code></pre>
+<h2 id="continuous-monitoring-one-liners"><a class="header" href="#continuous-monitoring-one-liners">Continuous monitoring one-liners</a></h2>
+<ul>
+<li>Continuously check <a href="https://fonts.bunny.net">https://fonts.bunny.net</a> every
+10 seconds, with a total timeout of 3 seconds per attempt. Use <strong>Ctrl+C</strong> to kill.</li>
+</ul>
+<pre><code class="language-bash">while true; do curl -s -o /dev/null -w '%{http_code}\n' --max-time 3 https://fonts.bunny.net; sleep 10; done
+</code></pre>
+<ul>
+<li>Same idea, but forcing IPv4 and a connection timeout of 10 seconds, printing
+the HTTP status line:</li>
+</ul>
+<pre><code class="language-bash">while true; do
+  curl -s -4 https://fonts.bunny.net \
+    --connect-timeout 10 \
+    --no-progress-meter -D - -o /dev/null | head -n 1;
+  sleep 10;
+done
+</code></pre>
+<ul>
+<li>With a timestamp on each line (<code>ts</code> comes from the <code>moreutils</code> package):</li>
+</ul>
+<pre><code class="language-bash">while true; do
+  curl -s -4 https://fonts.bunny.net \
+    --connect-timeout 10 \
+    --no-progress-meter -D - -o /dev/null | head -n 1 | ts;
+  sleep 10;
+done
+</code></pre>
+<h2 id="command-for-debugging"><a class="header" href="#command-for-debugging">Command for debugging</a></h2>
+<ul>
+<li>Use <a href="https://badssl.com/">badssl.com</a> to test client behavior against
+known-bad TLS configurations (expired, self-signed, wrong host, weak ciphers):</li>
+</ul>
+<pre><code class="language-bash">curl -sv https://expired.badssl.com/
+curl -sv https://self-signed.badssl.com/
+curl -sv https://wrong.host.badssl.com/
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="delv"><a class="header" href="#delv">Delv</a></h1>
+<p><a href="https://bind9.readthedocs.io/en/latest/manpages.html#delv-dns-lookup-and-validation-utility">delv</a>
+(domain entity lookup and validation) is dig’s DNSSEC-aware sibling from
+BIND 9. Where dig shows you the raw DNS answer, delv performs full DNSSEC
+validation itself and tells you why a chain of trust fails. That is exactly
+what you need when a domain works on one resolver but returns SERVFAIL on a
+validating one.</p>
+<h2 id="availability-1"><a class="header" href="#availability-1">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>included in the <a href="https://cygwin.com/packages/summary/bind-utils.html">bind-utils</a> package</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install bind-utils</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install bind9-dnsutils</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<ul>
+<li>Validate a record and show the validation result (<code>; fully validated</code> or
+<code>; unsigned</code> in the output):</li>
+</ul>
+<pre><code class="language-bash">delv www.cdc.gov A
+</code></pre>
+<ul>
+<li>Show the full validation logic step by step with <code>+vtrace</code>, and format
+multi-line records readably with <code>+multi</code>. Querying the same TLSA (DANE)
+record through several public resolvers tells you whether a DNSSEC problem
+lives in the zone itself or in one resolver’s cache:</li>
+</ul>
+<pre><code class="language-bash">delv @1.1.1.1 cdc.gov TLSA +multi +vtrace
+delv @8.8.8.8 cdc.gov TLSA +multi +vtrace
+delv @62.149.128.4 cdc.gov TLSA +multi +vtrace
+delv @208.67.220.220 cdc.gov TLSA +multi +vtrace
+delv @208.67.222.222 cdc.gov TLSA +multi +vtrace
+delv @185.228.169.9 cdc.gov TLSA +multi +vtrace
+</code></pre>
+<ul>
+<li>See what a broken domain looks like. Instead of a bare SERVFAIL, delv
+prints the specific failure (expired signature, missing DS record, bogus
+chain):</li>
+</ul>
+<pre><code class="language-bash">delv dnssec-failed.org A +rtrace
+</code></pre>
+<h2 id="rapid-verification"><a class="header" href="#rapid-verification">Rapid Verification</a></h2>
+<p>Web-based tools for cross-checking a DNSSEC problem you found with delv:</p>
+<ul>
+<li><a href="https://dnsviz.net/">DNSViz</a>, which draws the whole chain of trust</li>
+<li><a href="https://dnssec-debugger.verisignlabs.com/">Verisign DNSSEC Debugger</a></li>
+<li><a href="https://ianix.com/pub/dnssec-outages.html">Ianix DNSSEC Outages</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dig"><a class="header" href="#dig">Dig</a></h1>
+<p><a href="https://bind9.readthedocs.io/en/latest/manpages.html#dig-dns-lookup-utility">dig</a>
+(domain information groper) is the standard DNS lookup tool from BIND.
+Reach for it first when a name does not resolve, resolves to the wrong
+address, or resolves differently depending on which resolver you ask.</p>
+<h2 id="availability-2"><a class="header" href="#availability-2">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/bind-utils.html">bind-utils</a> package</td></tr>
+<tr><td>Windows (native)</td><td>no official build; <code>nslookup</code> or PowerShell <code>Resolve-DnsName</code> are rough equivalents</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install bind-utils</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install bind9-dnsutils</code> (older releases: <code>dnsutils</code>)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-1"><a class="header" href="#examples-1">Examples</a></h2>
+<ul>
+<li>Just the answer, no noise:</li>
+</ul>
+<pre><code class="language-bash">dig +short www.google.com
+</code></pre>
+<ul>
+<li>Query a specific record type:</li>
+</ul>
+<pre><code class="language-bash">dig +short www.google.com AAAA
+dig +short google.com MX
+dig +short google.com TXT
+</code></pre>
+<ul>
+<li>Ask a specific resolver. Comparing your local resolver against a public
+one is the quickest way to spot split-horizon DNS or a stale cache:</li>
+</ul>
+<pre><code class="language-bash">dig @8.8.8.8 www.google.com
+dig @1.1.1.1 www.google.com
+</code></pre>
+<ul>
+<li>Reverse lookup of an IP:</li>
+</ul>
+<pre><code class="language-bash">dig -x 8.8.8.8 +short
+</code></pre>
+<ul>
+<li>Trace the delegation from the root servers down. This shows which
+nameserver actually hands out the answer:</li>
+</ul>
+<pre><code class="language-bash">dig +trace www.google.com
+</code></pre>
+<ul>
+<li>Check the SOA serial on each authoritative nameserver to spot a zone
+change that has not propagated:</li>
+</ul>
+<pre><code class="language-bash">dig +nssearch google.com
+</code></pre>
+<ul>
+<li>Watch a record continuously (for example, while waiting for a DNS change
+to propagate). Use <strong>Ctrl+C</strong> to kill.</li>
+</ul>
+<pre><code class="language-bash">while true; do dig +short www.va.gov; sleep 5; done
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="drill"><a class="header" href="#drill">Drill</a></h1>
+<p><a href="https://nlnetlabs.nl/projects/ldns/about/">drill</a> is a DNS lookup tool from
+NLnet Labs’ ldns library, built as a dig replacement with DNSSEC support
+baked in. Day to day it behaves like dig. The reason to learn it is the one
+trick dig lacks: chasing a DNSSEC signature chain from a record all the way
+up to the root.</p>
+<h2 id="availability-3"><a class="header" href="#availability-3">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>not packaged for Cygwin; use <a href="#dig">dig</a> / <a href="#delv">delv</a> instead</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install ldns-utils</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install ldnsutils</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-2"><a class="header" href="#examples-2">Examples</a></h2>
+<ul>
+<li>Basic lookup, dig-style:</li>
+</ul>
+<pre><code class="language-bash">drill www.google.com
+drill @8.8.8.8 google.com TXT
+</code></pre>
+<ul>
+<li>Reverse lookup:</li>
+</ul>
+<pre><code class="language-bash">drill -x 8.8.8.8
+</code></pre>
+<ul>
+<li>Trace a name from the root servers down (like <code>dig +trace</code>):</li>
+</ul>
+<pre><code class="language-bash">drill -T www.google.com
+</code></pre>
+<ul>
+<li>Chase the DNSSEC signature chain from the record up to the root, printing
+every DNSKEY/DS link along the way (<code>-D</code> requests DNSSEC records, <code>-S</code>
+chases the chain):</li>
+</ul>
+<pre><code class="language-bash">drill -DS www.cdc.gov
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="dug"><a class="header" href="#dug">Dug</a></h1>
+<p><a href="https://github.com/unfrl/dug">dug</a> is a global DNS propagation checker: it
+queries hundreds of public DNS servers around the world at once and reports
+what each one answers. Use it after a DNS change to see how far the new
+record has spread, or to detect regional DNS poisoning and filtering, where
+a domain resolves differently by country.</p>
+<ul>
+<li><a href="https://github.com/unfrl/dug/blob/main/cli/Resources/default_servers.csv">Worldwide DNS servers it queries</a></li>
+</ul>
+<h2 id="availability-4"><a class="header" href="#availability-4">Availability</a></h2>
+<p>dug is a .NET application distributed from
+<a href="https://github.com/unfrl/dug/releases">GitHub releases</a>. There is no
+Cygwin, dnf, or apt package in the standard repositories.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows</td><td>download the Windows binary from GitHub releases (runs natively; usable from a Cygwin terminal)</td></tr>
+<tr><td>Fedora</td><td>download the <code>.rpm</code> from GitHub releases</td></tr>
+<tr><td>Ubuntu / Debian</td><td>download the <code>.deb</code> from GitHub releases</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-3"><a class="header" href="#examples-3">Examples</a></h2>
+<ul>
+<li>Quick propagation check with the pretty default output:</li>
+</ul>
+<pre><code class="language-bash">dug vaccines.gov
+</code></pre>
+<ul>
+<li>Query 500 servers worldwide with retries, exporting everything to CSV for
+analysis in a spreadsheet (which countries see the old record, response
+times, DNSSEC status, errors):</li>
+</ul>
+<pre><code class="language-bash">dug vaccines.gov --retries 10 --server-count 500 --output-format CSV --output-template ipaddress,countrycode,city,dnssec,reliability,continentcode,countryname,countryflag,citycountryname,citycountrycontinentname,responsetime,recordtype,haserror,errormessage,errorcode,value &gt; vaccines.gov-output.csv
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="git"><a class="header" href="#git">Git</a></h1>
+<p><a href="https://git-scm.com/">git</a> is not a network tool, but git fetches and
+pushes fail for network reasons all the time: SSH key problems, TLS
+interception by corporate proxies, blocked ports. Git has built-in knobs
+that expose what its transport (SSH or HTTPS) is actually doing.</p>
+<h2 id="availability-5"><a class="header" href="#availability-5">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/git.html">git</a> package</td></tr>
+<tr><td>Windows (native)</td><td><a href="https://gitforwindows.org/">Git for Windows</a></td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install git</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install git</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="debugging-git-over-ssh"><a class="header" href="#debugging-git-over-ssh">Debugging Git over SSH</a></h2>
+<p>Make git’s underlying ssh invocation verbose. The output shows which key is
+offered, which host key is received, and where authentication fails:</p>
+<pre><code class="language-bash">GIT_SSH_COMMAND="ssh -vvv" git clone &lt;REPO_SSH_URL&gt;
+</code></pre>
+<p>Test SSH authentication to the host directly, without git:</p>
+<pre><code class="language-bash">ssh -T git@github.com
+</code></pre>
+<h2 id="debugging-git-over-https"><a class="header" href="#debugging-git-over-https">Debugging Git over HTTPS</a></h2>
+<p>Show the full HTTP conversation including TLS handshake and proxy usage:</p>
+<pre><code class="language-bash">GIT_CURL_VERBOSE=1 GIT_TRACE=1 git clone &lt;REPO_HTTPS_URL&gt;
+</code></pre>
+<p>Point git at a corporate CA bundle when a TLS-intercepting proxy breaks
+certificate verification (prefer this over disabling verification):</p>
+<pre><code class="language-bash">git config --global http.sslCAInfo /path/to/corporate-ca-bundle.pem
+</code></pre>
+<h2 id="interesting-links"><a class="header" href="#interesting-links">Interesting Links</a></h2>
+<ul>
+<li><a href="https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables">Git documentation on environment variables</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ipcalc"><a class="header" href="#ipcalc">Ipcalc</a></h1>
+<p>ipcalc is a subnet calculator: give it an address in CIDR notation and it
+prints the network address, netmask, broadcast address, and usable host
+range. It saves you from doing binary math in your head while reading
+firewall rules or cloud VPC definitions.</p>
+<p>Beware that several unrelated programs share the name. Fedora ships its own
+ipcalc, while Debian and Ubuntu ship a Perl version with different output
+and flags. The examples below work on both, but check <code>ipcalc --help</code> on
+your system.</p>
+<h2 id="availability-6"><a class="header" href="#availability-6">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/ipcalc.html">ipcalc</a> package</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install ipcalc</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install ipcalc</code> (or <code>sipcalc</code> for an alternative)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-4"><a class="header" href="#examples-4">Examples</a></h2>
+<ul>
+<li>What network does this host live in, and what is the usable range?</li>
+</ul>
+<pre><code class="language-bash">ipcalc 10.130.75.80/26
+</code></pre>
+<p>On Debian/Ubuntu’s ipcalc this prints the network (<code>10.130.75.64/26</code>), the
+broadcast address (<code>10.130.75.127</code>), and the 62 usable hosts in between.
+Run it on two addresses and compare the network lines to settle whether
+they are in the same subnet.</p>
+<ul>
+<li>Same question for a /22 you see in a cloud VPC:</li>
+</ul>
+<pre><code class="language-bash">ipcalc 172.31.48.0/22
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="iperf3"><a class="header" href="#iperf3">Iperf3</a></h1>
+<p><a href="https://github.com/esnet/iperf">iperf3</a> measures the maximum achievable
+bandwidth between two machines. Unlike most tools in this guide, it has to
+run on both ends: one side acts as a server, the other connects to it as a
+client. Run it when you need to know whether the link itself is slow or the
+application on top of it is.</p>
+<h2 id="availability-7"><a class="header" href="#availability-7">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>not packaged for Cygwin</td></tr>
+<tr><td>Windows (native)</td><td>unofficial builds from <a href="https://iperf.fr/iperf-download.php">iperf.fr</a> or <code>winget</code> / chocolatey</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install iperf3</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install iperf3</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-5"><a class="header" href="#examples-5">Examples</a></h2>
+<ul>
+<li>On the server side (listens on TCP/UDP port 5201 by default, so open that
+port in the firewall):</li>
+</ul>
+<pre><code class="language-bash">iperf3 -s
+</code></pre>
+<ul>
+<li>On the client side, run a 10 second TCP throughput test:</li>
+</ul>
+<pre><code class="language-bash">iperf3 -c &lt;server IP&gt;
+</code></pre>
+<ul>
+<li>Measure the reverse direction (server sends, client receives) without
+swapping roles. Asymmetric links are common, so test both directions:</li>
+</ul>
+<pre><code class="language-bash">iperf3 -c &lt;server IP&gt; -R
+</code></pre>
+<ul>
+<li>Use 4 parallel streams for 30 seconds. Parallel streams do a better job
+of saturating high-bandwidth, high-latency links:</li>
+</ul>
+<pre><code class="language-bash">iperf3 -c &lt;server IP&gt; -P 4 -t 30
+</code></pre>
+<ul>
+<li>UDP test at a fixed 100 Mbit/s rate. The report includes jitter and
+packet loss, which TCP tests hide:</li>
+</ul>
+<pre><code class="language-bash">iperf3 -c &lt;server IP&gt; -u -b 100M
+</code></pre>
+<ul>
+<li>Machine-readable output for graphing later:</li>
+</ul>
+<pre><code class="language-bash">iperf3 -c &lt;server IP&gt; --json &gt; result.json
+</code></pre>
+<h2 id="public-servers"><a class="header" href="#public-servers">Public Servers</a></h2>
+<p>When you do not control the far end, a list of volunteer-run public iperf3
+servers is maintained at <a href="https://iperf3serverlist.net/">iperf3serverlist.net</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="netcat"><a class="header" href="#netcat">Netcat</a></h1>
+<p>netcat (<code>nc</code>) is the swiss army knife for raw TCP/UDP connectivity: it opens
+a connection (or listens for one) and pipes bytes. Because there is no
+protocol on top to confuse things, it isolates the most basic question in
+network debugging: can I reach that host on that port at all? In handshake
+terms (see <a href="#network-basics">Network Basics</a>), a successful <code>nc -vz</code>
+means the TCP three-way handshake completed.</p>
+<h2 id="availability-8"><a class="header" href="#availability-8">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/nc.html">nc</a> package (also <code>nc6</code>)</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install nmap-ncat</code> (provides <code>nc</code>)</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install netcat-openbsd</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="versions"><a class="header" href="#versions">Versions</a></h2>
+<p>Several incompatible implementations share the <code>nc</code> name: the original/GNU
+netcat, the OpenBSD rewrite (Ubuntu’s default, adds IPv6 and UNIX sockets),
+and nmap’s <code>ncat</code> (Fedora’s default, adds TLS and proxying). Their flags
+differ. If an example below fails, run <code>nc -h</code> to see which one you have.</p>
+<h2 id="examples-6"><a class="header" href="#examples-6">Examples</a></h2>
+<p>Simple port test (<code>-v</code> verbose, <code>-z</code> scan only, do not send data):</p>
+<ul>
+<li>NC via TCP with a 3 second timeout</li>
+</ul>
+<pre><code class="language-bash">nc -vz -w 3 &lt;destination IP&gt; 443
+</code></pre>
+<ul>
+<li>NC via UDP with a 3 second timeout. Treat UDP “success” with suspicion:
+it only means nothing actively refused the packet, since UDP has no
+handshake to confirm delivery.</li>
+</ul>
+<pre><code class="language-bash">nc -vz -u -w 3 &lt;destination IP&gt; 443
+</code></pre>
+<ul>
+<li>Continuous NC via TCP with a 3 second timeout every 5 seconds:</li>
+</ul>
+<pre><code class="language-bash">watch -n 5 nc -vz -w 3 &lt;destination IP&gt; 443
+</code></pre>
+<p>or with a plain shell loop:</p>
+<pre><code class="language-bash">while true; do nc -vz -w 3 &lt;destination IP&gt; 443; sleep 5; done;
+</code></pre>
+<h2 id="listen-on-a-port"><a class="header" href="#listen-on-a-port">Listen on a port</a></h2>
+<p>Listening is the other half of debugging connectivity. Run a listener on
+the destination, connect from the source, and you have tested the path
+without involving any real application.</p>
+<ul>
+<li>Listen on TCP port 8080, then from the other machine connect with
+<code>nc &lt;listener IP&gt; 8080</code>. Anything typed on one side appears on the other:</li>
+</ul>
+<pre><code class="language-bash">nc -l 8080
+</code></pre>
+<ul>
+<li>Quick one-shot file transfer (start the receiver first, then the sender):</li>
+</ul>
+<pre><code class="language-bash">nc -l 9000 &gt; received-file        # on the receiver
+nc &lt;receiver IP&gt; 9000 &lt; file      # on the sender
+</code></pre>
+<h2 id="admin-privilege"><a class="header" href="#admin-privilege">Admin Privilege</a></h2>
+<p>Admin privilege (ex. sudo) is needed when listening on a privileged port
+between 1-1024.</p>
+<p>For example, the following will require <code>sudo</code>:</p>
+<pre><code class="language-bash">sudo nc -l 443
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="netstat"><a class="header" href="#netstat">Netstat</a></h1>
+<p>netstat shows the sockets currently open on the local machine: which ports
+are listening, which connections are established, and (with privileges)
+which process owns each one. Run it when a service refuses connections and
+you want to confirm it is actually listening, or when you want to see what
+a machine is talking to.</p>
+<p>On modern Linux, netstat (from <code>net-tools</code>) is considered legacy; <code>ss</code> from
+the <code>iproute2</code> package is faster and always installed. Windows ships its
+own native <code>netstat.exe</code>, which works fine from a Cygwin terminal, so there
+is no separate Cygwin netstat package.</p>
+<h2 id="availability-9"><a class="header" href="#availability-9">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>use the native Windows <code>netstat.exe</code> (works inside the Cygwin terminal)</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install net-tools</code> (or use <code>ss</code>, preinstalled)</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install net-tools</code> (or use <code>ss</code>, preinstalled)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-linux"><a class="header" href="#examples-linux">Examples (Linux)</a></h2>
+<ul>
+<li>Show established SSH connections, with the owning process
+(<code>-t</code> TCP, <code>-n</code> numeric, <code>-p</code> process, <code>-a</code> all):</li>
+</ul>
+<pre><code class="language-bash">sudo netstat -tnpa | grep 'ESTABLISHED.*sshd'
+</code></pre>
+<ul>
+<li>What is listening, on which port, and which process owns it:</li>
+</ul>
+<pre><code class="language-bash">sudo netstat -ltnp
+</code></pre>
+<ul>
+<li>The same questions answered with <code>ss</code>:</li>
+</ul>
+<pre><code class="language-bash">ss -tnp state established '( dport = :22 or sport = :22 )'
+ss -ltnp
+</code></pre>
+<h2 id="examples-windows-native-netstatexe"><a class="header" href="#examples-windows-native-netstatexe">Examples (Windows, native netstat.exe)</a></h2>
+<ul>
+<li>All connections and listeners, numeric, with owning process ID
+(map the PID with Task Manager or <code>tasklist | findstr &lt;PID&gt;</code>):</li>
+</ul>
+<pre><code class="language-cmd">netstat -ano
+</code></pre>
+<ul>
+<li>Include the executable name (requires an elevated/administrator shell):</li>
+</ul>
+<pre><code class="language-cmd">netstat -anob
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ntttcp"><a class="header" href="#ntttcp">NTttcp</a></h1>
+<p><a href="https://github.com/microsoft/ntttcp">NTttcp</a> is Microsoft’s network
+throughput benchmark, the Windows-native counterpart to <a href="#iperf3">iperf3</a>.
+Like iperf3 it requires a sender and a receiver, one on each end of the
+link. Microsoft also maintains
+<a href="https://github.com/microsoft/ntttcp-for-linux">ntttcp-for-linux</a>, so a
+mixed Windows and Linux path can be benchmarked with the same tool family
+on both ends.</p>
+<h2 id="availability-10"><a class="header" href="#availability-10">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (native)</td><td>download from the <a href="https://github.com/microsoft/ntttcp/releases">NTttcp GitHub releases</a></td></tr>
+<tr><td>Windows (Cygwin)</td><td>not packaged; run the native Windows binary</td></tr>
+<tr><td>Fedora / Ubuntu</td><td>build <a href="https://github.com/microsoft/ntttcp-for-linux">ntttcp-for-linux</a> from source</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-7"><a class="header" href="#examples-7">Examples</a></h2>
+<ul>
+<li>Receiver side (<code>-r</code>), using 8 threads, listening on its own address:</li>
+</ul>
+<pre><code class="language-cmd">ntttcp -r -m 8,*,&lt;receiver IP&gt;
+</code></pre>
+<ul>
+<li>Sender side (<code>-s</code>), matching parameters, run for 60 seconds:</li>
+</ul>
+<pre><code class="language-cmd">ntttcp -s -m 8,*,&lt;receiver IP&gt; -t 60
+</code></pre>
+<h2 id="related-tools"><a class="header" href="#related-tools">Related Tools</a></h2>
+<ul>
+<li><a href="https://github.com/microsoft/ctsTraffic">ctsTraffic</a>, another Microsoft
+traffic generator. It is better suited to long-running reliability and
+connection churn testing than to raw throughput numbers.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="openssl"><a class="header" href="#openssl">OpenSSL</a></h1>
+<p><a href="https://docs.openssl.org/3.3/man1/openssl-s_client/">OpenSSL</a> is <a href="https://github.com/openssl/openssl">an open
+source toolkit</a> for SSL/TLS. For network
+debugging, its <code>s_client</code> subcommand behaves like a TLS-speaking netcat: it
+performs the TLS handshake (see <a href="#network-basics">Network Basics</a>)
+and shows you the exact certificate chain the server presents, which
+protocol and cipher get negotiated, and whether the handshake completes at
+all. The <code>x509</code> subcommand inspects and converts certificate files locally.</p>
+<h2 id="availability-11"><a class="header" href="#availability-11">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/openssl.html">openssl</a> package</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install openssl</code> (usually preinstalled)</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install openssl</code> (usually preinstalled)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="inspecting-a-live-server"><a class="header" href="#inspecting-a-live-server">Inspecting a live server</a></h2>
+<ul>
+<li>Connect to google.com and show its full certificate chain (the
+<code>echo -n |</code> or <code>&lt;/dev/null</code> closes stdin so the command exits instead of
+waiting for input):</li>
+</ul>
+<pre><code class="language-bash">echo -n | openssl s_client -connect google.com:443 -showcerts
+</code></pre>
+<ul>
+<li>When the server hosts several sites on one IP, set SNI explicitly with
+<code>-servername</code>, otherwise you may receive the wrong (default) certificate:</li>
+</ul>
+<pre><code class="language-bash">openssl s_client -connect www.google.com:443 -servername www.google.com &lt;/dev/null
+</code></pre>
+<ul>
+<li>Get all subject alternative names (the list of hostnames the certificate
+is actually valid for):</li>
+</ul>
+<pre><code class="language-bash">openssl s_client -connect www.google.com:443 &lt;/dev/null | openssl x509 -noout -text | grep DNS:
+</code></pre>
+<ul>
+<li>Test whether a server still accepts an old protocol version:</li>
+</ul>
+<pre><code class="language-bash">openssl s_client -connect example.com:443 -tls1_1 &lt;/dev/null
+</code></pre>
+<h2 id="inspecting-certificate-files"><a class="header" href="#inspecting-certificate-files">Inspecting certificate files</a></h2>
+<ul>
+<li>Convert a <strong>.cer</strong> file (a DER-encoded format commonly exported by Windows)
+to a base64-encoded human-readable <strong>.pem</strong> file:</li>
+</ul>
+<pre><code class="language-bash">openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
+</code></pre>
+<ul>
+<li>Check the validity dates of a single certificate:</li>
+</ul>
+<pre><code class="language-bash">openssl x509 -in &lt;particular pem&gt;.pem -noout -dates
+</code></pre>
+<ul>
+<li>Check the dates of every .pem in a folder:</li>
+</ul>
+<pre><code class="language-bash">for i in &lt;folder&gt;/*.pem; do echo "$i"; openssl x509 -in "$i" -noout -dates; done
+</code></pre>
+<ul>
+<li>Recursively find all .pem files and print their expiry dates:</li>
+</ul>
+<pre><code class="language-bash">find . -name '*.pem' -type f -print -exec openssl x509 -in {} -enddate -noout \;
+</code></pre>
+<h2 id="extracting-a-server-certificate-for-a-java-trust-store"><a class="header" href="#extracting-a-server-certificate-for-a-java-trust-store">Extracting a server certificate for a Java trust store</a></h2>
+<p>A practical combination: pull the certificate a server presents, save it as
+a .pem, and import it into a Java cacerts keystore (here inside a Dockerfile,
+hence the <code>RUN</code>):</p>
+<pre><code class="language-dockerfile">RUN echo | openssl s_client -servername swa.cdc.gov -connect swa.cdc.gov:443 2&gt;&amp;1 \
+      | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' &gt; cert.pem &amp;&amp; \
+    "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa \
+      -noprompt -cacerts -storepass changeit -file cert.pem
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="rsync"><a class="header" href="#rsync">Rsync</a></h1>
+<p><a href="https://rsync.samba.org/">rsync</a> synchronizes files between machines (or
+directories) and only transfers the parts that changed. It runs over SSH by
+default, resumes interrupted transfers, and can throttle its own bandwidth.
+That combination is why you reach for it on flaky or slow links, where
+<code>scp</code> would start over from zero.</p>
+<h2 id="availability-12"><a class="header" href="#availability-12">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/rsync.html">rsync</a> package</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install rsync</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install rsync</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>rsync must be installed on both ends of the transfer. On Cygwin, local
+Windows paths are written as <code>/cygdrive/c/...</code>.</p>
+<h2 id="examples-8"><a class="header" href="#examples-8">Examples</a></h2>
+<p>The flag bundle used below: <code>-a</code> archive (recurse, preserve permissions and
+times), <code>-v</code> verbose, <code>-h</code> human-readable sizes, <code>-z</code> compress in transit,
+<code>-S</code> handle sparse files, <code>-P</code> show progress and keep partial files so
+interrupted transfers resume.</p>
+<ul>
+<li>rsync push from local to remote:</li>
+</ul>
+<pre><code class="language-bash">rsync -avhzSP --stats folder-of-interest/ username@192.168.122.15:/share/folder-of-interest/
+</code></pre>
+<ul>
+<li>rsync pull from remote to local, limited to about 3.6 MB/s so the
+transfer does not saturate the link, with permissions forced on arrival:</li>
+</ul>
+<pre><code class="language-bash">rsync -avhzSP --stats --bwlimit=3600 --perms --chmod=a+rwx username@subdomain.domain.com:/home/username/completed/tv.shows/ /share/tv.shows/
+</code></pre>
+<ul>
+<li>Dry run first, to see what would be transferred or deleted before doing it:</li>
+</ul>
+<pre><code class="language-bash">rsync -avhn --delete folder-of-interest/ username@192.168.122.15:/share/folder-of-interest/
+</code></pre>
+<p>Beware the trailing slash: <code>folder/</code> means “the contents of folder”, while
+<code>folder</code> means “the folder itself”. Get it wrong and everything lands one
+directory deeper than you wanted.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="sftp"><a class="header" href="#sftp">SFTP</a></h1>
+<p>sftp is an interactive file transfer client that runs over SSH, part of the
+OpenSSH suite. If you can <code>ssh</code> to a machine, you can almost always <code>sftp</code>
+to it on the same port 22 with no extra server setup. It replaces legacy
+FTP, which sent credentials in cleartext.</p>
+<h2 id="availability-13"><a class="header" href="#availability-13">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>included in the <a href="https://cygwin.com/packages/summary/openssh.html">openssh</a> package</td></tr>
+<tr><td>Windows (native)</td><td>included in Windows 10+ optional feature “OpenSSH Client”</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install openssh-clients</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install openssh-client</code> (usually preinstalled)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-9"><a class="header" href="#examples-9">Examples</a></h2>
+<ul>
+<li>Open an interactive session (then use <code>ls</code>, <code>cd</code>, <code>get</code>, <code>put</code>, <code>exit</code>):</li>
+</ul>
+<pre><code class="language-bash">sftp username@192.168.122.15
+</code></pre>
+<ul>
+<li>Connect on a non-standard port (note: capital <code>-P</code>, unlike ssh):</li>
+</ul>
+<pre><code class="language-bash">sftp -P 2222 username@192.168.122.15
+</code></pre>
+<ul>
+<li>Download or upload a single file without an interactive session:</li>
+</ul>
+<pre><code class="language-bash">sftp username@host:/var/log/app.log /tmp/
+sftp local-file.txt username@host:/upload/
+</code></pre>
+<ul>
+<li>Recursively download a whole directory:</li>
+</ul>
+<pre><code class="language-bash">sftp -r username@host:/var/log/myapp /tmp/logs/
+</code></pre>
+<ul>
+<li>Scripted/batch mode. It runs the listed commands, exits non-zero on
+failure, and suits cron jobs:</li>
+</ul>
+<pre><code class="language-bash">echo 'put report.csv /incoming/' | sftp -b - username@host
+</code></pre>
+<p>Since sftp is just SSH underneath, debugging a failing connection is the
+same as debugging <a href="#ssh">ssh</a>: add <code>-v</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ssh"><a class="header" href="#ssh">SSH</a></h1>
+<p><a href="https://www.openssh.com/">OpenSSH</a> is the standard client for encrypted
+remote shells, and also a general-purpose transport: file transfer
+(<a href="#sftp">sftp</a>, <a href="#rsync">rsync</a>), <a href="#git">git</a>, and port
+forwarding all ride on it. For network debugging, the verbose mode and the
+tunneling features are diagnostic tools in their own right.</p>
+<h2 id="availability-14"><a class="header" href="#availability-14">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/openssh.html">openssh</a> package</td></tr>
+<tr><td>Windows (native)</td><td>Windows 10+ optional feature “OpenSSH Client” (<code>ssh.exe</code> in PowerShell)</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install openssh-clients</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install openssh-client</code> (usually preinstalled)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Cygwin and native Windows OpenSSH keep separate configuration. Cygwin reads
+<code>~/.ssh</code> inside the Cygwin home; native Windows reads <code>C:\Users\&lt;you&gt;\.ssh</code>.
+Keys set up in one are not seen by the other.</p>
+<h2 id="debugging-a-connection"><a class="header" href="#debugging-a-connection">Debugging a connection</a></h2>
+<p>Verbose mode walks through each phase of the connection: TCP connect, host
+key exchange, which keys are offered, which authentication methods fail.
+Add up to <code>-vvv</code> for more detail:</p>
+<pre><code class="language-bash">ssh -v username@host
+</code></pre>
+<h2 id="ssh-config"><a class="header" href="#ssh-config">SSH Config</a></h2>
+<p>Put per-host settings in <code>~/.ssh/config</code> so connections are reproducible and
+short to type:</p>
+<pre><code class="language-text">Host jumpbox
+  HostName bastion.example.com
+  User boris
+  IdentityFile ~/.ssh/id_ed25519
+
+Host internal-db
+  HostName 10.0.12.5
+  User boris
+  ProxyJump jumpbox
+</code></pre>
+<p>With the above, <code>ssh internal-db</code> transparently hops through the bastion.</p>
+<h2 id="port-forwarding"><a class="header" href="#port-forwarding">Port forwarding</a></h2>
+<ul>
+<li>Local forward: expose a remote-only service on your own machine. Here, a
+database reachable only from the jump host appears on <code>localhost:5432</code>:</li>
+</ul>
+<pre><code class="language-bash">ssh -L 5432:db.internal:5432 username@jumpbox
+</code></pre>
+<ul>
+<li>Dynamic forward: turn the SSH connection into a SOCKS proxy on
+<code>localhost:1080</code>, then point tools like <a href="#curl">curl</a> at
+<code>socks5h://localhost:1080</code>:</li>
+</ul>
+<pre><code class="language-bash">ssh -D 1080 username@jumpbox
+</code></pre>
+<h2 id="key-generation"><a class="header" href="#key-generation">Key Generation</a></h2>
+<ul>
+<li>Preferred modern key type (ed25519), with extra KDF rounds on the
+passphrase:</li>
+</ul>
+<pre><code class="language-bash">ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519 -C "example-email@gmail.com"
+</code></pre>
+<ul>
+<li>RSA fallback for old servers that do not support ed25519:</li>
+</ul>
+<pre><code class="language-bash">ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C "example-email@gmail.com"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="strace"><a class="header" href="#strace">strace</a></h1>
+<p><a href="https://strace.io">strace</a> traces the system calls a Linux process makes.
+It shows what a program actually does, regardless of what its own logging
+claims: which config and certificate files it opens, which addresses it
+connects to, which DNS lookups it issues. When a tool fails mysteriously
+with no useful error, strace is how you find out why.</p>
+<h2 id="availability-15"><a class="header" href="#availability-15">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>Cygwin ships its own <code>strace.exe</code>, but it is a different Cygwin-specific tracer for Cygwin processes, not the Linux strace</td></tr>
+<tr><td>Windows (native)</td><td>no equivalent; <a href="https://learn.microsoft.com/en-us/sysinternals/downloads/procmon">Sysinternals Process Monitor</a> covers the same ground</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install strace</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install strace</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-10"><a class="header" href="#examples-10">Examples</a></h2>
+<ul>
+<li>Which files does this program open? Classic use: find out which CA bundle
+or config file a TLS client is really reading:</li>
+</ul>
+<pre><code class="language-bash">strace -e trace=openat wget -vv https://classic.yarnpkg.com 2&gt;&amp;1 | grep cert
+</code></pre>
+<ul>
+<li>Show only network-related syscalls (connect, sendto, recvfrom…), follow
+child processes, and trace each child into its own output file:</li>
+</ul>
+<pre><code class="language-bash">strace -e trace=network -ff -o /tmp/dig-trace dig somename.com
+</code></pre>
+<ul>
+<li>Attach to an already-running process by PID (requires sudo for processes
+you do not own):</li>
+</ul>
+<pre><code class="language-bash">sudo strace -p &lt;PID&gt; -e trace=network
+</code></pre>
+<ul>
+<li>Time every syscall to find where a slow program is stuck. A <code>connect</code> or
+<code>poll</code> taking seconds points at the network; a slow <code>openat</code> on NFS
+points at the filesystem:</li>
+</ul>
+<pre><code class="language-bash">strace -T -e trace=network curl -s https://example.com -o /dev/null
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="tcpdump"><a class="header" href="#tcpdump">Tcpdump</a></h1>
+<p><a href="https://www.tcpdump.org/">tcpdump</a> captures packets off a network
+interface. When logs and tools disagree, a packet capture settles the
+argument. Captures are usually written to a <code>.pcap</code> file and analyzed in
+<a href="https://www.wireshark.org/">Wireshark</a> afterwards.</p>
+<p>Capturing requires root/administrator privileges on every platform.</p>
+<h2 id="availability-16"><a class="header" href="#availability-16">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>not available; Cygwin cannot capture raw packets</td></tr>
+<tr><td>Windows (native)</td><td>use <a href="https://www.wireshark.org/">Wireshark</a> with Npcap, or the built-in <code>pktmon</code> on Windows 10+</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install tcpdump</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install tcpdump</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-11"><a class="header" href="#examples-11">Examples</a></h2>
+<ul>
+<li>Find your interface names first:</li>
+</ul>
+<pre><code class="language-bash">tcpdump -D
+</code></pre>
+<ul>
+<li>Capture all UDP traffic to/from 1.1.1.1 on interface <code>wlp7s0</code>, full
+packets (<code>-s 0</code>), written to a pcap file for Wireshark (this example was
+used to debug DNSSEC responses from Cloudflare’s resolver):</li>
+</ul>
+<pre><code class="language-bash">sudo tcpdump -i wlp7s0 -s 0 -w /tmp/dnssec-cdc4.pcap "host 1.1.1.1 and udp"
+</code></pre>
+<ul>
+<li>Watch DNS queries live on screen, without name resolution (<code>-nn</code>) so
+tcpdump itself does not generate DNS traffic:</li>
+</ul>
+<pre><code class="language-bash">sudo tcpdump -i any -nn port 53
+</code></pre>
+<ul>
+<li>Watch TCP connection attempts to a host. If you see SYNs going out with
+no SYN/ACK coming back, a firewall along the path is dropping them (see
+the handshake walkthrough in <a href="#network-basics">Network Basics</a>):</li>
+</ul>
+<pre><code class="language-bash">sudo tcpdump -i any -nn "host 192.168.122.15 and tcp port 443"
+</code></pre>
+<ul>
+<li>Read a saved capture back (or open the file in Wireshark):</li>
+</ul>
+<pre><code class="language-bash">tcpdump -nn -r /tmp/dnssec-cdc4.pcap
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="testssl"><a class="header" href="#testssl">Testssl</a></h1>
+<p><a href="https://testssl.sh/">testssl.sh</a> is a <a href="https://github.com/drwetter/testssl.sh">pure bash shell script</a> for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.</p>
+<h2 id="availability-17"><a class="header" href="#availability-17">Availability</a></h2>
+<p>Because it is a pure bash script, testssl.sh runs anywhere bash and OpenSSL
+exist, including inside Cygwin on Windows. It even bundles its own openssl
+binaries for common platforms.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>clone the repository (needs the <code>git</code> and <code>bash</code> packages)</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install testssl</code> or clone the repository</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install testssl.sh</code> or clone the repository</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="access"><a class="header" href="#access">Access</a></h2>
+<p>Download the latest script.</p>
+<pre><code class="language-bash">git clone https://github.com/drwetter/testssl.sh.git
+</code></pre>
+<h2 id="how-to-run"><a class="header" href="#how-to-run">How to Run</a></h2>
+<p>Run it on a website such as google.com.</p>
+<pre><code class="language-bash">bash testssl.sh https://www.google.com
+</code></pre>
+<p>Sample Results:</p>
+<pre><code class="language-markdown">testssl.sh 3.0.8 from https://testssl.sh/
+(30c0359 2024-02-13 18:42:33)
+
+      This program is free software. Distribution and
+             modification under GPLv2 permitted.
+      USAGE w/o ANY WARRANTY. USE IT AT YOUR OWN RISK!
+
+       Please file bugs @ https://testssl.sh/bugs/
+
+###########################################################
+
+Using "OpenSSL 1.0.2-bad (1.0.2k-dev)" [~179 ciphers]
+on momo:./bin/openssl.Linux.x86_64
+(built: "Sep 1 14:03:44 2022", platform: "linux-x86_64")
+
+## Testing all IPv4 addresses (port 443): 172.253.63.105 172.253.63.99 172.253.63.106 172.253.63.103 172.253.63.147 172.253.63.104
+
+Start 2024-02-25 03:13:30 --&gt;&gt; 172.253.63.105:443 (www.google.com) &lt;&lt;--
+
+Further IP addresses: 172.253.122.104 172.253.122.103 172.253.122.105 172.253.122.99 172.253.122.147 172.253.122.106 2607:f8b0:4004:c07::69 2607:f8b0:4004:c07::93 2607:f8b0:4004:c07::63 2607:f8b0:4004:c07::67
+rDNS (172.253.63.105): bi-in-f105.1e100.net.
+Service detected: HTTP
+
+Testing protocols via sockets except NPN+ALPN
+
+SSLv2 not offered (OK)
+SSLv3 not offered (OK)
+TLS 1 offered (deprecated)
+TLS 1.1 offered (deprecated)
+TLS 1.2 offered (OK)
+TLS 1.3 offered (OK): final
+NPN/SPDY grpc-exp, h2, http/1.1 (advertised)
+ALPN/HTTP2 h2, http/1.1, grpc-exp (offered)
+
+Testing cipher categories
+
+NULL ciphers (no encryption) not offered (OK)
+Anonymous NULL Ciphers (no authentication) not offered (OK)
+Export ciphers (w/o ADH+NULL) not offered (OK)
+LOW: 64 Bit + DES, RC[2,4] (w/o export) not offered (OK)
+Triple DES Ciphers / IDEA offered
+Obsolete CBC ciphers (AES, ARIA etc.) offered
+Strong encryption (AEAD ciphers) offered (OK)
+
+Testing robust (perfect) forward secrecy, (P)FS -- omitting Null Authentication/Encryption, 3DES, RC4
+
+PFS is offered (OK) TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-RSA-AES256-SHA ECDHE-ECDSA-AES256-SHA ECDHE-ECDSA-CHACHA20-POLY1305
+ECDHE-RSA-CHACHA20-POLY1305 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA ECDHE-ECDSA-AES128-SHA
+Elliptic curves offered: prime256v1 X25519
+
+Testing server preferences
+
+Has server cipher order? yes (OK) -- only for &lt; TLS 1.3
+Negotiated protocol TLSv1.3
+Negotiated cipher TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+Cipher order
+TLSv1: ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-SHA AES256-SHA DES-CBC3-SHA
+TLSv1.1: ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-SHA AES256-SHA DES-CBC3-SHA
+TLSv1.2: ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-CHACHA20-POLY1305
+ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-GCM-SHA256 AES256-GCM-SHA384 AES128-SHA AES256-SHA DES-CBC3-SHA
+
+Testing server defaults (Server Hello)
+
+TLS extensions (standard) "renegotiation info/#65281" "EC point formats/#11" "session ticket/#35" "next protocol/#13172" "key share/#51" "supported versions/#43" "extended master secret/#23"
+"application layer protocol negotiation/#16"
+Session Ticket RFC 5077 hint 100800 seconds but: PFS requires session ticket keys to be rotated &lt; daily !
+SSL Session ID support yes
+Session Resumption Tickets: yes, ID: yes
+TLS clock skew 0 sec from localtime
+
+Server Certificate #1
+Signature Algorithm SHA256 with RSA
+Server key size RSA 2048 bits
+Server key usage Digital Signature, Key Encipherment
+Server extended key usage TLS Web Server Authentication
+Serial 54866C406C047C7C0A34EC3C3AB1E0EB (OK: length 16)
+Fingerprints SHA1 D7854FBC47BA3ED33395BD21FFF71643BC27A473
+SHA256 448F11FAD35A95A788934732F8351A08BE930C0D5195E93D52D4C57E13072BB4
+Common Name (CN) www.google.com
+subjectAltName (SAN) www.google.com
+Issuer GTS CA 1C3 (Google Trust Services LLC from US)
+Trust (hostname) Ok via SAN (same w/o SNI)
+Chain of trust Ok
+EV cert (experimental) no
+ETS/"eTLS", visibility info not present
+Certificate Validity (UTC) 64 &gt;= 60 days (2024-02-05 08:19 --&gt; 2024-04-29 08:19)
+
+# of certificates provided 3
+
+Certificate Revocation List http://crls.pki.goog/gts1c3/QOvJ0N1sT2A.crl
+OCSP URI http://ocsp.pki.goog/gts1c3
+OCSP stapling not offered
+OCSP must staple extension --
+DNS CAA RR (experimental) available - please check for match with "Issuer" above: issue=pki.goog
+Certificate Transparency yes (certificate extension)
+
+Server Certificate #2
+Signature Algorithm SHA256 with RSA
+Server key size EC 256 bits
+Server key usage Digital Signature
+Server extended key usage TLS Web Server Authentication
+Serial 55D169AD310983300AC6872F7A8B2B14 (OK: length 16)
+Fingerprints SHA1 872B8A71846A1C14432200F6FD21E6AC7C21D3F5
+SHA256 0093942C6AB658AADB2D3A3CFB40717CE28A23D2B6A2EDCE5D236F9E879E62D0
+Common Name (CN) www.google.com
+subjectAltName (SAN) www.google.com
+Issuer GTS CA 1C3 (Google Trust Services LLC from US)
+Trust (hostname) Ok via SAN (same w/o SNI)
+Chain of trust Ok
+EV cert (experimental) no
+ETS/"eTLS", visibility info not present
+Certificate Validity (UTC) 64 &gt;= 60 days (2024-02-05 08:19 --&gt; 2024-04-29 08:19)
+
+# of certificates provided 3
+
+Certificate Revocation List http://crls.pki.goog/gts1c3/moVDfISia2k.crl
+OCSP URI http://ocsp.pki.goog/gts1c3
+OCSP stapling not offered
+OCSP must staple extension --
+DNS CAA RR (experimental) available - please check for match with "Issuer" above: issue=pki.goog
+Certificate Transparency yes (certificate extension)
+
+Testing HTTP header response @ "/"
+
+HTTP Status Code 200 OK
+HTTP clock skew 0 sec from localtime
+Strict Transport Security not offered
+Public Key Pinning --
+Server banner gws
+Application banner --
+Cookie(s) 3 issued: 2/3 secure, 2/3 HttpOnly
+Security headers X-Frame-Options: SAMEORIGIN
+Content-Security-Policy-Report-Only: object-src 'none';base-uri 'self';script-src 'nonce-dXVNDjDTt6VAToHGETYaOw' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https:
+http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp
+Cache-Control: private, max-age=0
+X-XSS-Protection: 0
+Reverse Proxy banner --
+
+Testing vulnerabilities
+
+Heartbleed (CVE-2014-0160) not vulnerable (OK), no heartbeat extension
+CCS (CVE-2014-0224) not vulnerable (OK)
+Ticketbleed (CVE-2016-9244), experiment. not vulnerable (OK)
+ROBOT not vulnerable (OK)
+Secure Renegotiation (RFC 5746) supported (OK)
+Secure Client-Initiated Renegotiation not vulnerable (OK)
+CRIME, TLS (CVE-2012-4929) not vulnerable (OK)
+BREACH (CVE-2013-3587) potentially NOT ok, "gzip" HTTP compression detected. - only supplied "/" tested
+Can be ignored for static pages or if no secrets in the page
+POODLE, SSL (CVE-2014-3566) not vulnerable (OK), no SSLv3 support
+TLS_FALLBACK_SCSV (RFC 7507) Downgrade attack prevention supported (OK)
+SWEET32 (CVE-2016-2183, CVE-2016-6329) VULNERABLE, uses 64 bit block ciphers
+FREAK (CVE-2015-0204) not vulnerable (OK)
+DROWN (CVE-2016-0800, CVE-2016-0703) not vulnerable on this host and port (OK)
+make sure you don't use this certificate elsewhere with SSLv2 enabled services
+https://search.censys.io/search?resource=hosts&amp;virtual_hosts=INCLUDE&amp;q=448F11FAD35A95A788934732F8351A08BE930C0D5195E93D52D4C57E13072BB4
+LOGJAM (CVE-2015-4000), experimental not vulnerable (OK): no DH EXPORT ciphers, no DH key detected with &lt;= TLS 1.2
+BEAST (CVE-2011-3389) TLS1: ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-SHA AES256-SHA DES-CBC3-SHA
+VULNERABLE -- but also supports higher protocols TLSv1.1 TLSv1.2 (likely mitigated)
+LUCKY13 (CVE-2013-0169), experimental potentially VULNERABLE, uses cipher block chaining (CBC) ciphers with TLS. Check patches
+RC4 (CVE-2013-2566, CVE-2015-2808) no RC4 ciphers detected (OK)
+
+Testing 370 ciphers via OpenSSL plus sockets against the server, ordered by encryption strength
+
+## Hexcode Cipher Suite Name (OpenSSL) KeyExch. Encryption Bits Cipher Suite Name (IANA/RFC)
+
+x1302 TLS_AES_256_GCM_SHA384 ECDH 253 AESGCM 256 TLS_AES_256_GCM_SHA384
+x1303 TLS_CHACHA20_POLY1305_SHA256 ECDH 253 ChaCha20 256 TLS_CHACHA20_POLY1305_SHA256
+xc030 ECDHE-RSA-AES256-GCM-SHA384 ECDH 256 AESGCM 256 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+xc02c ECDHE-ECDSA-AES256-GCM-SHA384 ECDH 256 AESGCM 256 TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+xc014 ECDHE-RSA-AES256-SHA ECDH 256 AES 256 TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+xc00a ECDHE-ECDSA-AES256-SHA ECDH 256 AES 256 TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+xcca9 ECDHE-ECDSA-CHACHA20-POLY1305 ECDH 253 ChaCha20 256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+xcca8 ECDHE-RSA-CHACHA20-POLY1305 ECDH 253 ChaCha20 256 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+x9d AES256-GCM-SHA384 RSA AESGCM 256 TLS_RSA_WITH_AES_256_GCM_SHA384
+x35 AES256-SHA RSA AES 256 TLS_RSA_WITH_AES_256_CBC_SHA
+x1301 TLS_AES_128_GCM_SHA256 ECDH 253 AESGCM 128 TLS_AES_128_GCM_SHA256
+xc02f ECDHE-RSA-AES128-GCM-SHA256 ECDH 256 AESGCM 128 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+xc02b ECDHE-ECDSA-AES128-GCM-SHA256 ECDH 256 AESGCM 128 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+xc013 ECDHE-RSA-AES128-SHA ECDH 256 AES 128 TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+xc009 ECDHE-ECDSA-AES128-SHA ECDH 256 AES 128 TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+x9c AES128-GCM-SHA256 RSA AESGCM 128 TLS_RSA_WITH_AES_128_GCM_SHA256
+x2f AES128-SHA RSA AES 128 TLS_RSA_WITH_AES_128_CBC_SHA
+x0a DES-CBC3-SHA RSA 3DES 168 TLS_RSA_WITH_3DES_EDE_CBC_SHA
+
+Running client simulations (HTTP) via sockets
+
+Android 6.0 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Android 7.0 (native) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Android 8.1 (native) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 253 bit ECDH (X25519)
+Android 9.0 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Android 10.0 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Android 11 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Android 12 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Chrome 79 (Win 10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Chrome 101 (Win 10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Firefox 66 (Win 8.1/10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Firefox 100 (Win 10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+IE 6 XP No connection
+IE 8 Win 7 TLSv1.0 ECDHE-ECDSA-AES128-SHA, 256 bit ECDH (P-256)
+IE 8 XP TLSv1.0 DES-CBC3-SHA, No FS
+IE 11 Win 7 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+IE 11 Win 8.1 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+IE 11 Win Phone 8.1 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+IE 11 Win 10 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Edge 15 Win 10 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 253 bit ECDH (X25519)
+Edge 101 Win 10 21H2 TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Safari 12.1 (iOS 12.2) TLSv1.3 TLS_CHACHA20_POLY1305_SHA256, 253 bit ECDH (X25519)
+Safari 13.0 (macOS 10.14.6) TLSv1.3 TLS_CHACHA20_POLY1305_SHA256, 253 bit ECDH (X25519)
+Safari 15.4 (macOS 12.3.1) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Java 7u25 TLSv1.0 ECDHE-ECDSA-AES128-SHA, 256 bit ECDH (P-256)
+Java 8u161 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Java 11.0.2 (OpenJDK) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Java 17.0.3 (OpenJDK) TLSv1.3 TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+go 1.17.8 TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+LibreSSL 2.8.3 (Apple) TLSv1.2 ECDHE-ECDSA-CHACHA20-POLY1305, 253 bit ECDH (X25519)
+OpenSSL 1.0.2e TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+OpenSSL 1.1.0l (Debian) TLSv1.2 ECDHE-ECDSA-CHACHA20-POLY1305, 253 bit ECDH (X25519)
+OpenSSL 1.1.1d (Debian) TLSv1.3 TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+OpenSSL 3.0.3 (git) TLSv1.3 TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+Apple Mail (16.0) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Thunderbird (91.9) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+
+Done 2024-02-25 03:15:21 [ 115s] --&gt;&gt; 172.253.63.105:443 (www.google.com) &lt;&lt;--
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="trippy"><a class="header" href="#trippy">Trippy</a></h1>
+<p><a href="https://trippy.rs/">Trippy</a> (<a href="https://github.com/fujiapple852/trippy">GitHub</a>)
+combines ping and traceroute in a live terminal UI: it continuously probes
+every hop on the path and accumulates per-hop loss and latency statistics,
+like mtr. Reach for it when a connection is flaky and you need to know
+which hop is losing the packets.</p>
+<p>The binary is named <code>trip</code>.</p>
+<h2 id="availability-18"><a class="header" href="#availability-18">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>not packaged for Cygwin; use the native Windows build</td></tr>
+<tr><td>Windows (native)</td><td><code>winget install trippy</code> (requires <a href="https://npcap.com/">Npcap</a> and an admin terminal)</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf copr enable atim/trippy &amp;&amp; sudo dnf install trippy</code>, or <code>cargo install trippy</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo add-apt-repository ppa:fujiapple/trippy &amp;&amp; sudo apt install trippy</code>, or <code>cargo install trippy</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Like traceroute, it needs raw sockets: run with <code>sudo</code> on Linux (or grant
+the binary <code>CAP_NET_RAW</code>), and from an administrator terminal on Windows.</p>
+<h2 id="examples-12"><a class="header" href="#examples-12">Examples</a></h2>
+<ul>
+<li>Trace a host and watch per-hop loss/latency accumulate (press <code>q</code> to quit):</li>
+</ul>
+<pre><code class="language-bash">sudo trip www.google.com
+</code></pre>
+<ul>
+<li>Use TCP probes to port 443 instead of ICMP. TCP probes get through
+networks that drop ICMP, and they experience the path closer to how your
+actual HTTPS traffic does:</li>
+</ul>
+<pre><code class="language-bash">sudo trip www.google.com --protocol tcp --target-port 443
+</code></pre>
+<ul>
+<li>Unprivileged mode: no sudo, ICMP via datagram sockets. This works on
+macOS, and on Linux when the <code>ping</code> group range is configured:</li>
+</ul>
+<pre><code class="language-bash">trip www.google.com --unprivileged
+</code></pre>
+<h2 id="related-tools-1"><a class="header" href="#related-tools-1">Related Tools</a></h2>
+<ul>
+<li><a href="https://github.com/traviscross/mtr">mtr</a>, the classic continuous
+traceroute that Trippy modernizes; <code>sudo dnf install mtr</code> /
+<code>sudo apt install mtr-tiny</code>. Not packaged for Cygwin; WinMTR exists as an
+old native Windows port.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="whois"><a class="header" href="#whois">Whois</a></h1>
+<p>whois looks up the registration records behind a domain name, IP address,
+or autonomous system (AS) number. When an unfamiliar IP shows up in your
+logs or in a traceroute, whois tells you who owns it and which network it
+belongs to. Different registries hold different data, so the useful trick
+is the <code>-h</code> flag, which asks a specific whois server.</p>
+<h2 id="availability-19"><a class="header" href="#availability-19">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/whois.html">whois</a> package</td></tr>
+<tr><td>Windows (native)</td><td><a href="https://learn.microsoft.com/en-us/sysinternals/downloads/whois">Sysinternals whois</a></td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install whois</code></td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install whois</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="examples-13"><a class="header" href="#examples-13">Examples</a></h2>
+<ul>
+<li>Who registered a domain:</li>
+</ul>
+<pre><code class="language-bash">whois google.com
+</code></pre>
+<ul>
+<li>Who owns an IP block, asking ARIN (the registry for North America)
+directly:</li>
+</ul>
+<pre><code class="language-bash">whois -h whois.arin.net "152.130.0.0"
+whois -h whois.arin.net 8.8.8.8
+</code></pre>
+<ul>
+<li>Map an IP to its AS number and network name via Team Cymru. This is the
+fastest way to find which provider an address belongs to:</li>
+</ul>
+<pre><code class="language-bash">whois -h whois.cymru.com 40.119.152.231
+</code></pre>
+<ul>
+<li>List every route (prefix) an AS announces, via the RADb routing registry.
+Here AS32934 is Facebook; this kind of query is useful when building
+firewall allowlists:</li>
+</ul>
+<pre><code class="language-bash">whois -h whois.radb.net -- '-i origin AS32934' | grep ^route
+</code></pre>
+<ul>
+<li>Look up which registered route covers an IP:</li>
+</ul>
+<pre><code class="language-bash">whois -h whois.radb.net 8.8.8.8
+</code></pre>
+<ul>
+<li>Query the RIPE database (Europe/Middle East) for an IPv6 address, without
+recursing to other registries:</li>
+</ul>
+<pre><code class="language-bash">whois -r --sources RIPE 2a03:2880:20ff:d::face:b00c
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="network-basics"><a class="header" href="#network-basics">Network Basics</a></h1>
+<p>Every request crosses several layers, and each layer fails in its own way.
+The application protocol (HTTP, DNS, SSH) rides on a transport (TCP or UDP),
+which rides on IP routing, which rides on a physical link. The OSI model
+names seven layers, but for everyday debugging you can get by with four
+questions: does the name resolve, can I reach the address, does the
+transport connect, and does the protocol on top behave. The
+<a href="#diagnosis">diagnosis</a> chapter walks through those questions in order.</p>
+<h2 id="how-a-connection-is-established"><a class="header" href="#how-a-connection-is-established">How a connection is established</a></h2>
+<p>Before a single byte of HTTP moves, the client and server have already done
+a lot of work. Each step below costs at least one round trip, can fail
+independently, and has a tool in this guide that tests it in isolation.</p>
+<p><strong>1. DNS lookup.</strong> The client resolves the hostname to an IP address. If
+this step is wrong, everything after it is wrong too, which is why
+<a href="#dig">dig</a> comes first in any diagnosis.</p>
+<p><strong>2. The TCP three-way handshake.</strong> TCP gives both sides a reliable byte
+stream, and it opens with three packets:</p>
+<pre><code class="language-text">client  ── SYN ──────────────▶  server   "I want to talk. My sequence number starts here."
+client  ◀────────── SYN-ACK ──  server   "Heard you. Mine starts here."
+client  ── ACK ──────────────▶  server   "Confirmed."
+</code></pre>
+<p>After the third packet the connection is established and either side may
+send data. The whole exchange costs one round trip. Failures here are easy
+to read in a packet capture: a SYN that gets no reply at all usually means a
+firewall dropped it silently, while an immediate RST reply means the port is
+closed or a device refused the connection. <a href="#netcat">netcat</a>
+tests exactly this layer and nothing above it, and
+<a href="#tcpdump">tcpdump</a> lets you watch the three packets directly.</p>
+<p><strong>3. The TLS handshake.</strong> For HTTPS, the two sides next negotiate encryption
+on top of the open TCP connection:</p>
+<ul>
+<li>The client sends a ClientHello: the protocol versions and cipher suites it
+supports, plus the server name it wants (SNI).</li>
+<li>The server picks the parameters, sends back its certificate chain, and
+proves it holds the matching private key.</li>
+<li>The client checks that chain against its local trust store. This is the
+step that fails when a corporate proxy intercepts TLS or a certificate
+expires.</li>
+<li>Both sides derive the session keys and exchange Finished messages.</li>
+</ul>
+<p>TLS 1.3 fits this into one round trip; TLS 1.2 needs two.
+<a href="#openssl">openssl</a> s_client performs this handshake and stops,
+which makes it the right probe when TCP connects fine but HTTPS does not.</p>
+<p><strong>4. The application talks.</strong> Only now does the client send its HTTP request
+and wait for a response. <code>curl -w</code> can time every phase above separately,
+so you can see exactly which step ate the time.</p>
+<p>A cold HTTPS request therefore pays for DNS, one round trip of TCP, and one
+or two round trips of TLS before the first byte of content moves. That
+arithmetic is why the <a href="#latency">latency</a> chapter matters.</p>
 <h2 id="simple-flow"><a class="header" href="#simple-flow">Simple flow</a></h2>
 <p>From the <a href="https://blog.cloudflare.com/a-question-of-timing/">Cloudflare blog about timing web requests</a>, a typical network flow for a HTTP request between a client and server can be visualized as the following:</p>
 <p align="center">
@@ -291,25 +1650,148 @@
 </p>
 
 <h2 id="mutual-tls-authentication"><a class="header" href="#mutual-tls-authentication">Mutual TLS authentication</a></h2>
-<p>Mutual TLS authentication (mTLS) involves a flow where a client will verify the identity of the server via a valid certificate and the server will verify the identity of the client via the client certificate with the client public key to establish a trusted encrypted connection.</p>
-<p>This adds an extra layer of security on top of traditional web based TLS traffic that only requires the server to provide a valid certificate.</p>
+<p>In the handshake described above, only the server proves who it is. The
+client stays anonymous as far as TLS is concerned, and identity is handled
+later by the application (cookies, passwords, API keys).</p>
+<p>Mutual TLS authentication (mTLS) moves the client’s proof of identity into
+the handshake itself. The flow extends step 3 above:</p>
+<ul>
+<li>After sending its own certificate, the server also sends a
+CertificateRequest, naming the certificate authorities it will accept
+client certificates from.</li>
+<li>The client sends its client certificate, then signs a hash of the
+handshake with its private key (the CertificateVerify message). The
+signature proves the client actually holds the key, not just a copy of
+the certificate.</li>
+<li>The server validates the client certificate against the CA it trusts for
+clients. Both sides have now authenticated each other before any
+application data is exchanged.</li>
+</ul>
+<p>This adds an extra layer of security on top of traditional web based TLS
+traffic that only requires the server to provide a valid certificate.</p>
+<p>The failure mode is distinctive and worth memorizing: when a required client
+certificate is missing, expired, or signed by the wrong CA, the connection
+dies during the handshake, before any HTTP status code exists. If you see a
+TLS alert (often <code>certificate required</code> or <code>handshake failure</code>) instead of a
+403, think mTLS. To test, present a client certificate explicitly:</p>
+<pre><code class="language-bash">curl -sv https://auth.example.com --cert client.pem --key client-key.pem
+</code></pre>
+<pre><code class="language-bash">openssl s_client -connect auth.example.com:443 -cert client.pem -key client-key.pem
+</code></pre>
 <p align="center">
   <img src="doc/cloudflare-mtls.png" alt="cloudflare mTLS request" title="cloudflare mTLS" />
 </p>
 
 <h2 id="testing"><a class="header" href="#testing">Testing</a></h2>
 <ul>
-<li>Har to curl
-https://github.com/mattcg/har-to-curl</li>
+<li><a href="https://github.com/mattcg/har-to-curl">har-to-curl</a> converts a HAR file
+(saved from the browser’s network tab) into curl commands, so you can
+replay a browser request from the command line.</li>
 </ul>
 <h2 id="for-deeper-dives"><a class="header" href="#for-deeper-dives">For Deeper Dives</a></h2>
 <ul>
 <li>Consider reading <a href="https://en.wikipedia.org/wiki/TCP/IP_Illustrated">TCP/IP Illustrated, Vol. 1: The Protocols</a> and practice reading the various network protocols via <a href="https://www.wireshark.org/">Wireshark</a>.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ip-addressing"><a class="header" href="#ip-addressing">IP Addressing</a></h1>
+<h2 id="the-practical-parts"><a class="header" href="#the-practical-parts">The practical parts</a></h2>
+<h3 id="difference-between-private-ip-and-public-ip"><a class="header" href="#difference-between-private-ip-and-public-ip">Difference between “private” IP and “public” IP</a></h3>
+<p>A public IP is globally routable: any machine on the internet can, in
+principle, send packets to it. A private IP only has meaning inside your
+own network. <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>
+reserves three ranges for private use, and you will see them everywhere:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>CIDR range</th><th>Addresses</th><th>Where you usually meet it</th></tr>
+</thead>
+<tbody>
+<tr><td><code>10.0.0.0/8</code></td><td>10.0.0.0 to 10.255.255.255</td><td>corporate networks, cloud VPCs</td></tr>
+<tr><td><code>172.16.0.0/12</code></td><td>172.16.0.0 to 172.31.255.255</td><td>Docker’s default bridge, cloud VPCs</td></tr>
+<tr><td><code>192.168.0.0/16</code></td><td>192.168.0.0 to 192.168.255.255</td><td>home routers</td></tr>
+</tbody>
+</table>
+</div>
+<p>A NAT device (your home router, a cloud NAT gateway) rewrites private
+addresses to a public one on the way out, which is how a whole office
+shares one public IP.</p>
+<p>The practical debugging consequences:</p>
+<ul>
+<li>If a server’s “IP address” starts with 10., 172.16-31., or 192.168., that
+address is useless to anyone outside the network it lives in. A common
+cause of “it works from here but not from home.”</li>
+<li>Two different networks can both use 192.168.1.0/24 internally. VPNs
+between them then collide, and packets go to the wrong place with no
+error message.</li>
+<li>One more range worth recognizing: <code>100.64.0.0/10</code> is carrier-grade NAT
+space. If your router’s “public” address is in it, you are behind your
+ISP’s NAT and cannot accept inbound connections.</li>
+</ul>
+<h3 id="how-to-use-ipcalc"><a class="header" href="#how-to-use-ipcalc">How to use ipcalc</a></h3>
+<p><a href="#ipcalc">ipcalc</a> does the subnet math: give it an address in CIDR
+notation and it prints the network, netmask, broadcast, and usable host
+range.</p>
+<pre><code class="language-bash">ipcalc 10.130.75.80/26
+</code></pre>
+<p>The most common question it answers is “are these two IPs in the same
+subnet?” Run it on both addresses and compare the network lines.</p>
+<p>Testing IPv6: <a href="https://ipv6.test-ipv6.com/">https://ipv6.test-ipv6.com/</a></p>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="latency"><a class="header" href="#latency">Latency</a></h1>
-<p>Speed of Light in Fiber computation</p>
-<p>How jitter works</p>
+<p>Latency is how long a packet takes to travel from one machine to another.
+What most tools report is round-trip time (RTT): there and back again. The
+two get conflated constantly, so when someone quotes “latency to the
+server”, check whether they mean one way or round trip. The difference is a
+factor of two.</p>
+<p>Bandwidth and latency are independent. A 10 Gbit/s link to Sydney still
+takes 160 ms to deliver the first byte, and no upgrade changes that. You can
+buy more bandwidth; you cannot buy a lower speed of light.</p>
+<h2 id="speed-of-light-in-fiber"><a class="header" href="#speed-of-light-in-fiber">Speed of light in fiber</a></h2>
+<p>Light travels 299,792 km/s in a vacuum. The glass in optical fiber has a
+refractive index of about 1.5, so light inside it moves at roughly 200,000
+km/s. That gives a rule of thumb worth memorizing:</p>
+<pre><code class="language-text">one-way time (ms) ≈ distance (km) ÷ 200
+round-trip time (ms) ≈ distance (km) ÷ 100
+</code></pre>
+<p>Worked example for New York to London: 5,585 km ÷ 200 = 28 ms one way, so
+56 ms round trip. That is the physical floor. Measured RTTs run higher
+because cables do not follow great circles, and every router along the path
+adds queueing and processing delay.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Route</th><th>Distance</th><th>One way in fiber</th><th>Minimum RTT</th><th>Typical measured RTT</th></tr>
+</thead>
+<tbody>
+<tr><td>London to Frankfurt</td><td>640 km</td><td>3 ms</td><td>6 ms</td><td>10 to 15 ms</td></tr>
+<tr><td>New York to San Francisco</td><td>4,148 km</td><td>21 ms</td><td>41 ms</td><td>about 60 ms</td></tr>
+<tr><td>New York to London</td><td>5,585 km</td><td>28 ms</td><td>56 ms</td><td>about 75 ms</td></tr>
+<tr><td>New York to Sydney</td><td>15,993 km</td><td>80 ms</td><td>160 ms</td><td>200 ms and up</td></tr>
+</tbody>
+</table>
+</div>
+<p>Now connect this to the handshake arithmetic from
+<a href="#network-basics">Network Basics</a>: a cold HTTPS request spends about
+four round trips (DNS, TCP, TLS, then the request itself) before the first
+byte of content arrives. At 75 ms RTT that is 300 ms of pure waiting, with
+zero bytes of payload moved. This is why CDNs put servers near users: the
+only way to cut propagation delay is to shorten the distance.</p>
+<h2 id="jitter"><a class="header" href="#jitter">Jitter</a></h2>
+<p>Jitter is the variation in latency from packet to packet. A path with a
+steady 80 ms RTT feels fine on a video call; a path that swings between 40
+and 150 ms breaks up, even though its average looks better. Interactive
+traffic (VoIP, video, SSH typing, games) cares about jitter as much as
+about latency itself.</p>
+<p>The usual cause is queueing: a router with oversized buffers absorbs bursts
+of traffic and drains them slowly, a problem known as bufferbloat. Wi-Fi
+retransmissions and route changes add to it.</p>
+<p>To measure it, run a UDP test with <a href="#iperf3">iperf3</a>, which reports
+jitter directly:</p>
+<pre><code class="language-bash">iperf3 -c &lt;server IP&gt; -u -b 10M
+</code></pre>
+<p>or watch the per-hop standard deviation column in
+<a href="#trippy">trippy</a> or mtr to find which hop introduces the
+variation.</p>
 <h2 id="further-reading"><a class="header" href="#further-reading">Further Reading</a></h2>
 <ul>
 <li>
@@ -321,18 +1803,26 @@ https://github.com/mattcg/har-to-curl</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="diagnosis"><a class="header" href="#diagnosis">Diagnosis</a></h1>
-<p>When faced with a network problem, we have to understand the scenario of the network paths and the problem at hand.</p>
-<p>The Relatively Easy — Difficult to Diagnose. Many problems requires</p>
-<h2 id="network-debugging-techniques"><a class="header" href="#network-debugging-techniques">Network Debugging Techniques</a></h2>
-<h2 id="triage-examples"><a class="header" href="#triage-examples">Triage Examples</a></h2>
-<h3 id="dns-resolution"><a class="header" href="#dns-resolution">DNS resolution</a></h3>
-<p>Waiting for TTL</p>
-<h3 id="global-dns-resolution-timing"><a class="header" href="#global-dns-resolution-timing">Global DNS resolution timing</a></h3>
-<h3 id="firewall-drops-connection"><a class="header" href="#firewall-drops-connection">Firewall drops connection</a></h3>
-<h3 id="client-side-certificate-problems"><a class="header" href="#client-side-certificate-problems">Client Side certificate problems</a></h3>
-<h3 id="mtls-problems"><a class="header" href="#mtls-problems">MTLS problems</a></h3>
-<h3 id="bandwidth-problem"><a class="header" href="#bandwidth-problem">Bandwidth Problem</a></h3>
-<h3 id="latency---broad"><a class="header" href="#latency---broad">Latency - Broad</a></h3>
+<p>A rough order of operations when “the network is broken”. Each step maps to
+one layer of the connection walkthrough in
+<a href="#network-basics">Network Basics</a>.</p>
+<ol>
+<li>Name resolution. Does the name resolve, and to the right address? Start
+with <a href="#dig">dig</a> and compare resolvers. Switch to
+<a href="#delv">delv</a> if a validating resolver returns SERVFAIL.</li>
+<li>Reachability. Can you open a TCP connection to the port at all?
+<a href="#netcat">netcat</a> answers this in one line.</li>
+<li>Path. If reachability is flaky, find the lossy hop with
+<a href="#trippy">trippy</a> or mtr.</li>
+<li>TLS. If the connection opens but the protocol fails, inspect the
+handshake and certificates with <a href="#openssl">openssl</a> s_client
+and <a href="#testssl">testssl</a>.</li>
+<li>Application. If all of the above pass, time the request phases with
+<a href="#curl">curl</a> and trace what the client actually does with
+<a href="#strace">strace</a>.</li>
+<li>Packets. When tools disagree, capture with
+<a href="#tcpdump">tcpdump</a> and read the capture in Wireshark.</li>
+</ol>
 
                     </main>
 
@@ -366,11 +1856,11 @@ https://github.com/mattcg/har-to-curl</li>
 
         <script src="elasticlunr-ef4e11c1.min.js"></script>
         <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

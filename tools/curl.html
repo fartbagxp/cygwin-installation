@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found</title>
-        <base href="/">
+        <title>curl</title>
 
 
         <!-- Custom HTML head -->
@@ -13,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-0392ca55.css">
-        <link rel="stylesheet" href="css/chrome-fc474251.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
+            window.path_to_searchindex_js = "../searchindex-62cee3ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-014ab1a0.js"></script>
+        <script src="../toc-014ab1a0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -106,7 +105,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -141,7 +140,7 @@
                     <h1 class="menu-title"></h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
 
@@ -175,14 +174,123 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="curl"><a class="header" href="#curl">Curl</a></h1>
+<p><a href="https://curl.se/">curl</a> is the de-facto command line tool for sending and
+receiving data over URLs. For network debugging it is the fastest way to
+answer a few recurring questions: is the website up, where does the time go
+in a request (DNS, TCP, TLS, first byte), which certificate is the server
+presenting, and does the problem follow a particular IP or proxy.</p>
+<h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/curl.html">curl</a> package</td></tr>
+<tr><td>Windows (native)</td><td><code>curl.exe</code> ships with Windows 10 (1803+) and Windows 11</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install curl</code> (usually preinstalled)</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install curl</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>One thing to know before comparing results across platforms: the native
+Windows <code>curl.exe</code> uses the Schannel TLS backend and the Windows certificate
+store, while Cygwin and Linux builds typically use OpenSSL with a
+<code>ca-certificates</code> bundle. If a site verifies on one and fails on the other,
+suspect the trust store, not the network.</p>
+<h2 id="curl-by-example"><a class="header" href="#curl-by-example">Curl by Example</a></h2>
+<ul>
+<li>Test whether a website like google.com is providing you with a HTTP 200 response</li>
+</ul>
+<pre><code class="language-bash">curl -sI https://www.google.com | head -n 1
+</code></pre>
+<ul>
+<li>Get the HTTP status code only when testing a website</li>
+</ul>
+<pre><code class="language-bash">curl -s -o /dev/null -w '%{http_code}\n' https://www.google.com
+</code></pre>
+<ul>
+<li>Break down where the time goes in a request (DNS vs connect vs TLS vs first byte)</li>
+</ul>
+<pre><code class="language-bash">curl -s -o /dev/null -w 'dns: %{time_namelookup}s\nconnect: %{time_connect}s\ntls: %{time_appconnect}s\nfirst byte: %{time_starttransfer}s\ntotal: %{time_total}s\n' https://www.google.com
+</code></pre>
+<ul>
+<li>Run curl via a SOCKS proxy. The <code>socks5h://</code> scheme (note the <code>h</code>) makes
+the proxy resolve the domain name instead of resolving it locally. Use it
+when the destination is only resolvable from the far side of the proxy.</li>
+</ul>
+<pre><code class="language-bash">curl -vvvx socks5h://localhost:4020 https://www.google.com
+</code></pre>
+<ul>
+<li>Setting up curl with a different set of trusted authority bundle</li>
+</ul>
+<pre><code class="language-bash">curl -sv --cacert internal-root-ca.pem https://auth.example.com
+</code></pre>
+<ul>
+<li>Testing with mTLS (present a client certificate to the server; see
+<a href="../basic-networking.html">Network Basics</a> for how the mTLS handshake works)</li>
+</ul>
+<pre><code class="language-bash">curl -sv https://auth.example.com --cert example.pem --key key.pem
+</code></pre>
+<h2 id="pull-http-response-headers-only"><a class="header" href="#pull-http-response-headers-only">Pull HTTP response headers only</a></h2>
+<pre><code class="language-bash">curl -sI https://www.yahoo.com 2&gt;&amp;1
+</code></pre>
+<h2 id="force-resolution-to-particular-ip-on-specific-port"><a class="header" href="#force-resolution-to-particular-ip-on-specific-port">Force resolution to particular IP on specific port</a></h2>
+<p>This keeps SNI and the Host header correct while pinning the connection to
+one address. Useful for testing a single backend behind a load balancer, or
+a server whose DNS record does not exist yet:</p>
+<pre><code class="language-bash">curl -vv https://dns.google.com --resolve dns.google.com:443:8.8.8.8
+</code></pre>
+<h2 id="continuous-monitoring-one-liners"><a class="header" href="#continuous-monitoring-one-liners">Continuous monitoring one-liners</a></h2>
+<ul>
+<li>Continuously check <a href="https://fonts.bunny.net">https://fonts.bunny.net</a> every
+10 seconds, with a total timeout of 3 seconds per attempt. Use <strong>Ctrl+C</strong> to kill.</li>
+</ul>
+<pre><code class="language-bash">while true; do curl -s -o /dev/null -w '%{http_code}\n' --max-time 3 https://fonts.bunny.net; sleep 10; done
+</code></pre>
+<ul>
+<li>Same idea, but forcing IPv4 and a connection timeout of 10 seconds, printing
+the HTTP status line:</li>
+</ul>
+<pre><code class="language-bash">while true; do
+  curl -s -4 https://fonts.bunny.net \
+    --connect-timeout 10 \
+    --no-progress-meter -D - -o /dev/null | head -n 1;
+  sleep 10;
+done
+</code></pre>
+<ul>
+<li>With a timestamp on each line (<code>ts</code> comes from the <code>moreutils</code> package):</li>
+</ul>
+<pre><code class="language-bash">while true; do
+  curl -s -4 https://fonts.bunny.net \
+    --connect-timeout 10 \
+    --no-progress-meter -D - -o /dev/null | head -n 1 | ts;
+  sleep 10;
+done
+</code></pre>
+<h2 id="command-for-debugging"><a class="header" href="#command-for-debugging">Command for debugging</a></h2>
+<ul>
+<li>Use <a href="https://badssl.com/">badssl.com</a> to test client behavior against
+known-bad TLS configurations (expired, self-signed, wrong host, weak ciphers):</li>
+</ul>
+<pre><code class="language-bash">curl -sv https://expired.badssl.com/
+curl -sv https://self-signed.badssl.com/
+curl -sv https://wrong.host.badssl.com/
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../tools.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="../tools/delv.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -190,7 +298,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="../tools/delv.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>
@@ -208,13 +322,13 @@
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-09f2665d.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-c22b7243.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

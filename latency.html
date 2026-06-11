@@ -15,8 +15,8 @@
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-69b343ac.js";
+            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d4755468.js"></script>
+        <script src="toc-014ab1a0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,8 +175,60 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="latency"><a class="header" href="#latency">Latency</a></h1>
-<p>Speed of Light in Fiber computation</p>
-<p>How jitter works</p>
+<p>Latency is how long a packet takes to travel from one machine to another.
+What most tools report is round-trip time (RTT): there and back again. The
+two get conflated constantly, so when someone quotes “latency to the
+server”, check whether they mean one way or round trip. The difference is a
+factor of two.</p>
+<p>Bandwidth and latency are independent. A 10 Gbit/s link to Sydney still
+takes 160 ms to deliver the first byte, and no upgrade changes that. You can
+buy more bandwidth; you cannot buy a lower speed of light.</p>
+<h2 id="speed-of-light-in-fiber"><a class="header" href="#speed-of-light-in-fiber">Speed of light in fiber</a></h2>
+<p>Light travels 299,792 km/s in a vacuum. The glass in optical fiber has a
+refractive index of about 1.5, so light inside it moves at roughly 200,000
+km/s. That gives a rule of thumb worth memorizing:</p>
+<pre><code class="language-text">one-way time (ms) ≈ distance (km) ÷ 200
+round-trip time (ms) ≈ distance (km) ÷ 100
+</code></pre>
+<p>Worked example for New York to London: 5,585 km ÷ 200 = 28 ms one way, so
+56 ms round trip. That is the physical floor. Measured RTTs run higher
+because cables do not follow great circles, and every router along the path
+adds queueing and processing delay.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Route</th><th>Distance</th><th>One way in fiber</th><th>Minimum RTT</th><th>Typical measured RTT</th></tr>
+</thead>
+<tbody>
+<tr><td>London to Frankfurt</td><td>640 km</td><td>3 ms</td><td>6 ms</td><td>10 to 15 ms</td></tr>
+<tr><td>New York to San Francisco</td><td>4,148 km</td><td>21 ms</td><td>41 ms</td><td>about 60 ms</td></tr>
+<tr><td>New York to London</td><td>5,585 km</td><td>28 ms</td><td>56 ms</td><td>about 75 ms</td></tr>
+<tr><td>New York to Sydney</td><td>15,993 km</td><td>80 ms</td><td>160 ms</td><td>200 ms and up</td></tr>
+</tbody>
+</table>
+</div>
+<p>Now connect this to the handshake arithmetic from
+<a href="./basic-networking.html">Network Basics</a>: a cold HTTPS request spends about
+four round trips (DNS, TCP, TLS, then the request itself) before the first
+byte of content arrives. At 75 ms RTT that is 300 ms of pure waiting, with
+zero bytes of payload moved. This is why CDNs put servers near users: the
+only way to cut propagation delay is to shorten the distance.</p>
+<h2 id="jitter"><a class="header" href="#jitter">Jitter</a></h2>
+<p>Jitter is the variation in latency from packet to packet. A path with a
+steady 80 ms RTT feels fine on a video call; a path that swings between 40
+and 150 ms breaks up, even though its average looks better. Interactive
+traffic (VoIP, video, SSH typing, games) cares about jitter as much as
+about latency itself.</p>
+<p>The usual cause is queueing: a router with oversized buffers absorbs bursts
+of traffic and drains them slowly, a problem known as bufferbloat. Wi-Fi
+retransmissions and route changes add to it.</p>
+<p>To measure it, run a UDP test with <a href="./tools/iperf.html">iperf3</a>, which reports
+jitter directly:</p>
+<pre><code class="language-bash">iperf3 -c &lt;server IP&gt; -u -b 10M
+</code></pre>
+<p>or watch the per-hop standard deviation column in
+<a href="./tools/trippy.html">trippy</a> or mtr to find which hop introduces the
+variation.</p>
 <h2 id="further-reading"><a class="header" href="#further-reading">Further Reading</a></h2>
 <ul>
 <li>
@@ -191,7 +243,7 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="basic-networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="ip-addressing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -205,7 +257,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="basic-networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="ip-addressing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
@@ -231,11 +283,11 @@
 
         <script src="elasticlunr-ef4e11c1.min.js"></script>
         <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

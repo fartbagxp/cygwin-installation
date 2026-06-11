@@ -15,8 +15,8 @@
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-69b343ac.js";
+            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d4755468.js"></script>
+        <script src="toc-014ab1a0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,27 +177,35 @@
                         <h1 id="tools"><a class="header" href="#tools">Tools</a></h1>
 <p>Cygwin is a collection of open source tools providing Linux capabilities to Windows.</p>
 <p>The following tools will provide insights into client and server behaviors when diagnosing and troubleshooting network issues.</p>
-<p>Aside from tools within Cygwin, we often use other Linux networking tools to diagnose network problems.</p>
+<p>Aside from tools within Cygwin, we often use other Linux networking tools to diagnose network problems. The table below shows where each tool comes from on each platform: a Cygwin package on Windows, and a dnf or apt package on Fedora and Ubuntu. N/A in the Cygwin column means the tool is not packaged for Cygwin. Several of those have native Windows builds instead; each tool’s own page has the details.</p>
 <h2 id="open-source-tools"><a class="header" href="#open-source-tools">Open Source Tools</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Command Line Tool</th><th>Cygwin Package</th><th>Usage</th></tr>
+<tr><th>Command Line Tool</th><th>Cygwin Package</th><th>Fedora (dnf)</th><th>Ubuntu (apt)</th><th>Usage</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="https://cygwin.com/packages/summary/bind-utils.html">dig</a></td><td>bind-utils</td><td>powerful DNS lookup tool, similar to nslookup</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/nc.html">netcat</a></td><td>nc, nc6</td><td>swiss army knife for testing network connectivity</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/openssl.html">openssl</a></td><td>openssl</td><td>library for testing SSL/TLS encryption algorithms</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/openssh.html">openssh</a></td><td>openssh</td><td>a suite of utilities for the SSH protocol</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/curl.html">curl</a></td><td>curl</td><td>command line tool for sending/receiving web requests</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/whois.html">whois</a></td><td>whois</td><td>a domain tool for looking up ownership of domains or IPs</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/ipcalc.html">ipcalc</a></td><td>ipcalc</td><td>IP addressing calculator for subnet in CIDR notation</td></tr>
-<tr><td><a href="https://cygwin.com/packages/summary/procps-ng.html">watch</a></td><td>procps</td><td>create a cron job</td></tr>
-<tr><td><a href="https://github.com/fujiapple852/trippy#binary-asset-download">trippy</a></td><td>N/A</td><td>a network tool that uses a combination of ping and traceroute</td></tr>
-<tr><td><a href="https://github.com/traviscross/mtr">mtr</a></td><td>N/A</td><td>a re-implementation of traceroute for continuous monitoring</td></tr>
-<tr><td><a href="https://github.com/unfrl/dug">unfrl/dug</a></td><td>N/A</td><td>DNS lookup tool on global DNS servers to check DNS propagation</td></tr>
-<tr><td><a href="https://iperf.fr/iperf-download.php">iperf3</a></td><td>N/A</td><td>a highly efficient network traffic generator</td></tr>
-<tr><td><a href="https://www.tcpdump.org/">tcpdump</a></td><td>N/A</td><td>swiss army knife for capturing network traffic</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/curl.html">curl</a></td><td>curl</td><td>curl</td><td>curl</td><td>command line tool for sending/receiving web requests</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/bind-utils.html">dig</a></td><td>bind-utils</td><td>bind-utils</td><td>bind9-dnsutils</td><td>powerful DNS lookup tool, similar to nslookup</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/bind-utils.html">delv</a></td><td>bind-utils</td><td>bind-utils</td><td>bind9-dnsutils</td><td>DNS lookup with full DNSSEC validation and tracing</td></tr>
+<tr><td><a href="https://nlnetlabs.nl/projects/ldns/about/">drill</a></td><td>N/A</td><td>ldns-utils</td><td>ldnsutils</td><td>dig-like DNS tool with DNSSEC signature chasing</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/git.html">git</a></td><td>git</td><td>git</td><td>git</td><td>version control; useful for debugging SSH/TLS transport issues</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/ipcalc.html">ipcalc</a></td><td>ipcalc</td><td>ipcalc</td><td>ipcalc</td><td>IP addressing calculator for subnet in CIDR notation</td></tr>
+<tr><td><a href="https://iperf.fr/iperf-download.php">iperf3</a></td><td>N/A</td><td>iperf3</td><td>iperf3</td><td>a highly efficient network traffic generator</td></tr>
+<tr><td><a href="https://github.com/traviscross/mtr">mtr</a></td><td>N/A</td><td>mtr</td><td>mtr-tiny</td><td>a re-implementation of traceroute for continuous monitoring</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/nc.html">netcat</a></td><td>nc, nc6</td><td>nmap-ncat</td><td>netcat-openbsd</td><td>swiss army knife for testing network connectivity</td></tr>
+<tr><td>netstat</td><td>Windows netstat.exe</td><td>net-tools (or ss)</td><td>net-tools (or ss)</td><td>show listening ports and open connections</td></tr>
+<tr><td><a href="https://github.com/microsoft/ntttcp">ntttcp</a></td><td>N/A</td><td>build from source</td><td>build from source</td><td>Microsoft’s network throughput benchmark</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/openssl.html">openssl</a></td><td>openssl</td><td>openssl</td><td>openssl</td><td>toolkit for testing SSL/TLS connections and certificates</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/openssh.html">openssh</a></td><td>openssh</td><td>openssh-clients</td><td>openssh-client</td><td>a suite of utilities for the SSH protocol (ssh, sftp, scp)</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/rsync.html">rsync</a></td><td>rsync</td><td>rsync</td><td>rsync</td><td>resumable, bandwidth-limited file synchronization over SSH</td></tr>
+<tr><td><a href="https://strace.io">strace</a></td><td>N/A</td><td>strace</td><td>strace</td><td>trace the system calls a process makes (Linux)</td></tr>
+<tr><td><a href="https://www.tcpdump.org/">tcpdump</a></td><td>N/A</td><td>tcpdump</td><td>tcpdump</td><td>swiss army knife for capturing network traffic</td></tr>
+<tr><td><a href="https://testssl.sh/">testssl</a></td><td>runs in Cygwin bash</td><td>testssl</td><td>testssl.sh</td><td>scan a webserver’s TLS protocols, ciphers, and certificates</td></tr>
+<tr><td><a href="https://github.com/fujiapple852/trippy#binary-asset-download">trippy</a></td><td>N/A</td><td>copr or cargo</td><td>PPA or cargo</td><td>a network tool that uses a combination of ping and traceroute</td></tr>
+<tr><td><a href="https://github.com/unfrl/dug">unfrl/dug</a></td><td>N/A</td><td>GitHub .rpm</td><td>GitHub .deb</td><td>DNS lookup tool on global DNS servers to check DNS propagation</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/procps-ng.html">watch</a></td><td>procps</td><td>procps-ng</td><td>procps</td><td>re-run a command on an interval and watch its output</td></tr>
+<tr><td><a href="https://cygwin.com/packages/summary/whois.html">whois</a></td><td>whois</td><td>whois</td><td>whois</td><td>a domain tool for looking up ownership of domains or IPs</td></tr>
 </tbody>
 </table>
 </div>
@@ -210,7 +218,7 @@
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="basic-networking.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="tools/curl.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -224,7 +232,7 @@
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="basic-networking.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="tools/curl.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -246,11 +254,11 @@
 
         <script src="elasticlunr-ef4e11c1.min.js"></script>
         <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

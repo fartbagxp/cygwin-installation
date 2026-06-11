@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found</title>
-        <base href="/">
+        <title>IP Addressing</title>
 
 
         <!-- Custom HTML head -->
@@ -175,14 +174,61 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="ip-addressing"><a class="header" href="#ip-addressing">IP Addressing</a></h1>
+<h2 id="the-practical-parts"><a class="header" href="#the-practical-parts">The practical parts</a></h2>
+<h3 id="difference-between-private-ip-and-public-ip"><a class="header" href="#difference-between-private-ip-and-public-ip">Difference between “private” IP and “public” IP</a></h3>
+<p>A public IP is globally routable: any machine on the internet can, in
+principle, send packets to it. A private IP only has meaning inside your
+own network. <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>
+reserves three ranges for private use, and you will see them everywhere:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>CIDR range</th><th>Addresses</th><th>Where you usually meet it</th></tr>
+</thead>
+<tbody>
+<tr><td><code>10.0.0.0/8</code></td><td>10.0.0.0 to 10.255.255.255</td><td>corporate networks, cloud VPCs</td></tr>
+<tr><td><code>172.16.0.0/12</code></td><td>172.16.0.0 to 172.31.255.255</td><td>Docker’s default bridge, cloud VPCs</td></tr>
+<tr><td><code>192.168.0.0/16</code></td><td>192.168.0.0 to 192.168.255.255</td><td>home routers</td></tr>
+</tbody>
+</table>
+</div>
+<p>A NAT device (your home router, a cloud NAT gateway) rewrites private
+addresses to a public one on the way out, which is how a whole office
+shares one public IP.</p>
+<p>The practical debugging consequences:</p>
+<ul>
+<li>If a server’s “IP address” starts with 10., 172.16-31., or 192.168., that
+address is useless to anyone outside the network it lives in. A common
+cause of “it works from here but not from home.”</li>
+<li>Two different networks can both use 192.168.1.0/24 internally. VPNs
+between them then collide, and packets go to the wrong place with no
+error message.</li>
+<li>One more range worth recognizing: <code>100.64.0.0/10</code> is carrier-grade NAT
+space. If your router’s “public” address is in it, you are behind your
+ISP’s NAT and cannot accept inbound connections.</li>
+</ul>
+<h3 id="how-to-use-ipcalc"><a class="header" href="#how-to-use-ipcalc">How to use ipcalc</a></h3>
+<p><a href="./tools/ipcalc.html">ipcalc</a> does the subnet math: give it an address in CIDR
+notation and it prints the network, netmask, broadcast, and usable host
+range.</p>
+<pre><code class="language-bash">ipcalc 10.130.75.80/26
+</code></pre>
+<p>The most common question it answers is “are these two IPs in the same
+subnet?” Run it on both addresses and compare the network lines.</p>
+<p>Testing IPv6: <a href="https://ipv6.test-ipv6.com/">https://ipv6.test-ipv6.com/</a></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="basic-networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="latency.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -190,7 +236,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="basic-networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="latency.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>

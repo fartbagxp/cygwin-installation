@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Basic Networking</title>
+        <title>testssl</title>
 
 
         <!-- Custom HTML head -->
@@ -12,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-0392ca55.css">
-        <link rel="stylesheet" href="css/chrome-fc474251.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
+            window.path_to_searchindex_js = "../searchindex-62cee3ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-014ab1a0.js"></script>
+        <script src="../toc-014ab1a0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -105,7 +105,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -140,7 +140,7 @@
                     <h1 class="menu-title"></h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
 
@@ -174,114 +174,268 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="network-basics"><a class="header" href="#network-basics">Network Basics</a></h1>
-<p>Every request crosses several layers, and each layer fails in its own way.
-The application protocol (HTTP, DNS, SSH) rides on a transport (TCP or UDP),
-which rides on IP routing, which rides on a physical link. The OSI model
-names seven layers, but for everyday debugging you can get by with four
-questions: does the name resolve, can I reach the address, does the
-transport connect, and does the protocol on top behave. The
-<a href="./diagnosis.html">diagnosis</a> chapter walks through those questions in order.</p>
-<h2 id="how-a-connection-is-established"><a class="header" href="#how-a-connection-is-established">How a connection is established</a></h2>
-<p>Before a single byte of HTTP moves, the client and server have already done
-a lot of work. Each step below costs at least one round trip, can fail
-independently, and has a tool in this guide that tests it in isolation.</p>
-<p><strong>1. DNS lookup.</strong> The client resolves the hostname to an IP address. If
-this step is wrong, everything after it is wrong too, which is why
-<a href="./tools/dig.html">dig</a> comes first in any diagnosis.</p>
-<p><strong>2. The TCP three-way handshake.</strong> TCP gives both sides a reliable byte
-stream, and it opens with three packets:</p>
-<pre><code class="language-text">client  ── SYN ──────────────▶  server   "I want to talk. My sequence number starts here."
-client  ◀────────── SYN-ACK ──  server   "Heard you. Mine starts here."
-client  ── ACK ──────────────▶  server   "Confirmed."
+                        <h1 id="testssl"><a class="header" href="#testssl">Testssl</a></h1>
+<p><a href="https://testssl.sh/">testssl.sh</a> is a <a href="https://github.com/drwetter/testssl.sh">pure bash shell script</a> for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.</p>
+<h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
+<p>Because it is a pure bash script, testssl.sh runs anywhere bash and OpenSSL
+exist, including inside Cygwin on Windows. It even bundles its own openssl
+binaries for common platforms.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>clone the repository (needs the <code>git</code> and <code>bash</code> packages)</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install testssl</code> or clone the repository</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install testssl.sh</code> or clone the repository</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="access"><a class="header" href="#access">Access</a></h2>
+<p>Download the latest script.</p>
+<pre><code class="language-bash">git clone https://github.com/drwetter/testssl.sh.git
 </code></pre>
-<p>After the third packet the connection is established and either side may
-send data. The whole exchange costs one round trip. Failures here are easy
-to read in a packet capture: a SYN that gets no reply at all usually means a
-firewall dropped it silently, while an immediate RST reply means the port is
-closed or a device refused the connection. <a href="./tools/netcat.html">netcat</a>
-tests exactly this layer and nothing above it, and
-<a href="./tools/tcpdump.html">tcpdump</a> lets you watch the three packets directly.</p>
-<p><strong>3. The TLS handshake.</strong> For HTTPS, the two sides next negotiate encryption
-on top of the open TCP connection:</p>
-<ul>
-<li>The client sends a ClientHello: the protocol versions and cipher suites it
-supports, plus the server name it wants (SNI).</li>
-<li>The server picks the parameters, sends back its certificate chain, and
-proves it holds the matching private key.</li>
-<li>The client checks that chain against its local trust store. This is the
-step that fails when a corporate proxy intercepts TLS or a certificate
-expires.</li>
-<li>Both sides derive the session keys and exchange Finished messages.</li>
-</ul>
-<p>TLS 1.3 fits this into one round trip; TLS 1.2 needs two.
-<a href="./tools/openssl.html">openssl</a> s_client performs this handshake and stops,
-which makes it the right probe when TCP connects fine but HTTPS does not.</p>
-<p><strong>4. The application talks.</strong> Only now does the client send its HTTP request
-and wait for a response. <code>curl -w</code> can time every phase above separately,
-so you can see exactly which step ate the time.</p>
-<p>A cold HTTPS request therefore pays for DNS, one round trip of TCP, and one
-or two round trips of TLS before the first byte of content moves. That
-arithmetic is why the <a href="./latency.html">latency</a> chapter matters.</p>
-<h2 id="simple-flow"><a class="header" href="#simple-flow">Simple flow</a></h2>
-<p>From the <a href="https://blog.cloudflare.com/a-question-of-timing/">Cloudflare blog about timing web requests</a>, a typical network flow for a HTTP request between a client and server can be visualized as the following:</p>
-<p align="center">
-  <img src="doc/cloudflare-curl-timing.png" alt="cloudflare timing requests" title="cloudflare timing requests" />
-</p>
+<h2 id="how-to-run"><a class="header" href="#how-to-run">How to Run</a></h2>
+<p>Run it on a website such as google.com.</p>
+<pre><code class="language-bash">bash testssl.sh https://www.google.com
+</code></pre>
+<p>Sample Results:</p>
+<pre><code class="language-markdown">testssl.sh 3.0.8 from https://testssl.sh/
+(30c0359 2024-02-13 18:42:33)
 
-<h2 id="mutual-tls-authentication"><a class="header" href="#mutual-tls-authentication">Mutual TLS authentication</a></h2>
-<p>In the handshake described above, only the server proves who it is. The
-client stays anonymous as far as TLS is concerned, and identity is handled
-later by the application (cookies, passwords, API keys).</p>
-<p>Mutual TLS authentication (mTLS) moves the client’s proof of identity into
-the handshake itself. The flow extends step 3 above:</p>
-<ul>
-<li>After sending its own certificate, the server also sends a
-CertificateRequest, naming the certificate authorities it will accept
-client certificates from.</li>
-<li>The client sends its client certificate, then signs a hash of the
-handshake with its private key (the CertificateVerify message). The
-signature proves the client actually holds the key, not just a copy of
-the certificate.</li>
-<li>The server validates the client certificate against the CA it trusts for
-clients. Both sides have now authenticated each other before any
-application data is exchanged.</li>
-</ul>
-<p>This adds an extra layer of security on top of traditional web based TLS
-traffic that only requires the server to provide a valid certificate.</p>
-<p>The failure mode is distinctive and worth memorizing: when a required client
-certificate is missing, expired, or signed by the wrong CA, the connection
-dies during the handshake, before any HTTP status code exists. If you see a
-TLS alert (often <code>certificate required</code> or <code>handshake failure</code>) instead of a
-403, think mTLS. To test, present a client certificate explicitly:</p>
-<pre><code class="language-bash">curl -sv https://auth.example.com --cert client.pem --key client-key.pem
-</code></pre>
-<pre><code class="language-bash">openssl s_client -connect auth.example.com:443 -cert client.pem -key client-key.pem
-</code></pre>
-<p align="center">
-  <img src="doc/cloudflare-mtls.png" alt="cloudflare mTLS request" title="cloudflare mTLS" />
-</p>
+      This program is free software. Distribution and
+             modification under GPLv2 permitted.
+      USAGE w/o ANY WARRANTY. USE IT AT YOUR OWN RISK!
 
-<h2 id="testing"><a class="header" href="#testing">Testing</a></h2>
-<ul>
-<li><a href="https://github.com/mattcg/har-to-curl">har-to-curl</a> converts a HAR file
-(saved from the browser’s network tab) into curl commands, so you can
-replay a browser request from the command line.</li>
-</ul>
-<h2 id="for-deeper-dives"><a class="header" href="#for-deeper-dives">For Deeper Dives</a></h2>
-<ul>
-<li>Consider reading <a href="https://en.wikipedia.org/wiki/TCP/IP_Illustrated">TCP/IP Illustrated, Vol. 1: The Protocols</a> and practice reading the various network protocols via <a href="https://www.wireshark.org/">Wireshark</a>.</li>
-</ul>
+       Please file bugs @ https://testssl.sh/bugs/
+
+###########################################################
+
+Using "OpenSSL 1.0.2-bad (1.0.2k-dev)" [~179 ciphers]
+on momo:./bin/openssl.Linux.x86_64
+(built: "Sep 1 14:03:44 2022", platform: "linux-x86_64")
+
+## Testing all IPv4 addresses (port 443): 172.253.63.105 172.253.63.99 172.253.63.106 172.253.63.103 172.253.63.147 172.253.63.104
+
+Start 2024-02-25 03:13:30 --&gt;&gt; 172.253.63.105:443 (www.google.com) &lt;&lt;--
+
+Further IP addresses: 172.253.122.104 172.253.122.103 172.253.122.105 172.253.122.99 172.253.122.147 172.253.122.106 2607:f8b0:4004:c07::69 2607:f8b0:4004:c07::93 2607:f8b0:4004:c07::63 2607:f8b0:4004:c07::67
+rDNS (172.253.63.105): bi-in-f105.1e100.net.
+Service detected: HTTP
+
+Testing protocols via sockets except NPN+ALPN
+
+SSLv2 not offered (OK)
+SSLv3 not offered (OK)
+TLS 1 offered (deprecated)
+TLS 1.1 offered (deprecated)
+TLS 1.2 offered (OK)
+TLS 1.3 offered (OK): final
+NPN/SPDY grpc-exp, h2, http/1.1 (advertised)
+ALPN/HTTP2 h2, http/1.1, grpc-exp (offered)
+
+Testing cipher categories
+
+NULL ciphers (no encryption) not offered (OK)
+Anonymous NULL Ciphers (no authentication) not offered (OK)
+Export ciphers (w/o ADH+NULL) not offered (OK)
+LOW: 64 Bit + DES, RC[2,4] (w/o export) not offered (OK)
+Triple DES Ciphers / IDEA offered
+Obsolete CBC ciphers (AES, ARIA etc.) offered
+Strong encryption (AEAD ciphers) offered (OK)
+
+Testing robust (perfect) forward secrecy, (P)FS -- omitting Null Authentication/Encryption, 3DES, RC4
+
+PFS is offered (OK) TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 ECDHE-RSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-RSA-AES256-SHA ECDHE-ECDSA-AES256-SHA ECDHE-ECDSA-CHACHA20-POLY1305
+ECDHE-RSA-CHACHA20-POLY1305 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA ECDHE-ECDSA-AES128-SHA
+Elliptic curves offered: prime256v1 X25519
+
+Testing server preferences
+
+Has server cipher order? yes (OK) -- only for &lt; TLS 1.3
+Negotiated protocol TLSv1.3
+Negotiated cipher TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+Cipher order
+TLSv1: ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-SHA AES256-SHA DES-CBC3-SHA
+TLSv1.1: ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-SHA AES256-SHA DES-CBC3-SHA
+TLSv1.2: ECDHE-ECDSA-AES128-GCM-SHA256 ECDHE-ECDSA-CHACHA20-POLY1305 ECDHE-ECDSA-AES256-GCM-SHA384 ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-CHACHA20-POLY1305
+ECDHE-RSA-AES256-GCM-SHA384 ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-GCM-SHA256 AES256-GCM-SHA384 AES128-SHA AES256-SHA DES-CBC3-SHA
+
+Testing server defaults (Server Hello)
+
+TLS extensions (standard) "renegotiation info/#65281" "EC point formats/#11" "session ticket/#35" "next protocol/#13172" "key share/#51" "supported versions/#43" "extended master secret/#23"
+"application layer protocol negotiation/#16"
+Session Ticket RFC 5077 hint 100800 seconds but: PFS requires session ticket keys to be rotated &lt; daily !
+SSL Session ID support yes
+Session Resumption Tickets: yes, ID: yes
+TLS clock skew 0 sec from localtime
+
+Server Certificate #1
+Signature Algorithm SHA256 with RSA
+Server key size RSA 2048 bits
+Server key usage Digital Signature, Key Encipherment
+Server extended key usage TLS Web Server Authentication
+Serial 54866C406C047C7C0A34EC3C3AB1E0EB (OK: length 16)
+Fingerprints SHA1 D7854FBC47BA3ED33395BD21FFF71643BC27A473
+SHA256 448F11FAD35A95A788934732F8351A08BE930C0D5195E93D52D4C57E13072BB4
+Common Name (CN) www.google.com
+subjectAltName (SAN) www.google.com
+Issuer GTS CA 1C3 (Google Trust Services LLC from US)
+Trust (hostname) Ok via SAN (same w/o SNI)
+Chain of trust Ok
+EV cert (experimental) no
+ETS/"eTLS", visibility info not present
+Certificate Validity (UTC) 64 &gt;= 60 days (2024-02-05 08:19 --&gt; 2024-04-29 08:19)
+
+# of certificates provided 3
+
+Certificate Revocation List http://crls.pki.goog/gts1c3/QOvJ0N1sT2A.crl
+OCSP URI http://ocsp.pki.goog/gts1c3
+OCSP stapling not offered
+OCSP must staple extension --
+DNS CAA RR (experimental) available - please check for match with "Issuer" above: issue=pki.goog
+Certificate Transparency yes (certificate extension)
+
+Server Certificate #2
+Signature Algorithm SHA256 with RSA
+Server key size EC 256 bits
+Server key usage Digital Signature
+Server extended key usage TLS Web Server Authentication
+Serial 55D169AD310983300AC6872F7A8B2B14 (OK: length 16)
+Fingerprints SHA1 872B8A71846A1C14432200F6FD21E6AC7C21D3F5
+SHA256 0093942C6AB658AADB2D3A3CFB40717CE28A23D2B6A2EDCE5D236F9E879E62D0
+Common Name (CN) www.google.com
+subjectAltName (SAN) www.google.com
+Issuer GTS CA 1C3 (Google Trust Services LLC from US)
+Trust (hostname) Ok via SAN (same w/o SNI)
+Chain of trust Ok
+EV cert (experimental) no
+ETS/"eTLS", visibility info not present
+Certificate Validity (UTC) 64 &gt;= 60 days (2024-02-05 08:19 --&gt; 2024-04-29 08:19)
+
+# of certificates provided 3
+
+Certificate Revocation List http://crls.pki.goog/gts1c3/moVDfISia2k.crl
+OCSP URI http://ocsp.pki.goog/gts1c3
+OCSP stapling not offered
+OCSP must staple extension --
+DNS CAA RR (experimental) available - please check for match with "Issuer" above: issue=pki.goog
+Certificate Transparency yes (certificate extension)
+
+Testing HTTP header response @ "/"
+
+HTTP Status Code 200 OK
+HTTP clock skew 0 sec from localtime
+Strict Transport Security not offered
+Public Key Pinning --
+Server banner gws
+Application banner --
+Cookie(s) 3 issued: 2/3 secure, 2/3 HttpOnly
+Security headers X-Frame-Options: SAMEORIGIN
+Content-Security-Policy-Report-Only: object-src 'none';base-uri 'self';script-src 'nonce-dXVNDjDTt6VAToHGETYaOw' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https:
+http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp
+Cache-Control: private, max-age=0
+X-XSS-Protection: 0
+Reverse Proxy banner --
+
+Testing vulnerabilities
+
+Heartbleed (CVE-2014-0160) not vulnerable (OK), no heartbeat extension
+CCS (CVE-2014-0224) not vulnerable (OK)
+Ticketbleed (CVE-2016-9244), experiment. not vulnerable (OK)
+ROBOT not vulnerable (OK)
+Secure Renegotiation (RFC 5746) supported (OK)
+Secure Client-Initiated Renegotiation not vulnerable (OK)
+CRIME, TLS (CVE-2012-4929) not vulnerable (OK)
+BREACH (CVE-2013-3587) potentially NOT ok, "gzip" HTTP compression detected. - only supplied "/" tested
+Can be ignored for static pages or if no secrets in the page
+POODLE, SSL (CVE-2014-3566) not vulnerable (OK), no SSLv3 support
+TLS_FALLBACK_SCSV (RFC 7507) Downgrade attack prevention supported (OK)
+SWEET32 (CVE-2016-2183, CVE-2016-6329) VULNERABLE, uses 64 bit block ciphers
+FREAK (CVE-2015-0204) not vulnerable (OK)
+DROWN (CVE-2016-0800, CVE-2016-0703) not vulnerable on this host and port (OK)
+make sure you don't use this certificate elsewhere with SSLv2 enabled services
+https://search.censys.io/search?resource=hosts&amp;virtual_hosts=INCLUDE&amp;q=448F11FAD35A95A788934732F8351A08BE930C0D5195E93D52D4C57E13072BB4
+LOGJAM (CVE-2015-4000), experimental not vulnerable (OK): no DH EXPORT ciphers, no DH key detected with &lt;= TLS 1.2
+BEAST (CVE-2011-3389) TLS1: ECDHE-ECDSA-AES128-SHA ECDHE-ECDSA-AES256-SHA ECDHE-RSA-AES128-SHA ECDHE-RSA-AES256-SHA AES128-SHA AES256-SHA DES-CBC3-SHA
+VULNERABLE -- but also supports higher protocols TLSv1.1 TLSv1.2 (likely mitigated)
+LUCKY13 (CVE-2013-0169), experimental potentially VULNERABLE, uses cipher block chaining (CBC) ciphers with TLS. Check patches
+RC4 (CVE-2013-2566, CVE-2015-2808) no RC4 ciphers detected (OK)
+
+Testing 370 ciphers via OpenSSL plus sockets against the server, ordered by encryption strength
+
+## Hexcode Cipher Suite Name (OpenSSL) KeyExch. Encryption Bits Cipher Suite Name (IANA/RFC)
+
+x1302 TLS_AES_256_GCM_SHA384 ECDH 253 AESGCM 256 TLS_AES_256_GCM_SHA384
+x1303 TLS_CHACHA20_POLY1305_SHA256 ECDH 253 ChaCha20 256 TLS_CHACHA20_POLY1305_SHA256
+xc030 ECDHE-RSA-AES256-GCM-SHA384 ECDH 256 AESGCM 256 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+xc02c ECDHE-ECDSA-AES256-GCM-SHA384 ECDH 256 AESGCM 256 TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+xc014 ECDHE-RSA-AES256-SHA ECDH 256 AES 256 TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+xc00a ECDHE-ECDSA-AES256-SHA ECDH 256 AES 256 TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+xcca9 ECDHE-ECDSA-CHACHA20-POLY1305 ECDH 253 ChaCha20 256 TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+xcca8 ECDHE-RSA-CHACHA20-POLY1305 ECDH 253 ChaCha20 256 TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+x9d AES256-GCM-SHA384 RSA AESGCM 256 TLS_RSA_WITH_AES_256_GCM_SHA384
+x35 AES256-SHA RSA AES 256 TLS_RSA_WITH_AES_256_CBC_SHA
+x1301 TLS_AES_128_GCM_SHA256 ECDH 253 AESGCM 128 TLS_AES_128_GCM_SHA256
+xc02f ECDHE-RSA-AES128-GCM-SHA256 ECDH 256 AESGCM 128 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+xc02b ECDHE-ECDSA-AES128-GCM-SHA256 ECDH 256 AESGCM 128 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+xc013 ECDHE-RSA-AES128-SHA ECDH 256 AES 128 TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+xc009 ECDHE-ECDSA-AES128-SHA ECDH 256 AES 128 TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+x9c AES128-GCM-SHA256 RSA AESGCM 128 TLS_RSA_WITH_AES_128_GCM_SHA256
+x2f AES128-SHA RSA AES 128 TLS_RSA_WITH_AES_128_CBC_SHA
+x0a DES-CBC3-SHA RSA 3DES 168 TLS_RSA_WITH_3DES_EDE_CBC_SHA
+
+Running client simulations (HTTP) via sockets
+
+Android 6.0 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Android 7.0 (native) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Android 8.1 (native) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 253 bit ECDH (X25519)
+Android 9.0 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Android 10.0 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Android 11 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Android 12 (native) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Chrome 79 (Win 10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Chrome 101 (Win 10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Firefox 66 (Win 8.1/10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Firefox 100 (Win 10) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+IE 6 XP No connection
+IE 8 Win 7 TLSv1.0 ECDHE-ECDSA-AES128-SHA, 256 bit ECDH (P-256)
+IE 8 XP TLSv1.0 DES-CBC3-SHA, No FS
+IE 11 Win 7 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+IE 11 Win 8.1 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+IE 11 Win Phone 8.1 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+IE 11 Win 10 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Edge 15 Win 10 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 253 bit ECDH (X25519)
+Edge 101 Win 10 21H2 TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Safari 12.1 (iOS 12.2) TLSv1.3 TLS_CHACHA20_POLY1305_SHA256, 253 bit ECDH (X25519)
+Safari 13.0 (macOS 10.14.6) TLSv1.3 TLS_CHACHA20_POLY1305_SHA256, 253 bit ECDH (X25519)
+Safari 15.4 (macOS 12.3.1) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+Java 7u25 TLSv1.0 ECDHE-ECDSA-AES128-SHA, 256 bit ECDH (P-256)
+Java 8u161 TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Java 11.0.2 (OpenJDK) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Java 17.0.3 (OpenJDK) TLSv1.3 TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+go 1.17.8 TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+LibreSSL 2.8.3 (Apple) TLSv1.2 ECDHE-ECDSA-CHACHA20-POLY1305, 253 bit ECDH (X25519)
+OpenSSL 1.0.2e TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+OpenSSL 1.1.0l (Debian) TLSv1.2 ECDHE-ECDSA-CHACHA20-POLY1305, 253 bit ECDH (X25519)
+OpenSSL 1.1.1d (Debian) TLSv1.3 TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+OpenSSL 3.0.3 (git) TLSv1.3 TLS_AES_256_GCM_SHA384, 253 bit ECDH (X25519)
+Apple Mail (16.0) TLSv1.2 ECDHE-ECDSA-AES128-GCM-SHA256, 256 bit ECDH (P-256)
+Thunderbird (91.9) TLSv1.3 TLS_AES_128_GCM_SHA256, 253 bit ECDH (X25519)
+
+Done 2024-02-25 03:15:21 [ 115s] --&gt;&gt; 172.253.63.105:443 (www.google.com) &lt;&lt;--
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="tools/whois.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../tools/tcpdump.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="ip-addressing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../tools/trippy.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -291,11 +445,11 @@ replay a browser request from the command line.</li>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="tools/whois.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../tools/tcpdump.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="ip-addressing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../tools/trippy.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -315,13 +469,13 @@ replay a browser request from the command line.</li>
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-09f2665d.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-c22b7243.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

@@ -15,8 +15,8 @@
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-69b343ac.js";
+            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-d4755468.js"></script>
+        <script src="toc-014ab1a0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,18 +175,26 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="diagnosis"><a class="header" href="#diagnosis">Diagnosis</a></h1>
-<p>When faced with a network problem, we have to understand the scenario of the network paths and the problem at hand.</p>
-<p>The Relatively Easy — Difficult to Diagnose. Many problems requires</p>
-<h2 id="network-debugging-techniques"><a class="header" href="#network-debugging-techniques">Network Debugging Techniques</a></h2>
-<h2 id="triage-examples"><a class="header" href="#triage-examples">Triage Examples</a></h2>
-<h3 id="dns-resolution"><a class="header" href="#dns-resolution">DNS resolution</a></h3>
-<p>Waiting for TTL</p>
-<h3 id="global-dns-resolution-timing"><a class="header" href="#global-dns-resolution-timing">Global DNS resolution timing</a></h3>
-<h3 id="firewall-drops-connection"><a class="header" href="#firewall-drops-connection">Firewall drops connection</a></h3>
-<h3 id="client-side-certificate-problems"><a class="header" href="#client-side-certificate-problems">Client Side certificate problems</a></h3>
-<h3 id="mtls-problems"><a class="header" href="#mtls-problems">MTLS problems</a></h3>
-<h3 id="bandwidth-problem"><a class="header" href="#bandwidth-problem">Bandwidth Problem</a></h3>
-<h3 id="latency---broad"><a class="header" href="#latency---broad">Latency - Broad</a></h3>
+<p>A rough order of operations when “the network is broken”. Each step maps to
+one layer of the connection walkthrough in
+<a href="./basic-networking.html">Network Basics</a>.</p>
+<ol>
+<li>Name resolution. Does the name resolve, and to the right address? Start
+with <a href="./tools/dig.html">dig</a> and compare resolvers. Switch to
+<a href="./tools/delv.html">delv</a> if a validating resolver returns SERVFAIL.</li>
+<li>Reachability. Can you open a TCP connection to the port at all?
+<a href="./tools/netcat.html">netcat</a> answers this in one line.</li>
+<li>Path. If reachability is flaky, find the lossy hop with
+<a href="./tools/trippy.html">trippy</a> or mtr.</li>
+<li>TLS. If the connection opens but the protocol fails, inspect the
+handshake and certificates with <a href="./tools/openssl.html">openssl</a> s_client
+and <a href="./tools/testssl.html">testssl</a>.</li>
+<li>Application. If all of the above pass, time the request phases with
+<a href="./tools/curl.html">curl</a> and trace what the client actually does with
+<a href="./tools/strace.html">strace</a>.</li>
+<li>Packets. When tools disagree, capture with
+<a href="./tools/tcpdump.html">tcpdump</a> and read the capture in Wireshark.</li>
+</ol>
 
                     </main>
 
@@ -226,11 +234,11 @@
 
         <script src="elasticlunr-ef4e11c1.min.js"></script>
         <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 

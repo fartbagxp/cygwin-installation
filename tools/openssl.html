@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found</title>
-        <base href="/">
+        <title>openssl</title>
 
 
         <!-- Custom HTML head -->
@@ -13,33 +12,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-0392ca55.css">
-        <link rel="stylesheet" href="css/chrome-fc474251.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-0392ca55.css">
+        <link rel="stylesheet" href="../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
+            window.path_to_searchindex_js = "../searchindex-62cee3ca.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-014ab1a0.js"></script>
+        <script src="../toc-014ab1a0.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -106,7 +105,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -141,7 +140,7 @@
                     <h1 class="menu-title"></h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
 
@@ -175,14 +174,95 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="openssl"><a class="header" href="#openssl">OpenSSL</a></h1>
+<p><a href="https://docs.openssl.org/3.3/man1/openssl-s_client/">OpenSSL</a> is <a href="https://github.com/openssl/openssl">an open
+source toolkit</a> for SSL/TLS. For network
+debugging, its <code>s_client</code> subcommand behaves like a TLS-speaking netcat: it
+performs the TLS handshake (see <a href="../basic-networking.html">Network Basics</a>)
+and shows you the exact certificate chain the server presents, which
+protocol and cipher get negotiated, and whether the handshake completes at
+all. The <code>x509</code> subcommand inspects and converts certificate files locally.</p>
+<h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Platform</th><th>How to get it</th></tr>
+</thead>
+<tbody>
+<tr><td>Windows (Cygwin)</td><td>install the <a href="https://cygwin.com/packages/summary/openssl.html">openssl</a> package</td></tr>
+<tr><td>Fedora</td><td><code>sudo dnf install openssl</code> (usually preinstalled)</td></tr>
+<tr><td>Ubuntu / Debian</td><td><code>sudo apt install openssl</code> (usually preinstalled)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="inspecting-a-live-server"><a class="header" href="#inspecting-a-live-server">Inspecting a live server</a></h2>
+<ul>
+<li>Connect to google.com and show its full certificate chain (the
+<code>echo -n |</code> or <code>&lt;/dev/null</code> closes stdin so the command exits instead of
+waiting for input):</li>
+</ul>
+<pre><code class="language-bash">echo -n | openssl s_client -connect google.com:443 -showcerts
+</code></pre>
+<ul>
+<li>When the server hosts several sites on one IP, set SNI explicitly with
+<code>-servername</code>, otherwise you may receive the wrong (default) certificate:</li>
+</ul>
+<pre><code class="language-bash">openssl s_client -connect www.google.com:443 -servername www.google.com &lt;/dev/null
+</code></pre>
+<ul>
+<li>Get all subject alternative names (the list of hostnames the certificate
+is actually valid for):</li>
+</ul>
+<pre><code class="language-bash">openssl s_client -connect www.google.com:443 &lt;/dev/null | openssl x509 -noout -text | grep DNS:
+</code></pre>
+<ul>
+<li>Test whether a server still accepts an old protocol version:</li>
+</ul>
+<pre><code class="language-bash">openssl s_client -connect example.com:443 -tls1_1 &lt;/dev/null
+</code></pre>
+<h2 id="inspecting-certificate-files"><a class="header" href="#inspecting-certificate-files">Inspecting certificate files</a></h2>
+<ul>
+<li>Convert a <strong>.cer</strong> file (a DER-encoded format commonly exported by Windows)
+to a base64-encoded human-readable <strong>.pem</strong> file:</li>
+</ul>
+<pre><code class="language-bash">openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
+</code></pre>
+<ul>
+<li>Check the validity dates of a single certificate:</li>
+</ul>
+<pre><code class="language-bash">openssl x509 -in &lt;particular pem&gt;.pem -noout -dates
+</code></pre>
+<ul>
+<li>Check the dates of every .pem in a folder:</li>
+</ul>
+<pre><code class="language-bash">for i in &lt;folder&gt;/*.pem; do echo "$i"; openssl x509 -in "$i" -noout -dates; done
+</code></pre>
+<ul>
+<li>Recursively find all .pem files and print their expiry dates:</li>
+</ul>
+<pre><code class="language-bash">find . -name '*.pem' -type f -print -exec openssl x509 -in {} -enddate -noout \;
+</code></pre>
+<h2 id="extracting-a-server-certificate-for-a-java-trust-store"><a class="header" href="#extracting-a-server-certificate-for-a-java-trust-store">Extracting a server certificate for a Java trust store</a></h2>
+<p>A practical combination: pull the certificate a server presents, save it as
+a .pem, and import it into a Java cacerts keystore (here inside a Dockerfile,
+hence the <code>RUN</code>):</p>
+<pre><code class="language-dockerfile">RUN echo | openssl s_client -servername swa.cdc.gov -connect swa.cdc.gov:443 2&gt;&amp;1 \
+      | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' &gt; cert.pem &amp;&amp; \
+    "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa \
+      -noprompt -cacerts -storepass changeit -file cert.pem
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../tools/ntttcp.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="../tools/rsync.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -190,7 +270,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../tools/ntttcp.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="../tools/rsync.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>
@@ -208,13 +294,13 @@
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-09f2665d.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-c22b7243.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
 
