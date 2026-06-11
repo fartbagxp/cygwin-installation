@@ -33,7 +33,7 @@ The following instructions are to install [Cygwin](https://www.cygwin.com/) on a
 
    This refers to where cygwin packages of open source software will be downloaded from. It is best to choose a closest location to you, and a location that you trust downloading binaries from.
 
-   I generally choose the mirror source of Virginia Tech (VT) or Rochester Institute of Technlogy (RIT) as I'm on the East Coast.
+   I generally choose the mirror source of Virginia Tech (VT) or Rochester Institute of Technology (RIT).
 
    - Once selected, click "Next".
 
