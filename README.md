@@ -4,7 +4,7 @@ This is a guide for sharing tips and tricks in utilizing [Cygwin](https://www.cy
 
 This guide includes a set of practical examples on how to utilize the tools for debugging problems, and best utilized in conjunction with [Wireshark](https://www.wireshark.org/) (requires administrative privileges) and other the [Windows Sysinternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite).
 
-The guide can be found [here](https://fartbagxp.github.io/cygwin-installation).
+The guide can be found [on this site](https://fartbagxp.github.io/cygwin-installation).
 
 For deeper dives into networking, I recommend [TCP/IP Illustrated Volume 1](https://en.wikipedia.org/wiki/TCP/IP_Illustrated).
 
