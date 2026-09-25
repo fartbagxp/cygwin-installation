@@ -23,3 +23,5 @@
 - [Basic Networking](./basic-networking.md)
 - [Latency](./latency.md)
 - [Diagnosis](./diagnosis.md)
+- [Field Recipes]()
+  - [TLS Triage](./recipes/tls-triage.md)

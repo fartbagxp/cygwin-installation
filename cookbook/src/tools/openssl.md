@@ -16,21 +16,40 @@
   openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
   ```
 
-- Show a certificate of a website like google.com
-  `openssl s_client -showcerts -connect www.google.com:443 </dev/null`
+  OpenSSL 3 detects the binary DER format on its own. OpenSSL 1.x needs `-inform der` added, or it fails with `unable to load certificate`.
 
-- get all subject alternate names
-  `openssl s_client -connect www.google.com:443 </dev/null | openssl x509 -noout -text | grep DNS: | awk '{print $0,"\n"}'`
+- Show a certificate of a website like google.com, sending the hostname as SNI so a shared server returns the right certificate
 
-For checking certificate dates: for i in $( ls <folder>/\*.pem ); do echo $i; openssl x509 -in $i -noout -dates; done
-Single cert:
-`openssl x509 -in <particular pem>.pem -noout -dates`
+  ```bash
+  openssl s_client -showcerts -connect www.google.com:443 -servername www.google.com </dev/null
+  ```
 
-Show cert:  
- `openssl s_client -showcerts -connect www.google.com:443 </dev/null`
+- Get all subject alternative names, the names a client actually matches against
 
-Look for all pem in a single directory and find all:
-`find . -name '*.pem' -type f -print -exec openssl x509 -in {} -enddate -noout \;`
+  ```bash
+  openssl s_client -connect www.google.com:443 -servername www.google.com </dev/null 2>/dev/null \
+    | openssl x509 -noout -ext subjectAltName
+  ```
 
-RUN echo | openssl s_client -servername swa.cdc.gov -connect swa.cdc.gov:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > cert.pem && \
- "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa -noprompt -cacerts -storepass changeit -file cert.pem
+- Check the dates on a single certificate file
+
+  ```bash
+  openssl x509 -in certificate.pem -noout -dates
+  ```
+
+- Check the expiry of every **.pem** file under a folder
+
+  ```bash
+  find . -name '*.pem' -type f -print -exec openssl x509 -in {} -noout -enddate \;
+  ```
+
+- Trust a server's certificate in a Java application (Java 9+), such as a scanner behind an internal CA. The `sed` keeps only the PEM block. Without `-showcerts` this is the leaf certificate, which stops working at the next renewal, so import the issuing CA instead when you can get it.
+
+  ```bash
+  echo | openssl s_client -servername internal.example.com -connect internal.example.com:443 2>/dev/null \
+    | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > cert.pem
+  "$JAVA_HOME"/bin/keytool -importcert -alias internal-example -noprompt \
+    -cacerts -storepass changeit -file cert.pem
+  ```
+
+For a step by step walk through certificate problems, see [TLS Triage](../recipes/tls-triage.md).

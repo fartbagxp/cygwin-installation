@@ -1,13 +1,30 @@
 # Testssl
 
-[testssl.sh](https://testssl.sh/) is a [pure bash shell script](https://github.com/drwetter/testssl.sh) for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.
+[testssl.sh](https://testssl.sh/) is a [pure bash shell script](https://github.com/testssl/testssl.sh) for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.
 
 ## Access
 
-Download the latest script.
+Download the latest script. The project moved from `drwetter/testssl.sh` to `testssl/testssl.sh`; the old URL redirects to the same repository.
 
 ```bash
-git clone git@github.com:drwetter/testssl.sh.git
+git clone https://github.com/testssl/testssl.sh.git
+```
+
+There are two active branches:
+
+- `3.3dev` is the default and gets fixes and new checks first.
+- `3.2` is the stable release line, for when results need to stay the same between runs.
+
+```bash
+git clone --branch 3.2 https://github.com/testssl/testssl.sh.git
+```
+
+An existing clone may be following only one branch. Check which one, and switch to the development branch if you want it:
+
+```bash
+git -C testssl.sh branch --show-current
+git -C testssl.sh remote set-branches --add origin 3.3dev
+git -C testssl.sh fetch origin && git -C testssl.sh switch 3.3dev
 ```
 
 ## How to Run
