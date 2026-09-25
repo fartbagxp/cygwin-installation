@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-0392ca55.css">
-        <link rel="stylesheet" href="../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-62cee3ca.js";
+            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-014ab1a0.js"></script>
+        <script src="../toc-ace22e1c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -227,6 +227,7 @@ to a base64-encoded human-readable <strong>.pem</strong> file:</li>
 </ul>
 <pre><code class="language-bash">openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
 </code></pre>
+<p>OpenSSL 3 detects the DER format on its own. OpenSSL 1.x needs <code>-inform der</code> added, or it fails with <code>unable to load certificate</code>.</p>
 <ul>
 <li>Check the validity dates of a single certificate:</li>
 </ul>
@@ -251,6 +252,7 @@ hence the <code>RUN</code>):</p>
     "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa \
       -noprompt -cacerts -storepass changeit -file cert.pem
 </code></pre>
+<p>For a step by step walk through certificate problems, see <a href="../recipes/tls-triage.html">TLS Triage</a>.</p>
 
                     </main>
 
@@ -300,7 +302,7 @@ hence the <code>RUN</code>):</p>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-c22b7243.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

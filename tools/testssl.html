@@ -15,8 +15,8 @@
         <link rel="icon" href="../favicon-de23e50b.svg">
         <link rel="shortcut icon" href="../favicon-8114d1fc.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-0392ca55.css">
-        <link rel="stylesheet" href="../css/chrome-fc474251.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -35,10 +35,10 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-62cee3ca.js";
+            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-014ab1a0.js"></script>
+        <script src="../toc-ace22e1c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="testssl"><a class="header" href="#testssl">Testssl</a></h1>
-<p><a href="https://testssl.sh/">testssl.sh</a> is a <a href="https://github.com/drwetter/testssl.sh">pure bash shell script</a> for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.</p>
+<p><a href="https://testssl.sh/">testssl.sh</a> is a <a href="https://github.com/testssl/testssl.sh">pure bash shell script</a> for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <p>Because it is a pure bash script, testssl.sh runs anywhere bash and OpenSSL
 exist, including inside Cygwin on Windows. It even bundles its own openssl
@@ -193,8 +193,20 @@ binaries for common platforms.</p>
 </table>
 </div>
 <h2 id="access"><a class="header" href="#access">Access</a></h2>
-<p>Download the latest script.</p>
-<pre><code class="language-bash">git clone https://github.com/drwetter/testssl.sh.git
+<p>Download the latest script. The project moved from <code>drwetter/testssl.sh</code> to <code>testssl/testssl.sh</code>; the old URL redirects to the same repository.</p>
+<pre><code class="language-bash">git clone https://github.com/testssl/testssl.sh.git
+</code></pre>
+<p>There are two active branches:</p>
+<ul>
+<li><code>3.3dev</code> is the default and gets fixes and new checks first.</li>
+<li><code>3.2</code> is the stable release line, for when results need to stay the same between runs.</li>
+</ul>
+<pre><code class="language-bash">git clone --branch 3.2 https://github.com/testssl/testssl.sh.git
+</code></pre>
+<p>An existing clone may be following only one branch. Check which one, and switch to the development branch if you want it:</p>
+<pre><code class="language-bash">git -C testssl.sh branch --show-current
+git -C testssl.sh remote set-branches --add origin 3.3dev
+git -C testssl.sh fetch origin &amp;&amp; git -C testssl.sh switch 3.3dev
 </code></pre>
 <h2 id="how-to-run"><a class="header" href="#how-to-run">How to Run</a></h2>
 <p>Run it on a website such as google.com.</p>
@@ -475,7 +487,7 @@ Done 2024-02-25 03:15:21 [ 115s] --&gt;&gt; 172.253.63.105:443 (www.google.com) 
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-c22b7243.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 

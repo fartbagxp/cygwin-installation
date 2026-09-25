@@ -16,8 +16,8 @@
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-0392ca55.css">
-        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -36,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-62cee3ca.js";
+            window.path_to_searchindex_js = "searchindex-a145ea43.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-014ab1a0.js"></script>
+        <script src="toc-ace22e1c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -388,6 +388,7 @@ known-bad TLS configurations (expired, self-signed, wrong host, weak ciphers):</
 curl -sv https://self-signed.badssl.com/
 curl -sv https://wrong.host.badssl.com/
 </code></pre>
+<p><a href="#tls-triage">TLS Triage</a> explains what each resulting curl exit code means and how to follow it up.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="delv"><a class="header" href="#delv">Delv</a></h1>
 <p><a href="https://bind9.readthedocs.io/en/latest/manpages.html#delv-dns-lookup-and-validation-utility">delv</a>
@@ -943,6 +944,7 @@ to a base64-encoded human-readable <strong>.pem</strong> file:</li>
 </ul>
 <pre><code class="language-bash">openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
 </code></pre>
+<p>OpenSSL 3 detects the DER format on its own. OpenSSL 1.x needs <code>-inform der</code> added, or it fails with <code>unable to load certificate</code>.</p>
 <ul>
 <li>Check the validity dates of a single certificate:</li>
 </ul>
@@ -967,6 +969,7 @@ hence the <code>RUN</code>):</p>
     "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa \
       -noprompt -cacerts -storepass changeit -file cert.pem
 </code></pre>
+<p>For a step by step walk through certificate problems, see <a href="#tls-triage">TLS Triage</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="rsync"><a class="header" href="#rsync">Rsync</a></h1>
 <p><a href="https://rsync.samba.org/">rsync</a> synchronizes files between machines (or
@@ -1234,7 +1237,7 @@ the handshake walkthrough in <a href="#network-basics">Network Basics</a>):</li>
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="testssl"><a class="header" href="#testssl">Testssl</a></h1>
-<p><a href="https://testssl.sh/">testssl.sh</a> is a <a href="https://github.com/drwetter/testssl.sh">pure bash shell script</a> for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.</p>
+<p><a href="https://testssl.sh/">testssl.sh</a> is a <a href="https://github.com/testssl/testssl.sh">pure bash shell script</a> for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.</p>
 <h2 id="availability-17"><a class="header" href="#availability-17">Availability</a></h2>
 <p>Because it is a pure bash script, testssl.sh runs anywhere bash and OpenSSL
 exist, including inside Cygwin on Windows. It even bundles its own openssl
@@ -1252,8 +1255,20 @@ binaries for common platforms.</p>
 </table>
 </div>
 <h2 id="access"><a class="header" href="#access">Access</a></h2>
-<p>Download the latest script.</p>
-<pre><code class="language-bash">git clone https://github.com/drwetter/testssl.sh.git
+<p>Download the latest script. The project moved from <code>drwetter/testssl.sh</code> to <code>testssl/testssl.sh</code>; the old URL redirects to the same repository.</p>
+<pre><code class="language-bash">git clone https://github.com/testssl/testssl.sh.git
+</code></pre>
+<p>There are two active branches:</p>
+<ul>
+<li><code>3.3dev</code> is the default and gets fixes and new checks first.</li>
+<li><code>3.2</code> is the stable release line, for when results need to stay the same between runs.</li>
+</ul>
+<pre><code class="language-bash">git clone --branch 3.2 https://github.com/testssl/testssl.sh.git
+</code></pre>
+<p>An existing clone may be following only one branch. Check which one, and switch to the development branch if you want it:</p>
+<pre><code class="language-bash">git -C testssl.sh branch --show-current
+git -C testssl.sh remote set-branches --add origin 3.3dev
+git -C testssl.sh fetch origin &amp;&amp; git -C testssl.sh switch 3.3dev
 </code></pre>
 <h2 id="how-to-run"><a class="header" href="#how-to-run">How to Run</a></h2>
 <p>Run it on a website such as google.com.</p>
@@ -1823,6 +1838,276 @@ and <a href="#testssl">testssl</a>.</li>
 <li>Packets. When tools disagree, capture with
 <a href="#tcpdump">tcpdump</a> and read the capture in Wireshark.</li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="tls-triage"><a class="header" href="#tls-triage">TLS Triage</a></h1>
+<p>Someone reports “the site is broken” or “we get a certificate error”. Work through these in order. Each step either finds the problem or rules out a layer.</p>
+<p>Examples use <a href="https://badssl.com">badssl.com</a>, which hosts a deliberately broken site for nearly every TLS failure, and <code>www.va.gov</code> as a well-behaved public site. Everything here runs in Cygwin with the <code>openssl</code>, <code>curl</code>, <code>bind-utils</code> and <code>jq</code> packages.</p>
+<h2 id="1-let-curl-tell-you-which-layer-failed"><a class="header" href="#1-let-curl-tell-you-which-layer-failed">1. Let curl tell you which layer failed</a></h2>
+<p>Before opening <code>openssl</code>, run curl once and read the exit code. It separates DNS, TCP, and TLS failures without any guesswork.</p>
+<pre><code class="language-bash">curl -sS -o /dev/null -w '%{http_code}\n' https://expired.badssl.com
+echo "exit code: $?"
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Exit</th><th>What failed</th><th>Typical message</th><th>Next step</th></tr>
+</thead>
+<tbody>
+<tr><td>6</td><td>DNS</td><td><code>Could not resolve host</code></td><td><a href="#dig">dig</a>, not a TLS problem</td></tr>
+<tr><td>7</td><td>TCP</td><td><code>Failed to connect ... Could not connect to server</code></td><td>firewall or service down, try <a href="#netcat">netcat</a></td></tr>
+<tr><td>28</td><td>Timeout</td><td><code>Connection timed out after ...</code></td><td>packets dropped somewhere, try <a href="#trippy">trippy</a></td></tr>
+<tr><td>35</td><td>TLS handshake</td><td><code>unsupported protocol</code>, <code>handshake failure</code></td><td>client and server share no protocol or cipher, see <a href="#5-protocols-and-ciphers">step 5</a></td></tr>
+<tr><td>60</td><td>Certificate verification</td><td><code>certificate has expired</code>, <code>self-signed certificate</code>, <code>no alternative certificate subject name matches</code>, <code>unable to get local issuer certificate</code></td><td><a href="#2-look-at-the-certificate-chain">step 2</a></td></tr>
+<tr><td>0, HTTP 400</td><td>Server wanted a client cert</td><td><code>400 No required SSL certificate was sent</code> in the body</td><td>mTLS, see <a href="#curl">curl</a> <code>--cert</code>/<code>--key</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Exit 60 covers four different problems. The message after the code tells you which one:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>curl message (exit 60)</th><th>Meaning</th><th>Usual fix</th></tr>
+</thead>
+<tbody>
+<tr><td><code>certificate has expired</code></td><td>past <code>notAfter</code></td><td>renew</td></tr>
+<tr><td><code>no alternative certificate subject name matches target hostname</code></td><td>cert is for a different name</td><td>add the name as a SAN, or you hit the wrong vhost (missing SNI)</td></tr>
+<tr><td><code>unable to get local issuer certificate</code></td><td>server did not send its intermediate</td><td>fix the server’s chain file; browsers often hide this because they cache intermediates</td></tr>
+<tr><td><code>self-signed certificate in certificate chain</code></td><td>chain ends at a root you do not trust</td><td>corporate TLS inspection, or a private CA: add the root to your bundle, do not add <code>-k</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Do not reach for <code>curl -k</code> to make the error go away while triaging. It turns off exactly the check you are trying to run.</p>
+<h2 id="2-look-at-the-certificate-chain"><a class="header" href="#2-look-at-the-certificate-chain">2. Look at the certificate chain</a></h2>
+<p><code>-servername</code> sends SNI. Without it, a server hosting many sites returns its default certificate, and you end up debugging the wrong certificate.</p>
+<pre><code class="language-bash">echo | openssl s_client -connect www.va.gov:443 -servername www.va.gov -showcerts 2&gt;/dev/null \
+  | grep -E '^ *[0-9] s:|^ +i:'
+</code></pre>
+<pre><code class="language-text"> 0 s:CN=www.va.gov
+   i:C=GB, O=Sectigo Limited, CN=Sectigo Public Server Authentication CA DV R36
+ 1 s:C=GB, O=Sectigo Limited, CN=Sectigo Public Server Authentication CA DV R36
+   i:C=GB, O=Sectigo Limited, CN=Sectigo Public Server Authentication Root R46
+ 2 s:C=GB, O=Sectigo Limited, CN=Sectigo Public Server Authentication Root R46
+   i:C=GB, ST=Greater Manchester, L=Salford, O=Comodo CA Limited, CN=AAA Certificate Services
+</code></pre>
+<p>Read it top down. Each <code>i:</code> (issuer) should equal the next line’s <code>s:</code> (subject). If the list stops at <code>0</code> and the issuer is not a root your machine trusts, the server is missing its intermediate. That is the <code>unable to get local issuer certificate</code> case.</p>
+<p>The leaf certificate’s names and dates:</p>
+<pre><code class="language-bash">echo | openssl s_client -connect www.va.gov:443 -servername www.va.gov 2&gt;/dev/null \
+  | openssl x509 -noout -subject -issuer -dates -ext subjectAltName
+</code></pre>
+<pre><code class="language-text">subject=CN=www.va.gov
+issuer=C=GB, O=Sectigo Limited, CN=Sectigo Public Server Authentication CA DV R36
+notBefore=Dec 20 00:00:00 2025 GMT
+notAfter=Jan 18 23:59:59 2027 GMT
+X509v3 Subject Alternative Name:
+    DNS:www.va.gov, DNS:va.gov
+</code></pre>
+<p>Clients ignore the CN and match only against the Subject Alternative Names. If the name you typed is not in that list, you get the hostname mismatch error.</p>
+<p>For a pass/fail answer, <code>-checkend</code> exits non-zero if the certificate expires within the given number of seconds. That makes it usable in cron or CI:</p>
+<pre><code class="language-bash">echo | openssl s_client -connect www.va.gov:443 -servername www.va.gov 2&gt;/dev/null \
+  | openssl x509 -noout -checkend $((30 * 86400)) || echo "expires within 30 days"
+</code></pre>
+<h2 id="3-check-every-ip-not-just-the-one-you-happened-to-hit"><a class="header" href="#3-check-every-ip-not-just-the-one-you-happened-to-hit">3. Check every IP, not just the one you happened to hit</a></h2>
+<p>A name behind a load balancer or round-robin DNS resolves to several IPs, and a renewal that missed one node shows up as an intermittent error. This checks each IPv4 address separately, sending the same SNI to each:</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Print the certificate expiry served by every IPv4 address behind a name.
+# Usage: bash cert-expiry-by-ip.sh &lt;hostname&gt; [port]
+set -euo pipefail
+
+host=${1:?usage: $0 &lt;hostname&gt; [port]}
+port=${2:-443}
+now=$(date +%s)
+
+# dig +short follows CNAMEs and prints them too; keep only the IPv4 answers.
+dig +short A "$host" | grep -E '^[0-9.]+$' | while read -r ip; do
+  end=$(timeout 5 openssl s_client -connect "$ip:$port" -servername "$host" &lt;/dev/null 2&gt;/dev/null \
+        | openssl x509 -noout -enddate 2&gt;/dev/null | cut -d= -f2) || true
+  if [ -z "$end" ]; then
+    printf '%s,%s,NO CERTIFICATE\n' "$host" "$ip"
+    continue
+  fi
+  days=$(( ($(date -d "$end" +%s) - now) / 86400 ))
+  printf '%s,%s,%s,%s days\n' "$host" "$ip" "$end" "$days"
+done
+</code></pre>
+<pre><code class="language-text">$ bash cert-expiry-by-ip.sh www.va.gov
+www.va.gov,152.130.96.221,Jan 18 23:59:59 2027 GMT,115 days
+</code></pre>
+<p><code>dig +short</code> prints CNAME targets before the addresses, which is why the script filters for lines that look like IPs.</p>
+<h2 id="4-sweep-a-whole-domain-for-expiring-or-broken-certificates"><a class="header" href="#4-sweep-a-whole-domain-for-expiring-or-broken-certificates">4. Sweep a whole domain for expiring or broken certificates</a></h2>
+<p>Certificate Transparency logs list every certificate a public CA has issued for a domain, which gives you a list of names nobody remembered to put in the inventory. This pulls the names from <a href="https://crt.sh">crt.sh</a>, connects to each one in parallel, and reports days left plus whether the certificate actually verifies:</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Find every name in Certificate Transparency logs for a domain, then check
+# the certificate each one serves right now: days left, expiry, and whether
+# it verifies. Soonest expiry first.
+# Usage: bash cert-expiry-domain.sh &lt;domain&gt; [parallel-jobs]
+#        subfinder -silent -d &lt;domain&gt; | bash cert-expiry-domain.sh - [parallel-jobs]
+set -euo pipefail
+
+domain=${1:?usage: $0 &lt;domain&gt; [parallel-jobs]}
+jobs=${2:-10}
+
+check() {
+  local name=$1 out end days verify
+  out=$(timeout 5 openssl s_client -connect "$name:443" -servername "$name" \
+        -verify_hostname "$name" &lt;/dev/null 2&gt;/dev/null) || true
+  end=$(printf '%s' "$out" | openssl x509 -noout -enddate 2&gt;/dev/null | cut -d= -f2) || true
+  if [ -z "$end" ]; then
+    printf 'NONE\t%s\tno TLS answer on 443\n' "$name"
+    return
+  fi
+  verify=$(printf '%s' "$out" | sed -n 's/^ *Verify return code: [0-9]* (\(.*\))$/\1/p' | tail -1)
+  days=$(( ($(date -d "$end" +%s) - $(date +%s)) / 86400 ))
+  printf '%s\t%s\t%s\t%s\n' "$days" "$name" "$end" "$verify"
+}
+export -f check
+
+names() {
+  if [ "$domain" = - ]; then
+    cat   # names on stdin, one per line
+  else
+    # name_value holds several names separated by newlines
+    curl -fsS --retry 5 --retry-delay 10 --max-time 120 \
+      "https://crt.sh/?q=%25.${domain}&amp;output=json" | jq -r '.[].name_value'
+  fi
+}
+
+# Wildcards are cut down to their base name so there is something to connect to.
+names \
+  | sed 's/^\*\.//' | tr 'A-Z' 'a-z' | sort -u \
+  | xargs -P "$jobs" -I{} bash -c 'check "$1"' _ {} \
+  | sort -n
+</code></pre>
+<p>Run it as <code>bash cert-expiry-domain.sh badssl.com 20</code>. Here it is fed a short list on stdin so the output is easy to read:</p>
+<pre><code class="language-text">$ printf '%s\n' '*.badssl.com' expired.badssl.com self-signed.badssl.com \
+    WRONG.host.badssl.com nope.invalid | bash cert-expiry-domain.sh - 5
+-4183   expired.badssl.com      Apr 12 23:59:59 2015 GMT   certificate has expired
+NONE    nope.invalid            no TLS answer on 443
+31      badssl.com              Oct 26 20:03:01 2026 GMT   ok
+31      wrong.host.badssl.com   Oct 26 20:03:01 2026 GMT   hostname mismatch
+727     self-signed.badssl.com  Sep 21 21:00:16 2028 GMT   self-signed certificate
+</code></pre>
+<p>Things to know:</p>
+<ul>
+<li>crt.sh is a free service and often returns 502 under load. The script retries, then stops with curl’s error instead of printing an empty report. When it is down, feed the names in yourself: <code>subfinder -silent -d badssl.com | bash cert-expiry-domain.sh -</code>.</li>
+<li>An earlier version of this script only checked names that answered <code>200 OK</code> first. HTTP/2 servers answer <code>HTTP/2 200</code> and many sites answer with a redirect, so most live hosts were skipped. Connecting with <code>openssl</code> directly avoids the problem.</li>
+<li><code>NONE</code> does not always mean dead. The name may be internal-only, behind a VPN, or listening only on a port other than 443.</li>
+<li>The <code>days</code> column only covers expiry. Read the last column too: a certificate with 700 days left that is self-signed is still broken.</li>
+</ul>
+<h2 id="5-protocols-and-ciphers"><a class="header" href="#5-protocols-and-ciphers">5. Protocols and ciphers</a></h2>
+<p>Which TLS versions does the server accept?</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Which TLS versions does a server accept?
+# Usage: bash tls-versions.sh &lt;hostname&gt; [port]
+set -euo pipefail
+
+host=${1:?usage: $0 &lt;hostname&gt; [port]}
+port=${2:-443}
+
+for v in tls1 tls1_1 tls1_2 tls1_3; do
+  # SECLEVEL=0 lets the client offer old protocols at all. Distro crypto
+  # policies can still block them; see the note under "Protocols and ciphers".
+  if timeout 5 openssl s_client -connect "$host:$port" -servername "$host" \
+       "-$v" -cipher 'DEFAULT:@SECLEVEL=0' &lt;/dev/null 2&gt;/dev/null | grep -q '^New, TLS'; then
+    printf '%-8s offered\n' "$v"
+  else
+    printf '%-8s not offered\n' "$v"
+  fi
+done
+</code></pre>
+<pre><code class="language-text">$ bash tls-versions.sh www.va.gov
+tls1     not offered
+tls1_1   not offered
+tls1_2   offered
+tls1_3   not offered
+</code></pre>
+<p>Your local OpenSSL limits what this can see. OpenSSL 3 refuses TLS 1.0 and 1.1 unless you lower the security level, which the script does with <code>@SECLEVEL=0</code>. Fedora and RHEL crypto policies can still block legacy signatures underneath that, and you get <code>invalid digest</code> instead of a handshake. So “not offered” for old versions can mean “my client could not ask”. For a compliance answer, use <a href="#testssl">testssl.sh</a>, which ships its own OpenSSL built with the legacy options, or nmap:</p>
+<pre><code class="language-bash">nmap --script ssl-enum-ciphers -p 443 www.va.gov
+</code></pre>
+<p>Both grade every cipher the server offers, which is what an audit against <a href="https://https.cio.gov/">M-15-13</a> and <a href="https://www.cisa.gov/news-events/directives/bod-18-01-enhance-email-and-web-security">BOD 18-01</a> needs.</p>
+<h2 id="6-hsts-and-the-http-to-https-redirect"><a class="header" href="#6-hsts-and-the-http-to-https-redirect">6. HSTS and the HTTP to HTTPS redirect</a></h2>
+<p>BOD 18-01 expects port 80 to redirect to HTTPS, and HTTPS responses to carry <code>Strict-Transport-Security</code> with <code>max-age</code> of at least one year, <code>includeSubDomains</code>, and <code>preload</code>. The check has to follow the redirect: <code>va.gov</code> and <code>www.va.gov</code> can send different headers.</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+# Check HSTS on a host, and on wherever it redirects to, the way M-15-13 and
+# BOD 18-01 grade it. Pass an IP to test one edge node or a CDN before DNS moves.
+# Usage: bash hsts-check.sh &lt;hostname&gt; [ip]
+set -euo pipefail
+
+host=${1:?usage: $0 &lt;hostname&gt; [ip]}
+ip=${2:-}
+
+pin=()
+[ -n "$ip" ] &amp;&amp; pin=(--resolve "$host:443:$ip")
+
+hsts() {  # print the HSTS header value of a URL, or nothing
+  curl -sS -o /dev/null -D - --max-time 10 "${pin[@]}" "$1" \
+    | tr -d '\r' | sed -n 's/^strict-transport-security: *//Ip' | tail -1
+}
+
+report() {
+  local url=$1 got lc age missing=()
+  got=$(hsts "$url")
+  if [ -z "$got" ]; then
+    echo "FAIL  $url sends no Strict-Transport-Security header"
+    return
+  fi
+  lc=$(printf '%s' "$got" | tr 'A-Z' 'a-z')
+  age=$(printf '%s' "$lc" | sed -n 's/.*max-age="\{0,1\}\([0-9]*\).*/\1/p')
+  [ "${age:-0}" -ge 31536000 ] || missing+=("max-age&gt;=31536000")
+  [[ $lc == *includesubdomains* ]] || missing+=(includeSubDomains)
+  [[ $lc == *preload* ]]           || missing+=(preload)
+  if [ ${#missing[@]} -eq 0 ]; then
+    echo "OK    $url  $got"
+  else
+    echo "WARN  $url  $got"
+    echo "      missing: ${missing[*]}"
+  fi
+}
+
+report "https://$host/"
+
+# Only the first hop is pinned: --resolve applies to $host alone, so a
+# redirect to another name resolves normally.
+final=$(curl -sS -L -o /dev/null --max-time 15 "${pin[@]}" -w '%{url_effective}' "https://$host/")
+[ "$final" != "https://$host/" ] &amp;&amp; report "$final"
+
+# Port 80 should only redirect to https.
+loc=$(curl -sS -o /dev/null --max-time 10 ${ip:+--resolve "$host:80:$ip"} -w '%{http_code} %{redirect_url}' "http://$host/")
+echo "INFO  http://$host/ -&gt; $loc"
+</code></pre>
+<pre><code class="language-text">$ bash hsts-check.sh va.gov
+WARN  https://va.gov/  max-age=31536000; preload
+      missing: includeSubDomains
+OK    https://www.va.gov/  max-age=31536000; includeSubDomains; preload
+INFO  http://va.gov/ -&gt; 301 https://va.gov:443/
+</code></pre>
+<p>The script checks each directive on its own, because servers write them in different orders and cases. GitHub, for example, sends <code>includeSubdomains</code>.</p>
+<h2 id="7-test-a-specific-ip-or-cdn-before-changing-dns"><a class="header" href="#7-test-a-specific-ip-or-cdn-before-changing-dns">7. Test a specific IP or CDN before changing DNS</a></h2>
+<p>Before a DNS cutover, you want to know the new origin or CDN edge serves the right certificate for your name. <code>--resolve</code> makes curl connect to an IP you choose while still sending the real hostname in SNI and the <code>Host</code> header:</p>
+<pre><code class="language-bash">curl -sS -o /dev/null --resolve www.va.gov:443:152.130.96.221 \
+  -w 'ip=%{remote_ip} http=%{http_code} verify=%{ssl_verify_result}\n' https://www.va.gov/
+</code></pre>
+<p>The format is <code>host:port:address</code>, and the host and port must match the URL exactly. A malformed entry such as <code>--resolve https://www.va.gov:443:1.2.3.4</code> at least fails loudly (exit 49). A well-formed entry that does not match is worse: <code>--resolve va.gov:443:...</code> for a <code>www.va.gov</code> URL, or port 80 for an <code>https://</code> URL, is silently ignored, so curl resolves normally, tests the old site, and reports success. Always print <code>%{remote_ip}</code> to confirm you reached the IP you meant.</p>
+<p>When the new target is a CDN hostname rather than an IP, <code>--connect-to</code> saves the <code>dig</code> step:</p>
+<pre><code class="language-bash">curl -sS -o /dev/null --connect-to www.example.gov:443:www.example.gov.edgekey.net:443 \
+  -w 'ip=%{remote_ip} verify=%{ssl_verify_result}\n' https://www.example.gov/
+</code></pre>
+<p><code>verify=0</code> means the certificate on the new target is valid for your name. If it is not, curl exits 60 and prints a non-zero <code>verify</code> (an OpenSSL verify code, such as 20 for a missing issuer), and that is what your users would see on cutover day. This is the one test where <code>-k</code> would hide exactly the problem you are looking for.</p>
+<p><code>hsts-check.sh</code> above takes the IP as a second argument (<code>bash hsts-check.sh www.va.gov 152.130.96.221</code>) to check the headers the new target sends, too.</p>
+<p>To see the cutover from your users’ point of view, run the same <code>curl</code> from several regions. A VPN with a CLI works, for example <code>piactl set region uk-london &amp;&amp; piactl connect</code> in a loop. This matters most when overseas users are a population you have to serve.</p>
+<h2 id="8-where-the-time-goes"><a class="header" href="#8-where-the-time-goes">8. Where the time goes</a></h2>
+<p>When the complaint is “TLS is slow”, split the request into phases:</p>
+<pre><code class="language-bash">curl -sS -o /dev/null https://www.va.gov/ -w \
+  'dns=%{time_namelookup}s tcp=%{time_connect}s tls=%{time_appconnect}s ttfb=%{time_starttransfer}s total=%{time_total}s\n'
+</code></pre>
+<pre><code class="language-text">dns=0.000012s tcp=0.009375s tls=0.036600s ttfb=0.390449s total=0.523465s
+</code></pre>
+<p>Each value is cumulative from the start of the request. So the TLS handshake took <code>tls - tcp</code>, about 27 ms here, and the server spent <code>ttfb - tls</code> thinking. A large <code>tls - tcp</code> next to a small <code>tcp</code> usually points to a long certificate chain, a busy server doing expensive key exchanges, or a TLS-inspecting proxy in the path. See <a href="#latency">Latency</a> for why the <code>tcp</code> number cannot go below the round trip.</p>
+<h2 id="further-reading-1"><a class="header" href="#further-reading-1">Further reading</a></h2>
+<ul>
+<li><a href="https://badssl.com">badssl.com</a>: a broken example for most failure modes, useful for checking that your client really does fail</li>
+<li><a href="https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices">SSL Labs deployment best practices</a></li>
+<li><a href="https://www.feistyduck.com/library/openssl-cookbook/">Feisty Duck OpenSSL Cookbook</a></li>
+</ul>
 
                     </main>
 
@@ -1860,7 +2145,7 @@ and <a href="#testssl">testssl</a>.</li>
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-abc7f01d.js"></script>
-        <script src="book-c22b7243.js"></script>
+        <script src="book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
 
