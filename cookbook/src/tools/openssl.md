@@ -55,6 +55,8 @@ openssl s_client -connect example.com:443 -tls1_1 </dev/null
 openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
 ```
 
+OpenSSL 3 detects the DER format on its own. OpenSSL 1.x needs `-inform der` added, or it fails with `unable to load certificate`.
+
 - Check the validity dates of a single certificate:
 
 ```bash
@@ -85,3 +87,5 @@ RUN echo | openssl s_client -servername swa.cdc.gov -connect swa.cdc.gov:443 2>&
     "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa \
       -noprompt -cacerts -storepass changeit -file cert.pem
 ```
+
+For a step by step walk through certificate problems, see [TLS Triage](../recipes/tls-triage.md).

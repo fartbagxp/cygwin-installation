@@ -120,3 +120,5 @@ curl -sv https://expired.badssl.com/
 curl -sv https://self-signed.badssl.com/
 curl -sv https://wrong.host.badssl.com/
 ```
+
+  [TLS Triage](../recipes/tls-triage.md) explains what each resulting curl exit code means and how to follow it up.

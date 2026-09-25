@@ -27,3 +27,5 @@
 - [IP Addressing](./ip-addressing.md)
 - [Latency](./latency.md)
 - [Diagnosis](./diagnosis.md)
+- [Field Recipes]()
+  - [TLS Triage](./recipes/tls-triage.md)
