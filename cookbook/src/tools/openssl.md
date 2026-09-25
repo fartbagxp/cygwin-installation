@@ -1,55 +1,91 @@
 # OpenSSL
 
-[OpenSSL](https://docs.openssl.org/3.3/man1/openssl-s_client/) is [an open source tool](https://github.com/openssl/openssl) for testing SSL/TLS connections.
+[OpenSSL](https://docs.openssl.org/3.3/man1/openssl-s_client/) is [an open
+source toolkit](https://github.com/openssl/openssl) for SSL/TLS. For network
+debugging, its `s_client` subcommand behaves like a TLS-speaking netcat: it
+performs the TLS handshake (see [Network Basics](../basic-networking.md))
+and shows you the exact certificate chain the server presents, which
+protocol and cipher get negotiated, and whether the handshake completes at
+all. The `x509` subcommand inspects and converts certificate files locally.
 
-## Various Usage
+## Availability
 
-- Connect to google.com and show google.com's TLS certificate
+| Platform         | How to get it                                                                   |
+| ---------------- | -------------------------------------------------------------------------------- |
+| Windows (Cygwin) | install the [openssl](https://cygwin.com/packages/summary/openssl.html) package |
+| Fedora           | `sudo dnf install openssl` (usually preinstalled)                               |
+| Ubuntu / Debian  | `sudo apt install openssl` (usually preinstalled)                               |
 
-  ```bash
-  echo -n | openssl s_client -connect google.com:443 -showcerts
-  ```
+## Inspecting a live server
 
-- Convert a **.cer** file, a file commonly used by Windows for TLS certificates to a base64 encoded human-readable **.pem** file
+- Connect to google.com and show its full certificate chain (the
+  `echo -n |` or `</dev/null` closes stdin so the command exits instead of
+  waiting for input):
 
-  ```bash
-  openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
-  ```
+```bash
+echo -n | openssl s_client -connect google.com:443 -showcerts
+```
 
-  OpenSSL 3 detects the binary DER format on its own. OpenSSL 1.x needs `-inform der` added, or it fails with `unable to load certificate`.
+- When the server hosts several sites on one IP, set SNI explicitly with
+  `-servername`, otherwise you may receive the wrong (default) certificate:
 
-- Show a certificate of a website like google.com, sending the hostname as SNI so a shared server returns the right certificate
+```bash
+openssl s_client -connect www.google.com:443 -servername www.google.com </dev/null
+```
 
-  ```bash
-  openssl s_client -showcerts -connect www.google.com:443 -servername www.google.com </dev/null
-  ```
+- Get all subject alternative names (the list of hostnames the certificate
+  is actually valid for):
 
-- Get all subject alternative names, the names a client actually matches against
+```bash
+openssl s_client -connect www.google.com:443 </dev/null | openssl x509 -noout -text | grep DNS:
+```
 
-  ```bash
-  openssl s_client -connect www.google.com:443 -servername www.google.com </dev/null 2>/dev/null \
-    | openssl x509 -noout -ext subjectAltName
-  ```
+- Test whether a server still accepts an old protocol version:
 
-- Check the dates on a single certificate file
+```bash
+openssl s_client -connect example.com:443 -tls1_1 </dev/null
+```
 
-  ```bash
-  openssl x509 -in certificate.pem -noout -dates
-  ```
+## Inspecting certificate files
 
-- Check the expiry of every **.pem** file under a folder
+- Convert a **.cer** file (a DER-encoded format commonly exported by Windows)
+  to a base64-encoded human-readable **.pem** file:
 
-  ```bash
-  find . -name '*.pem' -type f -print -exec openssl x509 -in {} -noout -enddate \;
-  ```
+```bash
+openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
+```
 
-- Trust a server's certificate in a Java application (Java 9+), such as a scanner behind an internal CA. The `sed` keeps only the PEM block. Without `-showcerts` this is the leaf certificate, which stops working at the next renewal, so import the issuing CA instead when you can get it.
+OpenSSL 3 detects the DER format on its own. OpenSSL 1.x needs `-inform der` added, or it fails with `unable to load certificate`.
 
-  ```bash
-  echo | openssl s_client -servername internal.example.com -connect internal.example.com:443 2>/dev/null \
-    | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > cert.pem
-  "$JAVA_HOME"/bin/keytool -importcert -alias internal-example -noprompt \
-    -cacerts -storepass changeit -file cert.pem
-  ```
+- Check the validity dates of a single certificate:
+
+```bash
+openssl x509 -in <particular pem>.pem -noout -dates
+```
+
+- Check the dates of every .pem in a folder:
+
+```bash
+for i in <folder>/*.pem; do echo "$i"; openssl x509 -in "$i" -noout -dates; done
+```
+
+- Recursively find all .pem files and print their expiry dates:
+
+```bash
+find . -name '*.pem' -type f -print -exec openssl x509 -in {} -enddate -noout \;
+```
+
+## Extracting a server certificate for a Java trust store
+
+A practical combination: pull the certificate a server presents, save it as
+a .pem, and import it into a Java cacerts keystore (here inside a Dockerfile,
+hence the `RUN`):
+
+```dockerfile
+RUN echo | openssl s_client -servername swa.cdc.gov -connect swa.cdc.gov:443 2>&1 \
+      | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > cert.pem && \
+    "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa \
+      -noprompt -cacerts -storepass changeit -file cert.pem
+```
 
 For a step by step walk through certificate problems, see [TLS Triage](../recipes/tls-triage.md).

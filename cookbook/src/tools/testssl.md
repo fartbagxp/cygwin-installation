@@ -2,6 +2,18 @@
 
 [testssl.sh](https://testssl.sh/) is a [pure bash shell script](https://github.com/testssl/testssl.sh) for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.
 
+## Availability
+
+Because it is a pure bash script, testssl.sh runs anywhere bash and OpenSSL
+exist, including inside Cygwin on Windows. It even bundles its own openssl
+binaries for common platforms.
+
+| Platform         | How to get it                                              |
+| ---------------- | ----------------------------------------------------------- |
+| Windows (Cygwin) | clone the repository (needs the `git` and `bash` packages) |
+| Fedora           | `sudo dnf install testssl` or clone the repository         |
+| Ubuntu / Debian  | `sudo apt install testssl.sh` or clone the repository      |
+
 ## Access
 
 Download the latest script. The project moved from `drwetter/testssl.sh` to `testssl/testssl.sh`; the old URL redirects to the same repository.
