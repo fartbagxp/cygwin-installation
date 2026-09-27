@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,10 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="tcpdump"><a class="header" href="#tcpdump">Tcpdump</a></h1>
-<p><a href="https://www.tcpdump.org/">tcpdump</a> captures packets off a network
-interface. When logs and tools disagree, a packet capture settles the
-argument. Captures are usually written to a <code>.pcap</code> file and analyzed in
-<a href="https://www.wireshark.org/">Wireshark</a> afterwards.</p>
+<p><a href="https://www.tcpdump.org/">tcpdump</a> captures packets off a network interface. When logs and tools disagree, a packet capture settles the argument. Captures are usually written to a <code>.pcap</code> file and analyzed in <a href="https://www.wireshark.org/">Wireshark</a> afterwards.</p>
 <p>Capturing requires root/administrator privileges on every platform.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
@@ -201,22 +198,17 @@ argument. Captures are usually written to a <code>.pcap</code> file and analyzed
 <pre><code class="language-bash">tcpdump -D
 </code></pre>
 <ul>
-<li>Capture all UDP traffic to/from 1.1.1.1 on interface <code>wlp7s0</code>, full
-packets (<code>-s 0</code>), written to a pcap file for Wireshark (this example was
-used to debug DNSSEC responses from Cloudflare’s resolver):</li>
+<li>Capture all UDP traffic to/from 1.1.1.1 on interface <code>wlp7s0</code>, full packets (<code>-s 0</code>), written to a pcap file for Wireshark (this example was used to debug DNSSEC responses from Cloudflare’s resolver):</li>
 </ul>
 <pre><code class="language-bash">sudo tcpdump -i wlp7s0 -s 0 -w /tmp/dnssec-cdc4.pcap "host 1.1.1.1 and udp"
 </code></pre>
 <ul>
-<li>Watch DNS queries live on screen, without name resolution (<code>-nn</code>) so
-tcpdump itself does not generate DNS traffic:</li>
+<li>Watch DNS queries live on screen, without name resolution (<code>-nn</code>) so tcpdump itself does not generate DNS traffic:</li>
 </ul>
 <pre><code class="language-bash">sudo tcpdump -i any -nn port 53
 </code></pre>
 <ul>
-<li>Watch TCP connection attempts to a host. If you see SYNs going out with
-no SYN/ACK coming back, a firewall along the path is dropping them (see
-the handshake walkthrough in <a href="../basic-networking.html">Network Basics</a>):</li>
+<li>Watch TCP connection attempts to a host. If you see SYNs going out with no SYN/ACK coming back, a firewall along the path is dropping them (see the handshake walkthrough in <a href="../basic-networking.html">Network Basics</a>):</li>
 </ul>
 <pre><code class="language-bash">sudo tcpdump -i any -nn "host 192.168.122.15 and tcp port 443"
 </code></pre>

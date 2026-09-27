@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,10 +175,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="git"><a class="header" href="#git">Git</a></h1>
-<p><a href="https://git-scm.com/">git</a> is not a network tool, but git fetches and
-pushes fail for network reasons all the time: SSH key problems, TLS
-interception by corporate proxies, blocked ports. Git has built-in knobs
-that expose what its transport (SSH or HTTPS) is actually doing.</p>
+<p><a href="https://git-scm.com/">git</a> is itself a client to connect to a Git server using the underlying git protocol to communicate to a git server. It is not a network tool, but git fetches and pushes fail for network reasons all the time: SSH key problems, TLS interception by corporate proxies, blocked ports. Git has built-in knobs that expose what its transport (SSH or HTTPS) is actually doing.</p>
+<p>To explore how you might use Git across many organizations using a common profile, read <a href="https://fartbagxp.github.io/git-and-ssh/">Git and SSH</a>.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
 <table>
@@ -194,8 +192,7 @@ that expose what its transport (SSH or HTTPS) is actually doing.</p>
 </table>
 </div>
 <h2 id="debugging-git-over-ssh"><a class="header" href="#debugging-git-over-ssh">Debugging Git over SSH</a></h2>
-<p>Make git’s underlying ssh invocation verbose. The output shows which key is
-offered, which host key is received, and where authentication fails:</p>
+<p>Make git’s underlying ssh invocation verbose. The output shows which key is offered, which host key is received, and where authentication fails:</p>
 <pre><code class="language-bash">GIT_SSH_COMMAND="ssh -vvv" git clone &lt;REPO_SSH_URL&gt;
 </code></pre>
 <p>Test SSH authentication to the host directly, without git:</p>
@@ -205,8 +202,7 @@ offered, which host key is received, and where authentication fails:</p>
 <p>Show the full HTTP conversation including TLS handshake and proxy usage:</p>
 <pre><code class="language-bash">GIT_CURL_VERBOSE=1 GIT_TRACE=1 git clone &lt;REPO_HTTPS_URL&gt;
 </code></pre>
-<p>Point git at a corporate CA bundle when a TLS-intercepting proxy breaks
-certificate verification (prefer this over disabling verification):</p>
+<p>Point git at a corporate CA bundle when a TLS-intercepting proxy breaks certificate verification (prefer this over disabling verification):</p>
 <pre><code class="language-bash">git config --global http.sslCAInfo /path/to/corporate-ca-bundle.pem
 </code></pre>
 <h2 id="interesting-links"><a class="header" href="#interesting-links">Interesting Links</a></h2>

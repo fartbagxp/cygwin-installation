@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,12 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="delv"><a class="header" href="#delv">Delv</a></h1>
-<p><a href="https://bind9.readthedocs.io/en/latest/manpages.html#delv-dns-lookup-and-validation-utility">delv</a>
-(domain entity lookup and validation) is dig’s DNSSEC-aware sibling from
-BIND 9. Where dig shows you the raw DNS answer, delv performs full DNSSEC
-validation itself and tells you why a chain of trust fails. That is exactly
-what you need when a domain works on one resolver but returns SERVFAIL on a
-validating one.</p>
+<p><a href="https://bind9.readthedocs.io/en/latest/manpages.html#delv-dns-lookup-and-validation-utility">delv</a> (domain entity lookup and validation) is dig’s DNSSEC-aware sibling from BIND 9. Where dig shows you the raw DNS answer, delv performs full DNSSEC validation itself and tells you why a chain of trust fails. That is exactly what you need when a domain works on one resolver but returns SERVFAIL on a validating one.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
 <table>
@@ -196,16 +191,12 @@ validating one.</p>
 </div>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <ul>
-<li>Validate a record and show the validation result (<code>; fully validated</code> or
-<code>; unsigned</code> in the output):</li>
+<li>Validate a record and show the validation result (<code>; fully validated</code> or <code>; unsigned</code> in the output):</li>
 </ul>
 <pre><code class="language-bash">delv www.cdc.gov A
 </code></pre>
 <ul>
-<li>Show the full validation logic step by step with <code>+vtrace</code>, and format
-multi-line records readably with <code>+multi</code>. Querying the same TLSA (DANE)
-record through several public resolvers tells you whether a DNSSEC problem
-lives in the zone itself or in one resolver’s cache:</li>
+<li>Show the full validation logic step by step with <code>+vtrace</code>, and format multi-line records readably with <code>+multi</code>. Querying the same TLSA (DANE) record through several public resolvers tells you whether a DNSSEC problem lives in the zone itself or in one resolver’s cache:</li>
 </ul>
 <pre><code class="language-bash">delv @1.1.1.1 cdc.gov TLSA +multi +vtrace
 delv @8.8.8.8 cdc.gov TLSA +multi +vtrace
@@ -215,9 +206,7 @@ delv @208.67.222.222 cdc.gov TLSA +multi +vtrace
 delv @185.228.169.9 cdc.gov TLSA +multi +vtrace
 </code></pre>
 <ul>
-<li>See what a broken domain looks like. Instead of a bare SERVFAIL, delv
-prints the specific failure (expired signature, missing DS record, bogus
-chain):</li>
+<li>See what a broken domain looks like. Instead of a bare SERVFAIL, delv prints the specific failure (expired signature, missing DS record, bogus chain):</li>
 </ul>
 <pre><code class="language-bash">delv dnssec-failed.org A +rtrace
 </code></pre>

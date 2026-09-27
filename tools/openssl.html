@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,13 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="openssl"><a class="header" href="#openssl">OpenSSL</a></h1>
-<p><a href="https://docs.openssl.org/3.3/man1/openssl-s_client/">OpenSSL</a> is <a href="https://github.com/openssl/openssl">an open
-source toolkit</a> for SSL/TLS. For network
-debugging, its <code>s_client</code> subcommand behaves like a TLS-speaking netcat: it
-performs the TLS handshake (see <a href="../basic-networking.html">Network Basics</a>)
-and shows you the exact certificate chain the server presents, which
-protocol and cipher get negotiated, and whether the handshake completes at
-all. The <code>x509</code> subcommand inspects and converts certificate files locally.</p>
+<p><a href="https://docs.openssl.org/3.3/man1/openssl-s_client/">OpenSSL</a> is <a href="https://github.com/openssl/openssl">an open source toolkit</a> for SSL/TLS. For network debugging, its <code>s_client</code> subcommand behaves like a TLS-speaking netcat: it performs the TLS handshake (see <a href="../basic-networking.html">Network Basics</a>) and shows you the exact certificate chain the server presents, which protocol and cipher get negotiated, and whether the handshake completes at all. The <code>x509</code> subcommand inspects and converts certificate files locally.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
 <table>
@@ -197,21 +191,17 @@ all. The <code>x509</code> subcommand inspects and converts certificate files lo
 </div>
 <h2 id="inspecting-a-live-server"><a class="header" href="#inspecting-a-live-server">Inspecting a live server</a></h2>
 <ul>
-<li>Connect to google.com and show its full certificate chain (the
-<code>echo -n |</code> or <code>&lt;/dev/null</code> closes stdin so the command exits instead of
-waiting for input):</li>
+<li>Connect to google.com and show its full certificate chain (the <code>echo -n |</code> or <code>&lt;/dev/null</code> closes stdin so the command exits instead of waiting for input):</li>
 </ul>
 <pre><code class="language-bash">echo -n | openssl s_client -connect google.com:443 -showcerts
 </code></pre>
 <ul>
-<li>When the server hosts several sites on one IP, set SNI explicitly with
-<code>-servername</code>, otherwise you may receive the wrong (default) certificate:</li>
+<li>When the server hosts several sites on one IP, set SNI explicitly with <code>-servername</code>, otherwise you may receive the wrong (default) certificate:</li>
 </ul>
 <pre><code class="language-bash">openssl s_client -connect www.google.com:443 -servername www.google.com &lt;/dev/null
 </code></pre>
 <ul>
-<li>Get all subject alternative names (the list of hostnames the certificate
-is actually valid for):</li>
+<li>Get all subject alternative names (the list of hostnames the certificate is actually valid for):</li>
 </ul>
 <pre><code class="language-bash">openssl s_client -connect www.google.com:443 &lt;/dev/null | openssl x509 -noout -text | grep DNS:
 </code></pre>
@@ -222,8 +212,7 @@ is actually valid for):</li>
 </code></pre>
 <h2 id="inspecting-certificate-files"><a class="header" href="#inspecting-certificate-files">Inspecting certificate files</a></h2>
 <ul>
-<li>Convert a <strong>.cer</strong> file (a DER-encoded format commonly exported by Windows)
-to a base64-encoded human-readable <strong>.pem</strong> file:</li>
+<li>Convert a <strong>.cer</strong> file (a DER-encoded format commonly exported by Windows) to a base64-encoded human-readable <strong>.pem</strong> file:</li>
 </ul>
 <pre><code class="language-bash">openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
 </code></pre>
@@ -244,9 +233,7 @@ to a base64-encoded human-readable <strong>.pem</strong> file:</li>
 <pre><code class="language-bash">find . -name '*.pem' -type f -print -exec openssl x509 -in {} -enddate -noout \;
 </code></pre>
 <h2 id="extracting-a-server-certificate-for-a-java-trust-store"><a class="header" href="#extracting-a-server-certificate-for-a-java-trust-store">Extracting a server certificate for a Java trust store</a></h2>
-<p>A practical combination: pull the certificate a server presents, save it as
-a .pem, and import it into a Java cacerts keystore (here inside a Dockerfile,
-hence the <code>RUN</code>):</p>
+<p>A practical combination: pull the certificate a server presents, save it as a .pem, and import it into a Java cacerts keystore (here inside a Dockerfile, hence the <code>RUN</code>):</p>
 <pre><code class="language-dockerfile">RUN echo | openssl s_client -servername swa.cdc.gov -connect swa.cdc.gov:443 2&gt;&amp;1 \
       | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' &gt; cert.pem &amp;&amp; \
     "${FORTIFY_EXEC_FOLDER}"/jre/bin/keytool -importcert -alias cdc-swa \

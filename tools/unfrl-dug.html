@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,18 +175,12 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="dug"><a class="header" href="#dug">Dug</a></h1>
-<p><a href="https://github.com/unfrl/dug">dug</a> is a global DNS propagation checker: it
-queries hundreds of public DNS servers around the world at once and reports
-what each one answers. Use it after a DNS change to see how far the new
-record has spread, or to detect regional DNS poisoning and filtering, where
-a domain resolves differently by country.</p>
+<p><a href="https://github.com/unfrl/dug">dug</a> is a global DNS propagation checker: it queries hundreds of public DNS servers around the world at once and reports what each one answers. Use it after a DNS change to see how far the new record has spread, or to detect regional DNS poisoning and filtering, where a domain resolves differently by country.</p>
 <ul>
 <li><a href="https://github.com/unfrl/dug/blob/main/cli/Resources/default_servers.csv">Worldwide DNS servers it queries</a></li>
 </ul>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
-<p>dug is a .NET application distributed from
-<a href="https://github.com/unfrl/dug/releases">GitHub releases</a>. There is no
-Cygwin, dnf, or apt package in the standard repositories.</p>
+<p>dug is a .NET application distributed from <a href="https://github.com/unfrl/dug/releases">GitHub releases</a>. There is no Cygwin, dnf, or apt package in the standard repositories.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -206,9 +200,7 @@ Cygwin, dnf, or apt package in the standard repositories.</p>
 <pre><code class="language-bash">dug vaccines.gov
 </code></pre>
 <ul>
-<li>Query 500 servers worldwide with retries, exporting everything to CSV for
-analysis in a spreadsheet (which countries see the old record, response
-times, DNSSEC status, errors):</li>
+<li>Query 500 servers worldwide with retries, exporting everything to CSV for analysis in a spreadsheet (which countries see the old record, response times, DNSSEC status, errors):</li>
 </ul>
 <pre><code class="language-bash">dug vaccines.gov --retries 10 --server-count 500 --output-format CSV --output-template ipaddress,countrycode,city,dnssec,reliability,continentcode,countryname,countryflag,citycountryname,citycountrycontinentname,responsetime,recordtype,haserror,errormessage,errorcode,value &gt; vaccines.gov-output.csv
 </code></pre>

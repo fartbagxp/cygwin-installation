@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,10 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="dig"><a class="header" href="#dig">Dig</a></h1>
-<p><a href="https://bind9.readthedocs.io/en/latest/manpages.html#dig-dns-lookup-utility">dig</a>
-(domain information groper) is the standard DNS lookup tool from BIND.
-Reach for it first when a name does not resolve, resolves to the wrong
-address, or resolves differently depending on which resolver you ask.</p>
+<p><a href="https://bind9.readthedocs.io/en/latest/manpages.html#dig-dns-lookup-utility">dig</a>, domain information groper, is the standard DNS lookup tool from BIND. We naturally use this first when a name does not resolve, resolves to the wrong address, or resolves differently depending on which resolver we ask.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
 <table>
@@ -207,8 +204,7 @@ dig +short google.com MX
 dig +short google.com TXT
 </code></pre>
 <ul>
-<li>Ask a specific resolver. Comparing your local resolver against a public
-one is the quickest way to spot split-horizon DNS or a stale cache:</li>
+<li>Ask a specific resolver. Comparing your local resolver against a public one is the quickest way to spot split-horizon DNS or a stale cache:</li>
 </ul>
 <pre><code class="language-bash">dig @8.8.8.8 www.google.com
 dig @1.1.1.1 www.google.com
@@ -219,20 +215,17 @@ dig @1.1.1.1 www.google.com
 <pre><code class="language-bash">dig -x 8.8.8.8 +short
 </code></pre>
 <ul>
-<li>Trace the delegation from the root servers down. This shows which
-nameserver actually hands out the answer:</li>
+<li>Trace the delegation from the root servers down. This shows which nameserver actually hands out the answer:</li>
 </ul>
 <pre><code class="language-bash">dig +trace www.google.com
 </code></pre>
 <ul>
-<li>Check the SOA serial on each authoritative nameserver to spot a zone
-change that has not propagated:</li>
+<li>Check the SOA serial on each authoritative nameserver to spot a zone change that has not propagated:</li>
 </ul>
 <pre><code class="language-bash">dig +nssearch google.com
 </code></pre>
 <ul>
-<li>Watch a record continuously (for example, while waiting for a DNS change
-to propagate). Use <strong>Ctrl+C</strong> to kill.</li>
+<li>Watch a record continuously (for example, while waiting for a DNS change to propagate). Use <strong>Ctrl+C</strong> to kill.</li>
 </ul>
 <pre><code class="language-bash">while true; do dig +short www.va.gov; sleep 5; done
 </code></pre>

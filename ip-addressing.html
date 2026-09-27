@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-ace22e1c.js"></script>
@@ -177,10 +177,7 @@
                         <h1 id="ip-addressing"><a class="header" href="#ip-addressing">IP Addressing</a></h1>
 <h2 id="the-practical-parts"><a class="header" href="#the-practical-parts">The practical parts</a></h2>
 <h3 id="difference-between-private-ip-and-public-ip"><a class="header" href="#difference-between-private-ip-and-public-ip">Difference between “private” IP and “public” IP</a></h3>
-<p>A public IP is globally routable: any machine on the internet can, in
-principle, send packets to it. A private IP only has meaning inside your
-own network. <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a>
-reserves three ranges for private use, and you will see them everywhere:</p>
+<p>A public IP is globally routable: any machine on the internet can, in principle, send packets to it. A private IP only has meaning inside your own network. <a href="https://datatracker.ietf.org/doc/html/rfc1918">RFC 1918</a> reserves three ranges for private use, and you will see them everywhere:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -193,29 +190,18 @@ reserves three ranges for private use, and you will see them everywhere:</p>
 </tbody>
 </table>
 </div>
-<p>A NAT device (your home router, a cloud NAT gateway) rewrites private
-addresses to a public one on the way out, which is how a whole office
-shares one public IP.</p>
+<p>A NAT device (your home router, a cloud NAT gateway) rewrites private addresses to a public one on the way out, which is how a whole office shares one public IP.</p>
 <p>The practical debugging consequences:</p>
 <ul>
-<li>If a server’s “IP address” starts with 10., 172.16-31., or 192.168., that
-address is useless to anyone outside the network it lives in. A common
-cause of “it works from here but not from home.”</li>
-<li>Two different networks can both use 192.168.1.0/24 internally. VPNs
-between them then collide, and packets go to the wrong place with no
-error message.</li>
-<li>One more range worth recognizing: <code>100.64.0.0/10</code> is carrier-grade NAT
-space. If your router’s “public” address is in it, you are behind your
-ISP’s NAT and cannot accept inbound connections.</li>
+<li>If a server’s “IP address” starts with 10., 172.16-31., or 192.168., that address is useless to anyone outside the network it lives in. A common cause of “it works from here but not from home.”</li>
+<li>Two different networks can both use 192.168.1.0/24 internally. VPNs between them then collide, and packets go to the wrong place with no error message.</li>
+<li>One more range worth recognizing: <code>100.64.0.0/10</code> is carrier-grade NAT space. If your router’s “public” address is in it, you are behind your ISP’s NAT and cannot accept inbound connections.</li>
 </ul>
 <h3 id="how-to-use-ipcalc"><a class="header" href="#how-to-use-ipcalc">How to use ipcalc</a></h3>
-<p><a href="./tools/ipcalc.html">ipcalc</a> does the subnet math: give it an address in CIDR
-notation and it prints the network, netmask, broadcast, and usable host
-range.</p>
+<p><a href="./tools/ipcalc.html">ipcalc</a> does the subnet math: give it an address in CIDR notation and it prints the network, netmask, broadcast, and usable host range.</p>
 <pre><code class="language-bash">ipcalc 10.130.75.80/26
 </code></pre>
-<p>The most common question it answers is “are these two IPs in the same
-subnet?” Run it on both addresses and compare the network lines.</p>
+<p>The most common question it answers is “are these two IPs in the same subnet?” Run it on both addresses and compare the network lines.</p>
 <p>Testing IPv6: <a href="https://ipv6.test-ipv6.com/">https://ipv6.test-ipv6.com/</a></p>
 
                     </main>

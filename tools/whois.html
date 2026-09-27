@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,11 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="whois"><a class="header" href="#whois">Whois</a></h1>
-<p>whois looks up the registration records behind a domain name, IP address,
-or autonomous system (AS) number. When an unfamiliar IP shows up in your
-logs or in a traceroute, whois tells you who owns it and which network it
-belongs to. Different registries hold different data, so the useful trick
-is the <code>-h</code> flag, which asks a specific whois server.</p>
+<p>whois looks up the registration records behind a domain name, IP address, or autonomous system (AS) number. When an unfamiliar IP shows up in your logs or in a traceroute, whois tells you who owns it and which network it belongs to. Different registries hold different data, so the useful trick is the <code>-h</code> flag, which asks a specific whois server.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
 <table>
@@ -201,22 +197,18 @@ is the <code>-h</code> flag, which asks a specific whois server.</p>
 <pre><code class="language-bash">whois google.com
 </code></pre>
 <ul>
-<li>Who owns an IP block, asking ARIN (the registry for North America)
-directly:</li>
+<li>Who owns an IP block, asking ARIN (the registry for North America) directly:</li>
 </ul>
 <pre><code class="language-bash">whois -h whois.arin.net "152.130.0.0"
 whois -h whois.arin.net 8.8.8.8
 </code></pre>
 <ul>
-<li>Map an IP to its AS number and network name via Team Cymru. This is the
-fastest way to find which provider an address belongs to:</li>
+<li>Map an IP to its AS number and network name via Team Cymru. This is the fastest way to find which provider an address belongs to:</li>
 </ul>
 <pre><code class="language-bash">whois -h whois.cymru.com 40.119.152.231
 </code></pre>
 <ul>
-<li>List every route (prefix) an AS announces, via the RADb routing registry.
-Here AS32934 is Facebook; this kind of query is useful when building
-firewall allowlists:</li>
+<li>List every route (prefix) an AS announces, via the RADb routing registry. Here AS32934 is Facebook; this kind of query is useful when building firewall allowlists:</li>
 </ul>
 <pre><code class="language-bash">whois -h whois.radb.net -- '-i origin AS32934' | grep ^route
 </code></pre>
@@ -226,8 +218,7 @@ firewall allowlists:</li>
 <pre><code class="language-bash">whois -h whois.radb.net 8.8.8.8
 </code></pre>
 <ul>
-<li>Query the RIPE database (Europe/Middle East) for an IPv6 address, without
-recursing to other registries:</li>
+<li>Query the RIPE database (Europe/Middle East) for an IPv6 address, without recursing to other registries:</li>
 </ul>
 <pre><code class="language-bash">whois -r --sources RIPE 2a03:2880:20ff:d::face:b00c
 </code></pre>

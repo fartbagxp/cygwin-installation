@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-a145ea43.js";
+            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,14 +175,8 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="ipcalc"><a class="header" href="#ipcalc">Ipcalc</a></h1>
-<p>ipcalc is a subnet calculator: give it an address in CIDR notation and it
-prints the network address, netmask, broadcast address, and usable host
-range. It saves you from doing binary math in your head while reading
-firewall rules or cloud VPC definitions.</p>
-<p>Beware that several unrelated programs share the name. Fedora ships its own
-ipcalc, while Debian and Ubuntu ship a Perl version with different output
-and flags. The examples below work on both, but check <code>ipcalc --help</code> on
-your system.</p>
+<p>ipcalc is a subnet calculator: give it an address in CIDR notation and it prints the network address, netmask, broadcast address, and usable host range. It saves you from doing binary math in your head while reading firewall rules or cloud VPC definitions.</p>
+<p>Beware that several unrelated programs share the name. Fedora ships its own ipcalc, while Debian and Ubuntu ship a Perl version with different output and flags. The examples below work on both, but check <code>ipcalc --help</code> on your system.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
 <table>
@@ -202,10 +196,7 @@ your system.</p>
 </ul>
 <pre><code class="language-bash">ipcalc 10.130.75.80/26
 </code></pre>
-<p>On Debian/Ubuntu’s ipcalc this prints the network (<code>10.130.75.64/26</code>), the
-broadcast address (<code>10.130.75.127</code>), and the 62 usable hosts in between.
-Run it on two addresses and compare the network lines to settle whether
-they are in the same subnet.</p>
+<p>On Debian/Ubuntu’s ipcalc this prints the network (<code>10.130.75.64/26</code>), the broadcast address (<code>10.130.75.127</code>), and the 62 usable hosts in between. Run it on two addresses and compare the network lines to settle whether they are in the same subnet.</p>
 <ul>
 <li>Same question for a /22 you see in a cloud VPC:</li>
 </ul>
