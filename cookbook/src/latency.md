@@ -4,9 +4,9 @@ Latency is how long a packet takes to travel from one machine to another. What m
 
 Bandwidth and latency are independent. A 10 Gbit/s link to Sydney still takes 160 ms to deliver the first byte, and no upgrade changes that. You can buy more bandwidth; you cannot buy a lower speed of light.
 
-## Speed of light in fiber
+## Speed of Light in Fiber
 
-Light travels 299,792 km/s in a vacuum. The glass in optical fiber has a refractive index of about 1.5, so light inside it moves at roughly 200,000 km/s. That gives a rule of thumb worth memorizing:
+Light travels 299,792 km/s in a vacuum. The glass in optical fiber has a refractive index of about 1.5, so light inside it moves at roughly 200,000 km/s. That gives a handy rule of thumb:
 
 ```text
 one-way time (ms) ≈ distance (km) ÷ 200
@@ -22,7 +22,7 @@ Worked example for New York to London: 5,585 km ÷ 200 = 28 ms one way, so 56 ms
 | New York to London        | 5,585 km  | 28 ms            | 56 ms       | about 75 ms          |
 | New York to Sydney        | 15,993 km | 80 ms            | 160 ms      | 200 ms and up        |
 
-Now connect this to the handshake arithmetic from [Network Basics](./basic-networking.md): a cold HTTPS request spends about four round trips (DNS, TCP, TLS, then the request itself) before the first byte of content arrives. At 75 ms RTT that is 300 ms of pure waiting, with zero bytes of payload moved. This is why CDNs put servers near users: the only way to cut propagation delay is to shorten the distance.
+Combine that with the handshake math from [Network Basics](./basic-networking.md): a cold HTTPS request spends about four round trips (DNS, TCP, TLS, then the request itself) before the first byte of content arrives. At 75 ms RTT that is 300 ms of pure waiting, with zero bytes of payload moved. This is why CDNs put servers near users: the only way to cut propagation delay is to shorten the distance.
 
 ## Jitter
 

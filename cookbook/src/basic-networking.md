@@ -2,7 +2,7 @@
 
 Every request crosses several layers, and each layer fails in its own way. The application protocol (HTTP, DNS, SSH) rides on a transport (TCP or UDP), which rides on IP routing, which rides on a physical link. The OSI model names seven layers, but for everyday debugging you can get by with four questions: does the name resolve, can I reach the address, does the transport connect, and does the protocol on top behave. The [diagnosis](./diagnosis.md) chapter walks through those questions in order.
 
-## How a connection is established
+## Connection Setup
 
 Before a single byte of HTTP moves, the client and server have already done a lot of work. Each step below costs at least one round trip, can fail independently, and has a tool in this guide that tests it in isolation.
 
@@ -29,17 +29,17 @@ TLS 1.3 fits this into one round trip; TLS 1.2 needs two. [openssl](./tools/open
 
 **4. The application talks.** Only now does the client send its HTTP request and wait for a response. `curl -w` can time every phase above separately, so you can see exactly which step ate the time.
 
-A cold HTTPS request therefore pays for DNS, one round trip of TCP, and one or two round trips of TLS before the first byte of content moves. That arithmetic is why the [latency](./latency.md) chapter matters.
+A cold HTTPS request therefore pays for DNS, one round trip of TCP, and one or two round trips of TLS before the first byte of content moves. The [latency](./latency.md) chapter puts numbers on what that costs.
 
-## Simple flow
+## Request Timing
 
-From the [Cloudflare blog about timing web requests](https://blog.cloudflare.com/a-question-of-timing/), a typical network flow for a HTTP request between a client and server can be visualized as the following:
+Cloudflare's post on [timing web requests](https://blog.cloudflare.com/a-question-of-timing/) has a good picture of the whole sequence for one HTTP request:
 
 <p align="center">
   <img src="doc/cloudflare-curl-timing.png" alt="cloudflare timing requests" title="cloudflare timing requests" />
 </p>
 
-## Mutual TLS authentication
+## Mutual TLS
 
 In the handshake described above, only the server proves who it is. The client stays anonymous as far as TLS is concerned, and identity is handled later by the application (cookies, passwords, API keys).
 
@@ -49,9 +49,7 @@ Mutual TLS authentication (mTLS) moves the client's proof of identity into the h
 - The client sends its client certificate, then signs a hash of the handshake with its private key (the CertificateVerify message). The signature proves the client actually holds the key, not just a copy of the certificate.
 - The server validates the client certificate against the CA it trusts for clients. Both sides have now authenticated each other before any application data is exchanged.
 
-This adds an extra layer of security on top of traditional web based TLS traffic that only requires the server to provide a valid certificate.
-
-The failure mode is distinctive and worth memorizing: when a required client certificate is missing, expired, or signed by the wrong CA, the connection dies during the handshake, before any HTTP status code exists. If you see a TLS alert (often `certificate required` or `handshake failure`) instead of a 403, think mTLS. To test, present a client certificate explicitly:
+When a required client certificate is missing, expired, or signed by the wrong CA, the connection dies during the handshake, before any HTTP status code exists. If you see a TLS alert (often `certificate required` or `handshake failure`) instead of a 403, think mTLS. To test, present a client certificate explicitly:
 
 ```bash
 curl -sv https://auth.example.com --cert client.pem --key client-key.pem
@@ -69,6 +67,6 @@ openssl s_client -connect auth.example.com:443 -cert client.pem -key client-key.
 
 - [har-to-curl](https://github.com/mattcg/har-to-curl) converts a HAR file (saved from the browser's network tab) into curl commands, so you can replay a browser request from the command line.
 
-## For Deeper Dives
+## Further Reading
 
-- Consider reading [TCP/IP Illustrated, Vol. 1: The Protocols](https://en.wikipedia.org/wiki/TCP/IP_Illustrated) and practice reading the various network protocols via [Wireshark](https://www.wireshark.org/).
+- [TCP/IP Illustrated, Vol. 1: The Protocols](https://en.wikipedia.org/wiki/TCP/IP_Illustrated). Read it with [Wireshark](https://www.wireshark.org/) open and capture the protocols as you go.

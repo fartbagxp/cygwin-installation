@@ -13,15 +13,15 @@
 
 One thing to know before comparing results across platforms: the native Windows `curl.exe` uses the Schannel TLS backend and the Windows certificate store, while Cygwin and Linux builds typically use OpenSSL with a `ca-certificates` bundle. If a site verifies on one and fails on the other, suspect the trust store, not the network.
 
-## Curl by Example
+## Examples
 
-- Test whether a website like google.com is providing you with a HTTP 200 response
+- Check whether a site returns HTTP 200
 
 ```bash
 curl -sI https://www.google.com | head -n 1
 ```
 
-- Get the HTTP status code only when testing a website
+- Print only the HTTP status code
 
 ```bash
 curl -s -o /dev/null -w '%{http_code}\n' https://www.google.com
@@ -39,25 +39,25 @@ curl -s -o /dev/null -w 'dns: %{time_namelookup}s\nconnect: %{time_connect}s\ntl
 curl -vvvx socks5h://localhost:4020 https://www.google.com
 ```
 
-- Setting up curl with a different set of trusted authority bundle
+- Trust a different CA bundle, such as your company's internal root
 
 ```bash
 curl -sv --cacert internal-root-ca.pem https://auth.example.com
 ```
 
-- Testing with mTLS (present a client certificate to the server; see [Network Basics](../basic-networking.md) for how the mTLS handshake works)
+- Present a client certificate for mTLS (see [Network Basics](../basic-networking.md) for how the mTLS handshake works)
 
 ```bash
 curl -sv https://auth.example.com --cert example.pem --key key.pem
 ```
 
-## Pull HTTP response headers only
+## Headers Only
 
 ```bash
 curl -sI https://www.yahoo.com 2>&1
 ```
 
-## Force resolution to particular IP on specific port
+## Pinning an IP
 
 This keeps SNI and the Host header correct while pinning the connection to one address. Useful for testing a single backend behind a load balancer, or a server whose DNS record does not exist yet:
 
@@ -65,7 +65,7 @@ This keeps SNI and the Host header correct while pinning the connection to one a
 curl -vv https://dns.google.com --resolve dns.google.com:443:8.8.8.8
 ```
 
-## Continuous monitoring one-liners
+## Continuous Monitoring
 
 - Continuously check [https://fonts.bunny.net](https://fonts.bunny.net) every 10 seconds, with a total timeout of 3 seconds per attempt. Use **Ctrl+C** to kill.
 
@@ -95,7 +95,7 @@ while true; do
 done
 ```
 
-## Command for debugging
+## Testing Broken TLS
 
 - Use [badssl.com](https://badssl.com/) to test client behavior against known-bad TLS configurations (expired, self-signed, wrong host, weak ciphers):
 

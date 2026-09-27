@@ -1,8 +1,8 @@
 # Git
 
-[git](https://git-scm.com/) is itself a client to connect to a Git server using the underlying git protocol to communicate to a git server. It is not a network tool, but git fetches and pushes fail for network reasons all the time: SSH key problems, TLS interception by corporate proxies, blocked ports. Git has built-in knobs that expose what its transport (SSH or HTTPS) is actually doing.
+[git](https://git-scm.com/) is not a network tool, but fetches and pushes fail for network reasons all the time: SSH key problems, TLS interception by corporate proxies, blocked ports. Git has built-in knobs that expose what its transport (SSH or HTTPS) is actually doing.
 
-To explore how you might use Git across many organizations using a common profile, read [Git and SSH](https://fartbagxp.github.io/git-and-ssh/).
+If you use Git accounts in several organizations from one machine, see [Git and SSH](https://fartbagxp.github.io/git-and-ssh/).
 
 ## Availability
 
@@ -13,7 +13,7 @@ To explore how you might use Git across many organizations using a common profil
 | Fedora           | `sudo dnf install git`                                                  |
 | Ubuntu / Debian  | `sudo apt install git`                                                  |
 
-## Debugging Git over SSH
+## Debugging SSH
 
 Make git's underlying ssh invocation verbose. The output shows which key is offered, which host key is received, and where authentication fails:
 
@@ -27,7 +27,7 @@ Test SSH authentication to the host directly, without git:
 ssh -T git@github.com
 ```
 
-## Debugging Git over HTTPS
+## Debugging HTTPS
 
 Show the full HTTP conversation including TLS handshake and proxy usage:
 
@@ -41,6 +41,6 @@ Point git at a corporate CA bundle when a TLS-intercepting proxy breaks certific
 git config --global http.sslCAInfo /path/to/corporate-ca-bundle.pem
 ```
 
-## Interesting Links
+## Further Reading
 
 - [Git documentation on environment variables](https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables)

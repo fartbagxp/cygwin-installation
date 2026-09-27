@@ -4,7 +4,7 @@ Someone reports "the site is broken" or "we get a certificate error". Work throu
 
 Examples use [badssl.com](https://badssl.com), which hosts a deliberately broken site for nearly every TLS failure, and `www.va.gov` as a well-behaved public site. Everything here runs in Cygwin with the `openssl`, `curl`, `bind-utils` and `jq` packages.
 
-## 1. Let curl tell you which layer failed
+## 1. Find the Failing Layer
 
 Before opening `openssl`, run curl once and read the exit code. It separates DNS, TCP, and TLS failures without any guesswork.
 
@@ -13,14 +13,14 @@ curl -sS -o /dev/null -w '%{http_code}\n' https://expired.badssl.com
 echo "exit code: $?"
 ```
 
-| Exit        | What failed                 | Typical message                                                                                                                                   | Next step                                                                             |
-| ----------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| 6           | DNS                         | `Could not resolve host`                                                                                                                          | [dig](../tools/dig.md), not a TLS problem                                             |
-| 7           | TCP                         | `Failed to connect ... Could not connect to server`                                                                                               | firewall or service down, try [netcat](../tools/netcat.md)                            |
-| 28          | Timeout                     | `Connection timed out after ...`                                                                                                                  | packets dropped somewhere, try [trippy](../tools/trippy.md)                           |
-| 35          | TLS handshake               | `unsupported protocol`, `handshake failure`                                                                                                       | client and server share no protocol or cipher, see [step 5](#5-protocols-and-ciphers) |
-| 60          | Certificate verification    | `certificate has expired`, `self-signed certificate`, `no alternative certificate subject name matches`, `unable to get local issuer certificate` | [step 2](#2-look-at-the-certificate-chain)                                            |
-| 0, HTTP 400 | Server wanted a client cert | `400 No required SSL certificate was sent` in the body                                                                                            | mTLS, see [curl](../tools/curl.md) `--cert`/`--key`                                   |
+| Exit        | What failed                 | Typical message                                                                                                                                   | Next step                                                                       |
+| ----------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| 6           | DNS                         | `Could not resolve host`                                                                                                                          | [dig](../tools/dig.md), not a TLS problem                                       |
+| 7           | TCP                         | `Failed to connect ... Could not connect to server`                                                                                               | firewall or service down, try [netcat](../tools/netcat.md)                      |
+| 28          | Timeout                     | `Connection timed out after ...`                                                                                                                  | packets dropped somewhere, try [trippy](../tools/trippy.md)                     |
+| 35          | TLS handshake               | `unsupported protocol`, `handshake failure`                                                                                                       | client and server share no protocol or cipher, see [step 5](#5-check-protocols) |
+| 60          | Certificate verification    | `certificate has expired`, `self-signed certificate`, `no alternative certificate subject name matches`, `unable to get local issuer certificate` | [step 2](#2-read-the-chain)                                                     |
+| 0, HTTP 400 | Server wanted a client cert | `400 No required SSL certificate was sent` in the body                                                                                            | mTLS, see [curl](../tools/curl.md) `--cert`/`--key`                             |
 
 Exit 60 covers four different problems. The message after the code tells you which one:
 
@@ -33,7 +33,7 @@ Exit 60 covers four different problems. The message after the code tells you whi
 
 Do not reach for `curl -k` to make the error go away while triaging. It turns off exactly the check you are trying to run.
 
-## 2. Look at the certificate chain
+## 2. Read the Chain
 
 `-servername` sends SNI. Without it, a server hosting many sites returns its default certificate, and you end up debugging the wrong certificate.
 
@@ -78,7 +78,7 @@ echo | openssl s_client -connect www.va.gov:443 -servername www.va.gov 2>/dev/nu
   | openssl x509 -noout -checkend $((30 * 86400)) || echo "expires within 30 days"
 ```
 
-## 3. Check every IP, not just the one you happened to hit
+## 3. Check Every IP
 
 A name behind a load balancer or round-robin DNS resolves to several IPs, and a renewal that missed one node shows up as an intermittent error. This checks each IPv4 address separately, sending the same SNI to each:
 
@@ -93,7 +93,7 @@ www.va.gov,152.130.96.221,Jan 18 23:59:59 2027 GMT,115 days
 
 `dig +short` prints CNAME targets before the addresses, which is why the script filters for lines that look like IPs.
 
-## 4. Sweep a whole domain for expiring or broken certificates
+## 4. Sweep a Domain
 
 Certificate Transparency logs list every certificate a public CA has issued for a domain, which gives you a list of names nobody remembered to put in the inventory. This pulls the names from [crt.sh](https://crt.sh), connects to each one in parallel, and reports days left plus whether the certificate actually verifies:
 
@@ -120,7 +120,7 @@ Things to know:
 - `NONE` does not always mean dead. The name may be internal-only, behind a VPN, or listening only on a port other than 443.
 - The `days` column only covers expiry. Read the last column too: a certificate with 700 days left that is self-signed is still broken.
 
-## 5. Protocols and ciphers
+## 5. Check Protocols
 
 Which TLS versions does the server accept?
 
@@ -144,7 +144,7 @@ nmap --script ssl-enum-ciphers -p 443 www.va.gov
 
 Both grade every cipher the server offers, which is what an audit against [M-15-13](https://https.cio.gov/) and [BOD 18-01](https://www.cisa.gov/news-events/directives/bod-18-01-enhance-email-and-web-security) needs.
 
-## 6. HSTS and the HTTP to HTTPS redirect
+## 6. Check HSTS
 
 BOD 18-01 expects port 80 to redirect to HTTPS, and HTTPS responses to carry `Strict-Transport-Security` with `max-age` of at least one year, `includeSubDomains`, and `preload`. The check has to follow the redirect: `va.gov` and `www.va.gov` can send different headers.
 
@@ -162,7 +162,7 @@ INFO  http://va.gov/ -> 301 https://va.gov:443/
 
 The script checks each directive on its own, because servers write them in different orders and cases. GitHub, for example, sends `includeSubdomains`.
 
-## 7. Test a specific IP or CDN before changing DNS
+## 7. Test Before Cutover
 
 Before a DNS cutover, you want to know the new origin or CDN edge serves the right certificate for your name. `--resolve` makes curl connect to an IP you choose while still sending the real hostname in SNI and the `Host` header:
 
@@ -184,9 +184,9 @@ curl -sS -o /dev/null --connect-to www.example.gov:443:www.example.gov.edgekey.n
 
 `hsts-check.sh` above takes the IP as a second argument (`bash hsts-check.sh www.va.gov 152.130.96.221`) to check the headers the new target sends, too.
 
-To see the cutover from your users' point of view, run the same `curl` from several regions. A VPN with a CLI works, for example `piactl set region uk-london && piactl connect` in a loop. This matters most when overseas users are a population you have to serve.
+To see the cutover from your users' point of view, run the same `curl` from several regions. A VPN with a CLI works, for example `piactl set region uk-london && piactl connect` in a loop. This matters most when you have users overseas.
 
-## 8. Where the time goes
+## 8. Time the Request
 
 When the complaint is "TLS is slow", split the request into phases:
 
@@ -201,7 +201,7 @@ dns=0.000012s tcp=0.009375s tls=0.036600s ttfb=0.390449s total=0.523465s
 
 Each value is cumulative from the start of the request. So the TLS handshake took `tls - tcp`, about 27 ms here, and the server spent `ttfb - tls` thinking. A large `tls - tcp` next to a small `tcp` usually points to a long certificate chain, a busy server doing expensive key exchanges, or a TLS-inspecting proxy in the path. See [Latency](../latency.md) for why the `tcp` number cannot go below the round trip.
 
-## Further reading
+## Further Reading
 
 - [badssl.com](https://badssl.com): a broken example for most failure modes, useful for checking that your client really does fail
 - [SSL Labs deployment best practices](https://github.com/ssllabs/research/wiki/SSL-and-TLS-Deployment-Best-Practices)

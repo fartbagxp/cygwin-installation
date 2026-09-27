@@ -1,6 +1,6 @@
 # Drill
 
-[drill](https://nlnetlabs.nl/projects/ldns/about/) is a DNS lookup tool from NLnet Labs' ldns library, built as a dig replacement with DNSSEC support baked in. It behaves like dig and offers the ability to chase DNSSEC signature chain from a record all the way up to the root. But when dealing with DNSSEC, it's better off to use [delv](delv.md) which specializes in DNSSEC records.
+[drill](https://nlnetlabs.nl/projects/ldns/about/) is a DNS lookup tool from NLnet Labs' ldns library, built as a dig replacement with DNSSEC support baked in. It behaves like dig and can also chase a DNSSEC signature chain from a record up to the root. When DNSSEC is actually broken, though, [delv](delv.md) is the better tool: it does the validation itself and tells you which link failed.
 
 ## Availability
 
