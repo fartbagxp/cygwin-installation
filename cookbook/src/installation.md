@@ -7,8 +7,7 @@ The following instructions are to install [Cygwin](https://www.cygwin.com/) on a
 1. Navigate to the executable directory (by default, the Downloads folder).
 1. Type in `setup-x86_64.exe --no-admin` and the setup user interface should pop. This command forces the installation to be in user mode, rather than administrative mode.
 
-1. During the setup sequence, the following will be prompted:
-   **Setup Screen**
+1. During the setup sequence, the following will be prompted: **Setup Screen**
 
    - Click "Next".
 

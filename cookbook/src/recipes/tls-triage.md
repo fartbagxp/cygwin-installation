@@ -13,23 +13,23 @@ curl -sS -o /dev/null -w '%{http_code}\n' https://expired.badssl.com
 echo "exit code: $?"
 ```
 
-| Exit | What failed | Typical message | Next step |
-| ---- | ----------- | --------------- | --------- |
-| 6 | DNS | `Could not resolve host` | [dig](../tools/dig.md), not a TLS problem |
-| 7 | TCP | `Failed to connect ... Could not connect to server` | firewall or service down, try [netcat](../tools/netcat.md) |
-| 28 | Timeout | `Connection timed out after ...` | packets dropped somewhere, try [trippy](../tools/trippy.md) |
-| 35 | TLS handshake | `unsupported protocol`, `handshake failure` | client and server share no protocol or cipher, see [step 5](#5-protocols-and-ciphers) |
-| 60 | Certificate verification | `certificate has expired`, `self-signed certificate`, `no alternative certificate subject name matches`, `unable to get local issuer certificate` | [step 2](#2-look-at-the-certificate-chain) |
-| 0, HTTP 400 | Server wanted a client cert | `400 No required SSL certificate was sent` in the body | mTLS, see [curl](../tools/curl.md) `--cert`/`--key` |
+| Exit        | What failed                 | Typical message                                                                                                                                   | Next step                                                                             |
+| ----------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| 6           | DNS                         | `Could not resolve host`                                                                                                                          | [dig](../tools/dig.md), not a TLS problem                                             |
+| 7           | TCP                         | `Failed to connect ... Could not connect to server`                                                                                               | firewall or service down, try [netcat](../tools/netcat.md)                            |
+| 28          | Timeout                     | `Connection timed out after ...`                                                                                                                  | packets dropped somewhere, try [trippy](../tools/trippy.md)                           |
+| 35          | TLS handshake               | `unsupported protocol`, `handshake failure`                                                                                                       | client and server share no protocol or cipher, see [step 5](#5-protocols-and-ciphers) |
+| 60          | Certificate verification    | `certificate has expired`, `self-signed certificate`, `no alternative certificate subject name matches`, `unable to get local issuer certificate` | [step 2](#2-look-at-the-certificate-chain)                                            |
+| 0, HTTP 400 | Server wanted a client cert | `400 No required SSL certificate was sent` in the body                                                                                            | mTLS, see [curl](../tools/curl.md) `--cert`/`--key`                                   |
 
 Exit 60 covers four different problems. The message after the code tells you which one:
 
-| curl message (exit 60) | Meaning | Usual fix |
-| ---------------------- | ------- | --------- |
-| `certificate has expired` | past `notAfter` | renew |
-| `no alternative certificate subject name matches target hostname` | cert is for a different name | add the name as a SAN, or you hit the wrong vhost (missing SNI) |
-| `unable to get local issuer certificate` | server did not send its intermediate | fix the server's chain file; browsers often hide this because they cache intermediates |
-| `self-signed certificate in certificate chain` | chain ends at a root you do not trust | corporate TLS inspection, or a private CA: add the root to your bundle, do not add `-k` |
+| curl message (exit 60)                                            | Meaning                               | Usual fix                                                                               |
+| ----------------------------------------------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------- |
+| `certificate has expired`                                         | past `notAfter`                       | renew                                                                                   |
+| `no alternative certificate subject name matches target hostname` | cert is for a different name          | add the name as a SAN, or you hit the wrong vhost (missing SNI)                         |
+| `unable to get local issuer certificate`                          | server did not send its intermediate  | fix the server's chain file; browsers often hide this because they cache intermediates  |
+| `self-signed certificate in certificate chain`                    | chain ends at a root you do not trust | corporate TLS inspection, or a private CA: add the root to your bundle, do not add `-k` |
 
 Do not reach for `curl -k` to make the error go away while triaging. It turns off exactly the check you are trying to run.
 
