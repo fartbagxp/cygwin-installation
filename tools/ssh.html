@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
+            window.path_to_searchindex_js = "../searchindex-590747ce.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -191,11 +191,11 @@
 </table>
 </div>
 <p>Cygwin and native Windows OpenSSH keep separate configuration. Cygwin reads <code>~/.ssh</code> inside the Cygwin home; native Windows reads <code>C:\Users\&lt;you&gt;\.ssh</code>. Keys set up in one are not seen by the other.</p>
-<h2 id="debugging-a-connection"><a class="header" href="#debugging-a-connection">Debugging a connection</a></h2>
+<h2 id="debugging"><a class="header" href="#debugging">Debugging</a></h2>
 <p>Verbose mode walks through each phase of the connection: TCP connect, host key exchange, which keys are offered, which authentication methods fail. Add up to <code>-vvv</code> for more detail:</p>
 <pre><code class="language-bash">ssh -v username@host
 </code></pre>
-<h2 id="ssh-config"><a class="header" href="#ssh-config">SSH Config</a></h2>
+<h2 id="config"><a class="header" href="#config">Config</a></h2>
 <p>Put per-host settings in <code>~/.ssh/config</code> so connections are reproducible and short to type:</p>
 <pre><code class="language-text">Host jumpbox
   HostName bastion.example.com
@@ -208,7 +208,7 @@ Host internal-db
   ProxyJump jumpbox
 </code></pre>
 <p>With the above, <code>ssh internal-db</code> transparently hops through the bastion.</p>
-<h2 id="port-forwarding"><a class="header" href="#port-forwarding">Port forwarding</a></h2>
+<h2 id="port-forwarding"><a class="header" href="#port-forwarding">Port Forwarding</a></h2>
 <ul>
 <li>Local forward: expose a remote-only service on your own machine. Here, a database reachable only from the jump host appears on <code>localhost:5432</code>:</li>
 </ul>

@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
+            window.path_to_searchindex_js = "../searchindex-590747ce.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -211,7 +211,7 @@
 <p>or with a plain shell loop:</p>
 <pre><code class="language-bash">while true; do nc -vz -w 3 &lt;destination IP&gt; 443; sleep 5; done;
 </code></pre>
-<h2 id="listen-on-a-port"><a class="header" href="#listen-on-a-port">Listen on a port</a></h2>
+<h2 id="listening"><a class="header" href="#listening">Listening</a></h2>
 <p>Listening is the other half of debugging connectivity. Run a listener on the destination, connect from the source, and you have tested the path without involving any real application.</p>
 <ul>
 <li>Listen on TCP port 8080, then from the other machine connect with <code>nc &lt;listener IP&gt; 8080</code>. Anything typed on one side appears on the other:</li>
@@ -224,9 +224,8 @@
 <pre><code class="language-bash">nc -l 9000 &gt; received-file        # on the receiver
 nc &lt;receiver IP&gt; 9000 &lt; file      # on the sender
 </code></pre>
-<h2 id="admin-privilege"><a class="header" href="#admin-privilege">Admin Privilege</a></h2>
-<p>Admin privilege (ex. sudo) is needed when listening on a privileged port between 1-1024.</p>
-<p>For example, the following will require <code>sudo</code>:</p>
+<h2 id="privileged-ports"><a class="header" href="#privileged-ports">Privileged Ports</a></h2>
+<p>On Linux, listening on a port below 1024 needs root:</p>
 <pre><code class="language-bash">sudo nc -l 443
 </code></pre>
 

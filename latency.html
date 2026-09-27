@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-949cddfe.js";
+            window.path_to_searchindex_js = "searchindex-590747ce.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-ace22e1c.js"></script>
@@ -177,8 +177,8 @@
                         <h1 id="latency"><a class="header" href="#latency">Latency</a></h1>
 <p>Latency is how long a packet takes to travel from one machine to another. What most tools report is round-trip time (RTT): there and back again. The two get conflated constantly, so when someone quotes “latency to the server”, check whether they mean one way or round trip. The difference is a factor of two.</p>
 <p>Bandwidth and latency are independent. A 10 Gbit/s link to Sydney still takes 160 ms to deliver the first byte, and no upgrade changes that. You can buy more bandwidth; you cannot buy a lower speed of light.</p>
-<h2 id="speed-of-light-in-fiber"><a class="header" href="#speed-of-light-in-fiber">Speed of light in fiber</a></h2>
-<p>Light travels 299,792 km/s in a vacuum. The glass in optical fiber has a refractive index of about 1.5, so light inside it moves at roughly 200,000 km/s. That gives a rule of thumb worth memorizing:</p>
+<h2 id="speed-of-light-in-fiber"><a class="header" href="#speed-of-light-in-fiber">Speed of Light in Fiber</a></h2>
+<p>Light travels 299,792 km/s in a vacuum. The glass in optical fiber has a refractive index of about 1.5, so light inside it moves at roughly 200,000 km/s. That gives a handy rule of thumb:</p>
 <pre><code class="language-text">one-way time (ms) ≈ distance (km) ÷ 200
 round-trip time (ms) ≈ distance (km) ÷ 100
 </code></pre>
@@ -196,7 +196,7 @@ round-trip time (ms) ≈ distance (km) ÷ 100
 </tbody>
 </table>
 </div>
-<p>Now connect this to the handshake arithmetic from <a href="./basic-networking.html">Network Basics</a>: a cold HTTPS request spends about four round trips (DNS, TCP, TLS, then the request itself) before the first byte of content arrives. At 75 ms RTT that is 300 ms of pure waiting, with zero bytes of payload moved. This is why CDNs put servers near users: the only way to cut propagation delay is to shorten the distance.</p>
+<p>Combine that with the handshake math from <a href="./basic-networking.html">Network Basics</a>: a cold HTTPS request spends about four round trips (DNS, TCP, TLS, then the request itself) before the first byte of content arrives. At 75 ms RTT that is 300 ms of pure waiting, with zero bytes of payload moved. This is why CDNs put servers near users: the only way to cut propagation delay is to shorten the distance.</p>
 <h2 id="jitter"><a class="header" href="#jitter">Jitter</a></h2>
 <p>Jitter is the variation in latency from packet to packet. A path with a steady 80 ms RTT feels fine on a video call; a path that swings between 40 and 150 ms breaks up, even though its average looks better. Interactive traffic (VoIP, video, SSH typing, games) cares about jitter as much as about latency itself.</p>
 <p>The usual cause is queueing: a router with oversized buffers absorbs bursts of traffic and drains them slowly, a problem known as bufferbloat. Wi-Fi retransmissions and route changes add to it.</p>

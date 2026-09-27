@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
+            window.path_to_searchindex_js = "../searchindex-590747ce.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -175,7 +175,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="drill"><a class="header" href="#drill">Drill</a></h1>
-<p><a href="https://nlnetlabs.nl/projects/ldns/about/">drill</a> is a DNS lookup tool from NLnet Labs’ ldns library, built as a dig replacement with DNSSEC support baked in. It behaves like dig and offers the ability to chase DNSSEC signature chain from a record all the way up to the root. But when dealing with DNSSEC, it’s better off to use <a href="delv.html">delv</a> which specializes in DNSSEC records.</p>
+<p><a href="https://nlnetlabs.nl/projects/ldns/about/">drill</a> is a DNS lookup tool from NLnet Labs’ ldns library, built as a dig replacement with DNSSEC support baked in. It behaves like dig and can also chase a DNSSEC signature chain from a record up to the root. When DNSSEC is actually broken, though, <a href="delv.html">delv</a> is the better tool: it does the validation itself and tells you which link failed.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <div class="table-wrapper">
 <table>

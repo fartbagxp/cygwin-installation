@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-949cddfe.js";
+            window.path_to_searchindex_js = "../searchindex-590747ce.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ace22e1c.js"></script>
@@ -191,14 +191,14 @@
 </table>
 </div>
 <p>One thing to know before comparing results across platforms: the native Windows <code>curl.exe</code> uses the Schannel TLS backend and the Windows certificate store, while Cygwin and Linux builds typically use OpenSSL with a <code>ca-certificates</code> bundle. If a site verifies on one and fails on the other, suspect the trust store, not the network.</p>
-<h2 id="curl-by-example"><a class="header" href="#curl-by-example">Curl by Example</a></h2>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <ul>
-<li>Test whether a website like google.com is providing you with a HTTP 200 response</li>
+<li>Check whether a site returns HTTP 200</li>
 </ul>
 <pre><code class="language-bash">curl -sI https://www.google.com | head -n 1
 </code></pre>
 <ul>
-<li>Get the HTTP status code only when testing a website</li>
+<li>Print only the HTTP status code</li>
 </ul>
 <pre><code class="language-bash">curl -s -o /dev/null -w '%{http_code}\n' https://www.google.com
 </code></pre>
@@ -213,23 +213,23 @@
 <pre><code class="language-bash">curl -vvvx socks5h://localhost:4020 https://www.google.com
 </code></pre>
 <ul>
-<li>Setting up curl with a different set of trusted authority bundle</li>
+<li>Trust a different CA bundle, such as your company’s internal root</li>
 </ul>
 <pre><code class="language-bash">curl -sv --cacert internal-root-ca.pem https://auth.example.com
 </code></pre>
 <ul>
-<li>Testing with mTLS (present a client certificate to the server; see <a href="../basic-networking.html">Network Basics</a> for how the mTLS handshake works)</li>
+<li>Present a client certificate for mTLS (see <a href="../basic-networking.html">Network Basics</a> for how the mTLS handshake works)</li>
 </ul>
 <pre><code class="language-bash">curl -sv https://auth.example.com --cert example.pem --key key.pem
 </code></pre>
-<h2 id="pull-http-response-headers-only"><a class="header" href="#pull-http-response-headers-only">Pull HTTP response headers only</a></h2>
+<h2 id="headers-only"><a class="header" href="#headers-only">Headers Only</a></h2>
 <pre><code class="language-bash">curl -sI https://www.yahoo.com 2&gt;&amp;1
 </code></pre>
-<h2 id="force-resolution-to-particular-ip-on-specific-port"><a class="header" href="#force-resolution-to-particular-ip-on-specific-port">Force resolution to particular IP on specific port</a></h2>
+<h2 id="pinning-an-ip"><a class="header" href="#pinning-an-ip">Pinning an IP</a></h2>
 <p>This keeps SNI and the Host header correct while pinning the connection to one address. Useful for testing a single backend behind a load balancer, or a server whose DNS record does not exist yet:</p>
 <pre><code class="language-bash">curl -vv https://dns.google.com --resolve dns.google.com:443:8.8.8.8
 </code></pre>
-<h2 id="continuous-monitoring-one-liners"><a class="header" href="#continuous-monitoring-one-liners">Continuous monitoring one-liners</a></h2>
+<h2 id="continuous-monitoring"><a class="header" href="#continuous-monitoring">Continuous Monitoring</a></h2>
 <ul>
 <li>Continuously check <a href="https://fonts.bunny.net">https://fonts.bunny.net</a> every 10 seconds, with a total timeout of 3 seconds per attempt. Use <strong>Ctrl+C</strong> to kill.</li>
 </ul>
@@ -255,7 +255,7 @@ done
   sleep 10;
 done
 </code></pre>
-<h2 id="command-for-debugging"><a class="header" href="#command-for-debugging">Command for debugging</a></h2>
+<h2 id="testing-broken-tls"><a class="header" href="#testing-broken-tls">Testing Broken TLS</a></h2>
 <ul>
 <li>Use <a href="https://badssl.com/">badssl.com</a> to test client behavior against known-bad TLS configurations (expired, self-signed, wrong host, weak ciphers):</li>
 </ul>
