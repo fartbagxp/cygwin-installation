@@ -42,7 +42,7 @@ or with a plain shell loop:
 while true; do nc -vz -w 3 <destination IP> 443; sleep 5; done;
 ```
 
-## Listen on a port
+## Listening
 
 Listening is the other half of debugging connectivity. Run a listener on the destination, connect from the source, and you have tested the path without involving any real application.
 
@@ -59,11 +59,9 @@ nc -l 9000 > received-file        # on the receiver
 nc <receiver IP> 9000 < file      # on the sender
 ```
 
-## Admin Privilege
+## Privileged Ports
 
-Admin privilege (ex. sudo) is needed when listening on a privileged port between 1-1024.
-
-For example, the following will require `sudo`:
+On Linux, listening on a port below 1024 needs root:
 
 ```bash
 sudo nc -l 443

@@ -33,7 +33,7 @@ ss -tnp state established '( dport = :22 or sport = :22 )'
 ss -ltnp
 ```
 
-## Examples (Windows, native netstat.exe)
+## Examples (Windows)
 
 - All connections and listeners, numeric, with owning process ID (map the PID with Task Manager or `tasklist | findstr <PID>`):
 

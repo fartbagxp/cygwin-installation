@@ -51,4 +51,4 @@ iperf3 -c <server IP> --json > result.json
 
 ## Public Servers
 
-When you do not control the far end, a list of volunteer-run public iperf3 servers is maintained at [iperf3serverlist.net](https://iperf3serverlist.net/).
+When you do not control the far end, [iperf3serverlist.net](https://iperf3serverlist.net/) keeps a list of volunteer-run public servers.

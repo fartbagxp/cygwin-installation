@@ -1,6 +1,6 @@
 # Dig
 
-[dig](https://bind9.readthedocs.io/en/latest/manpages.html#dig-dns-lookup-utility), domain information groper, is the standard DNS lookup tool from BIND. We naturally use this first when a name does not resolve, resolves to the wrong address, or resolves differently depending on which resolver we ask.
+[dig](https://bind9.readthedocs.io/en/latest/manpages.html#dig-dns-lookup-utility) (domain information groper) is the standard DNS lookup tool from BIND. It's the first thing to run when a name does not resolve, resolves to the wrong address, or resolves differently depending on which resolver we ask.
 
 ## Availability
 

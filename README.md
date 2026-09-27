@@ -1,16 +1,16 @@
 # Debug
 
-This is a set of practical guides with examples borne from dealing with debugging various scenarios and documenting tips and tricks I forget over time.
+Practical guides for debugging network problems, with examples. Most of it is stuff I kept having to look up again, so I wrote it down.
 
-It includes a guide in utilizing [Cygwin](https://www.cygwin.com/), an emulated Linux environment in Windows for networking purposes.
+Part of it covers setting up [Cygwin](https://www.cygwin.com/), a Linux-like environment for Windows, as a networking toolbox on a machine where you don't have admin rights.
 
-This guide includes a set of practical examples on how to utilize the tools for debugging problems, and best utilized in conjunction with [Wireshark](https://www.wireshark.org/) (requires administrative privileges) and other the [Windows Sysinternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite).
+The examples pair well with [Wireshark](https://www.wireshark.org/) (needs admin rights) and the [Windows Sysinternals Suite](https://docs.microsoft.com/en-us/sysinternals/downloads/sysinternals-suite).
 
 Find the [guide online](https://fartbagxp.github.io/cygwin-installation).
 
 For deeper dives into networking, I recommend [TCP/IP Illustrated Volume 1](https://en.wikipedia.org/wiki/TCP/IP_Illustrated).
 
-## Run It Yourself
+## Running Locally
 
-- Must have [mdbook cli binaries](https://github.com/rust-lang/mdBook/releases) installed.
-- Run `make preview` and navigate to `localhost:3000` on your browser to see it.
+- Install the [mdBook CLI](https://github.com/rust-lang/mdBook/releases) installed.
+- Run `make preview` and open `localhost:3000` in your browser.

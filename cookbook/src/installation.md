@@ -1,23 +1,25 @@
 # Installation
 
-The following instructions are to install [Cygwin](https://www.cygwin.com/) on a Windows machine with a user with no administrative permissions.
+These steps install [Cygwin](https://www.cygwin.com/) on Windows as a regular user, without administrator rights.
 
-1. Navigate to [Cygwin Install Page](https://cygwin.com/install.html) and download the 64 bit version (preferred) of the executable (setup-x86_64.exe).
+1. Go to the [Cygwin install page](https://cygwin.com/install.html) and download the 64-bit installer, `setup-x86_64.exe`.
 1. Open up a Windows PowerShell terminal.
-1. Navigate to the executable directory (by default, the Downloads folder).
-1. Type in `setup-x86_64.exe --no-admin` and the setup user interface should pop. This command forces the installation to be in user mode, rather than administrative mode.
+1. Change to the folder you downloaded it to (usually Downloads).
+1. Run `.\setup-x86_64.exe --no-admin`. The setup window should pop up. `--no-admin` installs in user mode, so Windows won't ask for administrator rights.
 
-1. During the setup sequence, the following will be prompted: **Setup Screen**
+1. Click through the setup screens:
+
+   **Setup Screen**
 
    - Click "Next".
 
    **Choose a Download Source**
 
-   - Select 'Install from Internet', Click "Next".
+   - Select "Install from Internet", then click "Next".
 
    **Select Root Install Directory**
 
-   - By default, it'll be installed to **c:\cygwin** and it'll be for all users on the machine.
+   - The default is `C:\cygwin`, installed for all users on the machine.
    - Click "Next".
 
    **Select Local Package Directory**
@@ -26,13 +28,13 @@ The following instructions are to install [Cygwin](https://www.cygwin.com/) on a
 
    **Select Your Internet Connection**
 
-   - Click "Next". By default, it will simply use your system proxy settings.
+   - Click "Next". The default uses your system proxy settings.
 
    **Choose a Download Site**
 
-   This refers to where cygwin packages of open source software will be downloaded from. It is best to choose a closest location to you, and a location that you trust downloading binaries from.
+   This is the mirror Cygwin downloads packages from. Pick one close to you that you trust to serve binaries.
 
-   I generally choose the mirror source of Virginia Tech (VT) or Rochester Institute of Technology (RIT).
+   I usually pick Virginia Tech (VT) or Rochester Institute of Technology (RIT).
 
    - Once selected, click "Next".
 
@@ -40,17 +42,17 @@ The following instructions are to install [Cygwin](https://www.cygwin.com/) on a
 
    - Click "Next".
 
-   **Review and confirm changes**
+   **Review and Confirm Changes**
 
    - Click "Next".
 
    **Progress**
 
-   - Wait for install to complete
+   - Wait for the install to finish.
 
    **Create Icons**
 
-   - Feel free to create an icon on Desktop.
-   - Click 'Finish'
+   - Add a desktop icon if you want one.
+   - Click "Finish".
 
-1. You should now be able to open up your Cygwin terminal.
+1. Open the Cygwin terminal from the Start menu or the desktop icon.

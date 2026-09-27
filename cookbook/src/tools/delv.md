@@ -35,7 +35,7 @@ delv @185.228.169.9 cdc.gov TLSA +multi +vtrace
 delv dnssec-failed.org A +rtrace
 ```
 
-## Rapid Verification
+## Other Tools
 
 Web-based tools for cross-checking a DNSSEC problem you found with delv:
 

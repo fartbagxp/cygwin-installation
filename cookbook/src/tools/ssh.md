@@ -13,7 +13,7 @@
 
 Cygwin and native Windows OpenSSH keep separate configuration. Cygwin reads `~/.ssh` inside the Cygwin home; native Windows reads `C:\Users\<you>\.ssh`. Keys set up in one are not seen by the other.
 
-## Debugging a connection
+## Debugging
 
 Verbose mode walks through each phase of the connection: TCP connect, host key exchange, which keys are offered, which authentication methods fail. Add up to `-vvv` for more detail:
 
@@ -21,7 +21,7 @@ Verbose mode walks through each phase of the connection: TCP connect, host key e
 ssh -v username@host
 ```
 
-## SSH Config
+## Config
 
 Put per-host settings in `~/.ssh/config` so connections are reproducible and short to type:
 
@@ -39,7 +39,7 @@ Host internal-db
 
 With the above, `ssh internal-db` transparently hops through the bastion.
 
-## Port forwarding
+## Port Forwarding
 
 - Local forward: expose a remote-only service on your own machine. Here, a database reachable only from the jump host appears on `localhost:5432`:
 

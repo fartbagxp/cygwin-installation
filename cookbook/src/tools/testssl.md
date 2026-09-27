@@ -1,6 +1,6 @@
 # Testssl
 
-[testssl.sh](https://testssl.sh/) is a [pure bash shell script](https://github.com/testssl/testssl.sh) for scanning whether a webserver hosting a webservice or website is promoting good security practices based on what the website supports in terms of SSL/TLS certificates, cipher preferences in TLS encryption, and supporting protocols.
+[testssl.sh](https://testssl.sh/) is a [bash script](https://github.com/testssl/testssl.sh) that audits a server's TLS setup: which protocol versions and ciphers it accepts, what certificate it serves, and whether it is exposed to known attacks like Heartbleed, ROBOT, or SWEET32.
 
 ## Availability
 
@@ -12,9 +12,9 @@ Because it is a pure bash script, testssl.sh runs anywhere bash and OpenSSL exis
 | Fedora           | `sudo dnf install testssl` or clone the repository         |
 | Ubuntu / Debian  | `sudo apt install testssl.sh` or clone the repository      |
 
-## Access
+## Download
 
-Download the latest script. The project moved from `drwetter/testssl.sh` to `testssl/testssl.sh`; the old URL redirects to the same repository.
+Clone the repository. The project moved from `drwetter/testssl.sh` to `testssl/testssl.sh`; the old URL redirects to the same repository.
 
 ```bash
 git clone https://github.com/testssl/testssl.sh.git
@@ -37,17 +37,17 @@ git -C testssl.sh remote set-branches --add origin 3.3dev
 git -C testssl.sh fetch origin && git -C testssl.sh switch 3.3dev
 ```
 
-## How to Run
+## Usage
 
-Run it on a website such as google.com.
+Point it at a URL:
 
 ```bash
 bash testssl.sh https://www.google.com
 ```
 
-Sample Results:
+Sample output from an older 3.0.8 run (the formatting got mangled at some point, but the findings are all there):
 
-```markdown
+```text
 testssl.sh 3.0.8 from https://testssl.sh/ (30c0359 2024-02-13 18:42:33)
 
       This program is free software. Distribution and

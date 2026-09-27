@@ -10,7 +10,7 @@
 | Fedora           | `sudo dnf install openssl` (usually preinstalled)                               |
 | Ubuntu / Debian  | `sudo apt install openssl` (usually preinstalled)                               |
 
-## Inspecting a live server
+## Live Servers
 
 - Connect to google.com and show its full certificate chain (the `echo -n |` or `</dev/null` closes stdin so the command exits instead of waiting for input):
 
@@ -36,9 +36,9 @@ openssl s_client -connect www.google.com:443 </dev/null | openssl x509 -noout -t
 openssl s_client -connect example.com:443 -tls1_1 </dev/null
 ```
 
-## Inspecting certificate files
+## Certificate Files
 
-- Convert a **.cer** file (a DER-encoded format commonly exported by Windows) to a base64-encoded human-readable **.pem** file:
+- Convert a `.cer` file (DER-encoded, which is what Windows usually exports) to a base64 `.pem` file you can read and paste:
 
 ```bash
 openssl x509 -in VA-Internal-S2-RCA1-v1.cer -out VA-Internal-S2-RCA1-v1.pem
@@ -64,7 +64,7 @@ for i in <folder>/*.pem; do echo "$i"; openssl x509 -in "$i" -noout -dates; done
 find . -name '*.pem' -type f -print -exec openssl x509 -in {} -enddate -noout \;
 ```
 
-## Extracting a server certificate for a Java trust store
+## Java Trust Stores
 
 A practical combination: pull the certificate a server presents, save it as a .pem, and import it into a Java cacerts keystore (here inside a Dockerfile, hence the `RUN`):
 
@@ -75,4 +75,4 @@ RUN echo | openssl s_client -servername swa.cdc.gov -connect swa.cdc.gov:443 2>&
       -noprompt -cacerts -storepass changeit -file cert.pem
 ```
 
-For a step by step walk through certificate problems, see [TLS Triage](../recipes/tls-triage.md).
+For a step-by-step walkthrough of certificate problems, see [TLS Triage](../recipes/tls-triage.md).
