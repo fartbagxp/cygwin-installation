@@ -1,14 +1,13 @@
 # Git
 
-[git](https://git-scm.com/) is not a network tool, but git fetches and
-pushes fail for network reasons all the time: SSH key problems, TLS
-interception by corporate proxies, blocked ports. Git has built-in knobs
-that expose what its transport (SSH or HTTPS) is actually doing.
+[git](https://git-scm.com/) is itself a client to connect to a Git server using the underlying git protocol to communicate to a git server. It is not a network tool, but git fetches and pushes fail for network reasons all the time: SSH key problems, TLS interception by corporate proxies, blocked ports. Git has built-in knobs that expose what its transport (SSH or HTTPS) is actually doing.
+
+To explore how you might use Git across many organizations using a common profile, read [Git and SSH](https://fartbagxp.github.io/git-and-ssh/).
 
 ## Availability
 
 | Platform         | How to get it                                                           |
-| ---------------- | ------------------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------- |
 | Windows (Cygwin) | install the [git](https://cygwin.com/packages/summary/git.html) package |
 | Windows (native) | [Git for Windows](https://gitforwindows.org/)                           |
 | Fedora           | `sudo dnf install git`                                                  |
@@ -16,8 +15,7 @@ that expose what its transport (SSH or HTTPS) is actually doing.
 
 ## Debugging Git over SSH
 
-Make git's underlying ssh invocation verbose. The output shows which key is
-offered, which host key is received, and where authentication fails:
+Make git's underlying ssh invocation verbose. The output shows which key is offered, which host key is received, and where authentication fails:
 
 ```bash
 GIT_SSH_COMMAND="ssh -vvv" git clone <REPO_SSH_URL>
@@ -37,8 +35,7 @@ Show the full HTTP conversation including TLS handshake and proxy usage:
 GIT_CURL_VERBOSE=1 GIT_TRACE=1 git clone <REPO_HTTPS_URL>
 ```
 
-Point git at a corporate CA bundle when a TLS-intercepting proxy breaks
-certificate verification (prefer this over disabling verification):
+Point git at a corporate CA bundle when a TLS-intercepting proxy breaks certificate verification (prefer this over disabling verification):
 
 ```bash
 git config --global http.sslCAInfo /path/to/corporate-ca-bundle.pem

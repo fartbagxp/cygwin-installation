@@ -1,11 +1,6 @@
 # Delv
 
-[delv](https://bind9.readthedocs.io/en/latest/manpages.html#delv-dns-lookup-and-validation-utility)
-(domain entity lookup and validation) is dig's DNSSEC-aware sibling from
-BIND 9. Where dig shows you the raw DNS answer, delv performs full DNSSEC
-validation itself and tells you why a chain of trust fails. That is exactly
-what you need when a domain works on one resolver but returns SERVFAIL on a
-validating one.
+[delv](https://bind9.readthedocs.io/en/latest/manpages.html#delv-dns-lookup-and-validation-utility) (domain entity lookup and validation) is dig's DNSSEC-aware sibling from BIND 9. Where dig shows you the raw DNS answer, delv performs full DNSSEC validation itself and tells you why a chain of trust fails. That is exactly what you need when a domain works on one resolver but returns SERVFAIL on a validating one.
 
 ## Availability
 
@@ -17,17 +12,13 @@ validating one.
 
 ## Examples
 
-- Validate a record and show the validation result (`; fully validated` or
-  `; unsigned` in the output):
+- Validate a record and show the validation result (`; fully validated` or `; unsigned` in the output):
 
 ```bash
 delv www.cdc.gov A
 ```
 
-- Show the full validation logic step by step with `+vtrace`, and format
-  multi-line records readably with `+multi`. Querying the same TLSA (DANE)
-  record through several public resolvers tells you whether a DNSSEC problem
-  lives in the zone itself or in one resolver's cache:
+- Show the full validation logic step by step with `+vtrace`, and format multi-line records readably with `+multi`. Querying the same TLSA (DANE) record through several public resolvers tells you whether a DNSSEC problem lives in the zone itself or in one resolver's cache:
 
 ```bash
 delv @1.1.1.1 cdc.gov TLSA +multi +vtrace
@@ -38,9 +29,7 @@ delv @208.67.222.222 cdc.gov TLSA +multi +vtrace
 delv @185.228.169.9 cdc.gov TLSA +multi +vtrace
 ```
 
-- See what a broken domain looks like. Instead of a bare SERVFAIL, delv
-  prints the specific failure (expired signature, missing DS record, bogus
-  chain):
+- See what a broken domain looks like. Instead of a bare SERVFAIL, delv prints the specific failure (expired signature, missing DS record, bogus chain):
 
 ```bash
 delv dnssec-failed.org A +rtrace
